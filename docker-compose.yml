@@ -5,7 +5,7 @@
 #     Starts a Postgres service and points the app at it via DATABASE_URL below.
 services:
   linkbank:
-    image: yngf/linkbank:latest
+    image: yngf73/linkbank:latest
     # To build from source instead of pulling the image, comment out `image:`
     # above and uncomment this:
     # build: .

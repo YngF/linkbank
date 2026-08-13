@@ -1,6 +1,6 @@
 # LinkBank on Docker
 
-Published image: **`yngf/linkbank`** on Docker Hub (multi-arch: `amd64` + `arm64`).
+Published image: **`yngf73/linkbank`** on Docker Hub (multi-arch: `amd64` + `arm64`).
 
 ---
 
@@ -14,7 +14,7 @@ Grab `docker-compose.yml` from the repo and:
 docker compose up -d
 ```
 
-That pulls `yngf/linkbank:latest`, stores the SQLite database in `./data`, and
+That pulls `yngf73/linkbank:latest`, stores the SQLite database in `./data`, and
 serves on port 3000. Behind a reverse proxy set at least `ORIGIN` (see below).
 
 Update to a newer version later:
@@ -32,7 +32,7 @@ docker run -d --name linkbank \
   -e ORIGIN=https://links.example.com \
   -e PROTOCOL_HEADER=x-forwarded-proto \
   -e HOST_HEADER=x-forwarded-host \
-  yngf/linkbank:latest
+  yngf73/linkbank:latest
 ```
 
 ### Key environment variables
@@ -98,7 +98,7 @@ docker run -d --name linkbank \
   -e ORIGIN=https://10.0.23.103:3000 \
   -e TLS_KEY_PATH=/app/certs/linkbank.key \
   -e TLS_CERT_PATH=/app/certs/linkbank.crt \
-  yngf/linkbank:latest
+  yngf73/linkbank:latest
 ```
 
 **2c. Without Docker** (`node build` users) — the same env vars work with the
@@ -136,13 +136,13 @@ Images are built and pushed automatically by GitHub Actions
 
 ### One-time setup
 
-1. Push this repo to GitHub (e.g. `github.com/yngf/linkbank`).
+1. Push this repo to GitHub (e.g. `github.com/YngF/linkbank`).
 2. On Docker Hub → **Account Settings → Personal access tokens**, create a token
    with **Read & Write** scope.
 3. In the GitHub repo → **Settings → Secrets and variables → Actions**, add:
    - `DOCKERHUB_USERNAME` — your Docker Hub username (`yngf`)
    - `DOCKERHUB_TOKEN` — the access token from step 2
-4. Create the `yngf/linkbank` repository on Docker Hub (or it's created on first push).
+4. Create the `yngf73/linkbank` repository on Docker Hub (or it's created on first push).
 
 ### Cut a release
 
@@ -166,7 +166,7 @@ docker buildx create --use   # once, if you don't have a buildx builder
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
   --build-arg VERSION=1.0.0 \
-  -t yngf/linkbank:1.0.0 -t yngf/linkbank:latest \
+  -t yngf73/linkbank:1.0.0 -t yngf73/linkbank:latest \
   --push .
 ```
 

@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE: yngf/linkbank
+  IMAGE: yngf73/linkbank
 
 jobs:
   build-and-push:
