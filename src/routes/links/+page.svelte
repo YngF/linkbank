@@ -12,6 +12,7 @@
   type Progress = { running: boolean; total: number; done: number; broken: number };
   let prog = $state<Progress | null>(null);
   let checking = $state(false);
+  let showExempt = $state(false);
   let timer: ReturnType<typeof setTimeout> | undefined;
 
   function ago(iso: string | null): string {
@@ -78,8 +79,12 @@
       {#if data.summary.checked === 0}
         Not checked yet
       {:else}
-        {data.broken.length} broken · {data.summary.checked} of {data.summary.total} checked{#if data.summary.exempt}
-          · {data.summary.exempt} exempt{/if} · last run {ago(data.summary.lastCheckedAt)}
+        {data.broken.length} broken · {data.summary.checked} of {data.summary.total} checked{#if data.summary.exempt}{' '}·{' '}<button
+            type="button"
+            class="exempt-toggle"
+            aria-expanded={showExempt}
+            onclick={() => (showExempt = !showExempt)}
+          >{data.summary.exempt} exempt</button>{/if} · last run {ago(data.summary.lastCheckedAt)}
       {/if}
     </span>
     <span class="spacer"></span>
@@ -96,6 +101,42 @@
         Checked {prog.done} of {prog.total}{#if prog.broken}
           · {prog.broken} broken so far{/if}
       </div>
+    </div>
+  {/if}
+
+  {#if showExempt}
+    <div class="exempt-panel">
+      <div class="exempt-head">
+        <Icon name="eye-off" size={14} />
+        <span>Exempt from link checking · {data.exempt.length}</span>
+        <span class="spacer"></span>
+        <button class="btn" onclick={() => (showExempt = false)}>Hide</button>
+      </div>
+      {#if data.exempt.length === 0}
+        <div class="exempt-empty">No links are exempt.</div>
+      {:else}
+        <div class="list">
+          {#each data.exempt as e (e.id)}
+            <div class="row">
+              <Favicon url={e.url} title={e.title} />
+              <div class="body">
+                <div class="title">{e.title}</div>
+                <a class="url" href={e.url} target="_blank" rel="noopener noreferrer">{e.url}</a>
+                <div class="meta">{e.path ? `in ${e.path}` : '(root)'}</div>
+              </div>
+              <a class="btn" href="/f/{e.branch_id}" title="Go to the folder">Folder</a>
+              <button
+                class="btn"
+                onclick={() => api.setLinkIgnore(e.id, false)}
+                title="Include this link in checking again"
+              >
+                <Icon name="eye" size={14} />
+                Include
+              </button>
+            </div>
+          {/each}
+        </div>
+      {/if}
     </div>
   {/if}
 
@@ -149,6 +190,27 @@
   h1 { font-size: 22px; font-weight: 640; letter-spacing: -0.02em; }
   .sub { color: var(--text-mute); font-size: 12.5px; }
   .spacer { flex: 1; }
+
+  .exempt-toggle {
+    font: inherit; color: var(--text-dim);
+    border: none; background: none; padding: 0; cursor: pointer;
+    text-decoration: underline; text-decoration-style: dotted;
+    text-underline-offset: 2px;
+  }
+  .exempt-toggle:hover { color: var(--accent); }
+
+  .exempt-panel {
+    margin-bottom: 18px; padding: 12px;
+    border: 1px solid var(--line-soft); border-radius: var(--r-lg);
+    background: var(--bg-panel);
+  }
+  .exempt-head {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12.5px; font-weight: 560; color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .exempt-head :global(svg) { opacity: 0.7; }
+  .exempt-empty { font-size: 12.5px; color: var(--text-mute); padding: 4px 2px; }
 
   .btn {
     display: inline-flex; align-items: center; gap: 6px; align-self: center;

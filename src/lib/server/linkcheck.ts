@@ -288,6 +288,53 @@ export async function listBrokenLinks(userId: number): Promise<BrokenLink[]> {
     .sort((a, b) => (b.checked_at ?? '').localeCompare(a.checked_at ?? ''));
 }
 
+export interface ExemptLink {
+  id: number;
+  title: string;
+  url: string;
+  branch_id: number;
+  path: string;
+}
+
+/** Bookmarks the user has excluded from link checking, with their folder path. */
+export async function listExemptLinks(userId: number): Promise<ExemptLink[]> {
+  const branches = await db
+    .selectFrom('branches')
+    .select(['id', 'name', 'parent_id'])
+    .where('user_id', '=', userId)
+    .execute();
+  const byId = new Map(branches.map((b) => [b.id, b]));
+  const pathStr = (id: number | null): string => {
+    const out: string[] = [];
+    let cur = id;
+    while (cur != null) {
+      const n = byId.get(cur);
+      if (!n) break;
+      out.unshift(n.name);
+      cur = n.parent_id;
+    }
+    return out.slice(1).join(' / '); // drop the root's own name
+  };
+
+  const rows = await db
+    .selectFrom('bookmarks')
+    .select(['id', 'title', 'url', 'branch_id'])
+    .where('user_id', '=', userId)
+    .where('is_deleted', '=', 0)
+    .where('link_ignore', '=', 1)
+    .execute();
+
+  return rows
+    .map((r) => ({
+      id: r.id,
+      title: r.title,
+      url: r.url,
+      branch_id: r.branch_id,
+      path: pathStr(r.branch_id)
+    }))
+    .sort((a, b) => a.title.localeCompare(b.title));
+}
+
 export async function brokenCount(userId: number): Promise<number> {
   const r = await db
     .selectFrom('bookmarks')
