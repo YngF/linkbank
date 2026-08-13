@@ -1,56 +1,123 @@
 # LinkBank
 
-A fast, self-hostable bookmark manager with a proper folder tree. One
+A fast, self-hostable bookmark manager with a proper nested folder tree. One
 container, one SQLite file, no external services.
 
-> **Status: early scaffold (Phase 1).** Renders your folder tree read-only from
-> a real database. Auth, bookmark editing, drag-and-drop, and search are on the
-> roadmap below.
+![LinkBank](docs/screenshot.jpg)
 
 ## Why
 
 Most bookmark managers are either a browser-locked list or a heavy multi-
 container stack. LinkBank aims for the Linkding end of the spectrum — a single
-lightweight container you can run on a Raspberry Pi — while keeping a real
-nested folder tree and a keyboard-driven UI.
+lightweight container you can run on a Raspberry Pi or a NAS — while keeping a
+real nested folder tree and a keyboard-driven UI.
 
-## Quick start
+## Features
 
-### Docker (recommended)
+- **Nested folder tree** with drag-and-drop, rename, move, copy, and trash + undo.
+- **Search** across folders and bookmarks; **tags** with coloured labels and
+  per-tag pages.
+- **Multi-user** with first-run admin setup, invite links, roles, and safe
+  user deletion.
+- **Capture from anywhere** — browser extension (Chrome/Brave/Edge + Firefox)
+  and a PWA share target on mobile/desktop, both landing in an Inbox.
+- **Link-rot checking** — scheduled + on-demand, with a Broken-links view.
+- **Encrypted notes** at rest (AES-256-GCM), import/export (Netscape HTML),
+  self-contained favicon fetching.
+- **SQLite or PostgreSQL** — same code, chosen by an env var.
+- **Accessible** — dark/light toggle and whole-UI zoom, saved per browser.
+
+## Quick start (Docker)
+
+The published image is [`yngf73/linkbank`](https://hub.docker.com/r/yngf73/linkbank)
+on Docker Hub — multi-arch, so it runs on both `amd64` and `arm64` (Raspberry
+Pi, Apple Silicon, most NAS boxes).
+
+### docker compose (recommended)
+
+Grab [`docker-compose.yml`](./docker-compose.yml) from the repo, set `ORIGIN` to
+the URL you'll actually use, and:
 
 ```bash
 docker compose up -d
 # open http://localhost:3000
 ```
 
-The entire database is the one file under `./data`. Back that up and you've
-backed up everything.
+Update to a newer release later:
 
-### From source (dev)
+```bash
+docker compose pull && docker compose up -d
+```
+
+### docker run (one-off)
+
+```bash
+docker run -d --name linkbank \
+  -p 3000:3000 \
+  -v linkbank-data:/app/data \
+  -e ORIGIN=https://links.example.com \
+  -e PROTOCOL_HEADER=x-forwarded-proto \
+  -e HOST_HEADER=x-forwarded-host \
+  yngf73/linkbank:latest
+```
+
+The entire database is the one file under the mounted `/app/data` volume. Back
+that up and you've backed up everything. Migrations run automatically on start,
+so upgrades just work.
+
+### Key environment variables
+
+| Variable | Purpose |
+| --- | --- |
+| `ORIGIN` | **Required in production.** The exact public URL (login/CSRF depend on it matching the browser). |
+| `PROTOCOL_HEADER` / `HOST_HEADER` | Set to `x-forwarded-proto` / `x-forwarded-host` behind a TLS reverse proxy so Secure cookies work. |
+| `DATABASE_URL` | Set to a `postgres://…` URL to use PostgreSQL instead of SQLite. |
+| `REGISTRATION` | `open` / `invite` / `closed` (default `closed`; admins can always invite). |
+| `NOTES_ENCRYPTION_KEY` | 32-byte key (`openssl rand -base64 32`) to encrypt notes at rest. Keep it out of the data volume. |
+| `LINK_CHECK_INTERVAL_HOURS` | Link-rot sweep interval in hours (`0` disables it; default 24). |
+| `FAVICON_ALLOW_INSECURE_TLS` | `1` to fetch favicons from self-signed LAN https sites. |
+| `TLS_KEY_PATH` / `TLS_CERT_PATH` | Serve HTTPS directly with a self-signed cert (no reverse proxy) — see below. |
+
+> **SQLite must live on local disk / a named volume**, not a CIFS/NFS mount —
+> network file locking breaks SQLite. Postgres has no such constraint.
+
+**More Docker detail** — including running behind a reverse proxy, the bundled
+Postgres profile, publishing your own image, and running on a **LAN over HTTPS
+with a self-signed certificate** (no proxy needed) — is in
+[**DOCKER.md**](./DOCKER.md).
+
+## Running from source (dev)
 
 ```bash
 npm install
 cp .env.example .env
-npm run seed -- scripts/seed-tree.json yngvef   # optional: load a sample tree
 npm run dev
 ```
+
+For a production build without Docker:
+
+```bash
+npm run build
+ORIGIN=https://your.domain \
+  PROTOCOL_HEADER=x-forwarded-proto \
+  HOST_HEADER=x-forwarded-host \
+  node server.js       # serves on :3000 (set PORT to change)
+```
+
+`node server.js` is a thin wrapper around the SvelteKit build: with no TLS env
+vars it behaves exactly like `node build`; set `TLS_KEY_PATH`/`TLS_CERT_PATH` to
+serve HTTPS directly.
 
 ## How it works
 
 - **SvelteKit** (Node adapter) — server and UI in one app, one origin, no CORS.
 - **SQLite via Kysely** — the schema is a normalised folder tree (`branches`
-  self-referencing `parent_id`) plus `bookmarks` and `users`. The whole tree
-  loads in one recursive CTE. Kysely means PostgreSQL can be added later by
-  swapping the dialect, with no query rewrites.
+  self-referencing `parent_id`) plus `bookmarks`, `tags`, and `users`. The whole
+  tree loads in one recursive CTE. Kysely means PostgreSQL is a dialect swap,
+  with no query rewrites.
 - **Migrations run on boot** — a fresh container provisions its own schema.
 - **No hardcoded secrets** — session and notes-encryption keys are generated on
-  first run (once auth lands), configurable via env.
-
-## Configuration
-
-See `.env.example`. Key variables: `DATABASE_PATH`, `ORIGIN` (set this behind a
-reverse proxy), `REGISTRATION` (`open` / `invite` / `closed`), and optional
-`DATABASE_URL` to run on Postgres instead of SQLite.
+  first run, configurable via env.
 
 ## Database: SQLite or PostgreSQL
 
@@ -60,7 +127,7 @@ ideal for a personal instance. Set **`DATABASE_URL`** (e.g.
 — no code change, migrations run on boot. Handy for multi-user or larger
 deployments, or if you already run Postgres. With Docker:
 
-```
+```bash
 docker compose --profile postgres up -d   # app + a Postgres service
 ```
 
@@ -69,26 +136,23 @@ docker compose --profile postgres up -d   # app + a Postgres service
 ### Moving an existing SQLite instance to Postgres
 
 1. Point the app at the empty Postgres database once so it creates the schema:
-   `DATABASE_URL=postgres://… node build` (start it, then stop it).
+   `DATABASE_URL=postgres://… node server.js` (start it, then stop it).
 2. Copy your data across:
 
-   ```
+   ```bash
    DATABASE_URL=postgres://… npm run migrate:pg -- path/to/data/linkbank.db
    ```
 
    It preserves ids and realigns Postgres' sequences; it's safe to re-run.
 3. Start the app with `DATABASE_URL` set — you're on Postgres.
 
-> SQLite must live on **local disk**, not a CIFS/NFS mount — network file locks
-> break SQLite. (Postgres has no such constraint.)
-
 ## First run
 
 On a fresh instance the first visit shows a one-time **setup** screen to create
 the admin account. After that, `/login` guards everything. Set `REGISTRATION`
 to control sign-ups: `closed` (default), `open`, or `invite` (with
-`INVITE_CODE`). Passwords use Node's built-in scrypt; sessions are random
-tokens stored hashed, delivered as httpOnly cookies.
+`INVITE_CODE`). Passwords use Node's built-in scrypt; sessions are random tokens
+stored hashed, delivered as httpOnly cookies.
 
 **Set `ORIGIN`** in production to the exact URL users visit — login and CSRF
 protection depend on it.
@@ -98,36 +162,19 @@ protection depend on it.
 Links you capture from outside the app land in an **Inbox** folder (created on
 first use), so you can triage them later.
 
-- **Browser extension** (`extension/` — Brave/Chrome/Edge + Firefox 121+). Create
-  an access token under **Account → Access tokens**, paste it into the
-  extension's options along with your LinkBank URL, and then the toolbar button
-  or the right-click **Save to LinkBank** saves the current tab/link silently.
-  See `extension/README.md`.
+- **Browser extension** (`extension/` — Brave/Chrome/Edge + Firefox). Create an
+  access token under **Account → Access tokens**, paste it into the extension's
+  options along with your LinkBank URL, and the toolbar button or the right-click
+  **Save to LinkBank** saves the current tab/link silently. See
+  `extension/README.md`.
 - **PWA share target** (mobile / desktop). Install LinkBank as an app (browser →
   "Install" / "Add to Home Screen"); it then appears in the OS **Share** sheet.
   Sharing a page to LinkBank saves it to your Inbox. Needs the production build
-  and an HTTPS origin (below).
+  and an HTTPS origin.
 
 Both funnel through `POST /api/ingest`, which accepts either your session cookie
-or `Authorization: Bearer <token>` and is CORS-enabled for the extension.
-Tokens are stored hashed and revocable at any time.
-
-## Running in production
-
-For the PWA (service worker + installability), correct secure cookies, and
-performance, run the **built** app rather than the Vite dev server:
-
-```
-npm run build
-ORIGIN=https://your.domain \
-  PROTOCOL_HEADER=x-forwarded-proto \
-  HOST_HEADER=x-forwarded-host \
-  node build          # serves on :3000 (set PORT to change)
-```
-
-Point your reverse proxy at that port. `ORIGIN` must match the public URL, and
-`PROTOCOL_HEADER`/`HOST_HEADER` let the app trust the proxy's forwarded https so
-Secure cookies are set correctly. (The `docker compose` setup does this for you.)
+or `Authorization: Bearer <token>` and is CORS-enabled for the extension. Tokens
+are stored hashed and revocable at any time.
 
 ## Accessibility & display
 
@@ -156,10 +203,6 @@ instance:
 Every signed-in user has an **Account** page (person icon) to change their own
 email and password.
 
-`REGISTRATION` (`open` / `invite` / `closed`) still governs the public
-`/register` page; the shared `INVITE_CODE` applies only there. Admin-generated
-invite links are the recommended way to add users.
-
 ## Security
 
 - **Passwords** are hashed with scrypt (salted). **Sessions** are random tokens
@@ -182,10 +225,9 @@ The favicon fetcher validates TLS certificates like any browser, so internal
 `https` services with self-signed certs won't return an icon by default. If you
 bookmark such sites, set `FAVICON_ALLOW_INSECURE_TLS=1` to skip cert
 verification **for favicon fetches only** — it doesn't weaken TLS anywhere else
-in the app. Non-standard ports work with or without this flag; they're part of
-the cache key and fetch target.
-After enabling it, use a bookmark's **Reset to automatic** to re-fetch an icon
-that previously failed (failures are cached for a day).
+in the app. Non-standard ports work with or without this flag. After enabling
+it, use a bookmark's **Reset to automatic** to re-fetch an icon that previously
+failed (failures are cached for a day).
 
 ### Link health (link-rot)
 
@@ -204,28 +246,6 @@ that mishandle HEAD aren't wrongly flagged. Self-signed https honours
 - **Note cards:** set a bookmark's URL to `note` or `memo` to make a notes-only
   card — clicking it shows the note instead of navigating, and it's never
   link-checked.
-
-## Roadmap
-
-- [x] **Phase 1** — normalised tree, SQLite, read-only tree UI, container
-- [x] **Phase 2** — bookmarks + views, search across folders & bookmarks
-- [x] **Phase 3** — editing: create/rename/move/delete, drag-and-drop
-- [x] **Phase 4** — multi-user auth (scrypt sessions), first-run setup
-- [x] **Phase 5** — notes encrypted at rest (AES-256-GCM)
-- [x] **Phase 6** — import/export (Netscape HTML), trash + undo
-- [x] **Phase 7** — self-contained favicon fetching + cache
-- [x] **Phase 8** — link-rot checking (scheduled + on-demand, broken-links view)
-- [x] **Phase 9** — PostgreSQL dialect + SQLite→Postgres migration
-- [x] **Phase 10** — tags: coloured labels, sidebar list, per-tag pages, search
-- [x] **Phase 11** — bulk operations: multi-select, move / tag / open / delete
-- [x] **Phase 12** — keyboard navigation, type-ahead, "?" cheat sheet, marquee select
-- [x] **Phase 13** — admin UI: invite links, roles, safe user deletion, self-service account
-- [x] **Phase 14** — capture: PWA share target, browser extension, token API, Inbox
-
-## Migrating from the old LinkBank
-
-`scripts/seed.ts` imports a jsTree blob (the old `usertrees` format) into the
-new `branches` table — the same logic used to migrate the original instance.
 
 ## License
 
