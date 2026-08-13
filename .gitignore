@@ -1,0 +1,9 @@
+node_modules
+.svelte-kit
+build
+data
+pgdata
+certs
+.env
+*.log
+.DS_Store

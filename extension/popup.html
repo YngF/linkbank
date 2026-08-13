@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  :root { --accent: #4b83f0; --line: #e6e8ef; --ink: #1c2333; --mute: #7a8194; }
+  * { box-sizing: border-box; }
+  body { width: 320px; margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink); background: #fff; }
+  header { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--line); font-weight: 640; font-size: 14px; }
+  .logo { width: 20px; height: 20px; border-radius: 6px; background: linear-gradient(145deg, #4b83f0, #8659e8); }
+  .body { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--mute); font-weight: 600; display: flex; flex-direction: column; gap: 4px; }
+  input { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 13px; outline: 0; color: var(--ink); }
+  input:focus { border-color: var(--accent); }
+  .url { font-size: 11.5px; color: var(--mute); word-break: break-all; }
+  button { border: 0; border-radius: 8px; padding: 9px 12px; font-size: 13.5px; font-weight: 560; cursor: pointer; }
+  .save { background: var(--accent); color: #fff; }
+  .save:disabled { opacity: 0.6; cursor: default; }
+  .status { font-size: 12.5px; min-height: 16px; }
+  .status.ok { color: #1a7f4b; }
+  .status.err { color: #c23636; }
+  .setup { padding: 14px; font-size: 13px; color: var(--ink); }
+  .setup a { color: var(--accent); }
+  a.opts { margin-left: auto; font-size: 11.5px; color: var(--mute); text-decoration: none; }
+</style>
+</head>
+<body>
+  <header><span class="logo"></span> LinkBank <a class="opts" href="#" id="opts">Options</a></header>
+  <div id="needsSetup" class="setup" style="display:none">
+    Set your LinkBank URL and access token in <a href="#" id="openOptions">Options</a> to start saving.
+  </div>
+  <div id="form" class="body" style="display:none">
+    <div class="url" id="url"></div>
+    <label>Title <input id="title" /></label>
+    <label>Tags (comma-separated) <input id="tags" placeholder="optional" /></label>
+    <button class="save" id="save">Save to Inbox</button>
+    <div class="status" id="status"></div>
+  </div>
+  <script src="lib.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

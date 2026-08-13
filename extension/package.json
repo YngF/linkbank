@@ -1,0 +1,15 @@
+{
+  "name": "linkbank-extension",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Save the current tab to your LinkBank Inbox.",
+  "scripts": {
+    "lint": "web-ext lint --self-hosted",
+    "start": "web-ext run",
+    "build": "web-ext build --overwrite-dest",
+    "sign": "web-ext sign --channel=unlisted"
+  },
+  "devDependencies": {
+    "web-ext": "^8.0.0"
+  }
+}

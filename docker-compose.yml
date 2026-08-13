@@ -1,0 +1,78 @@
+# Two ways to run:
+#   Default (SQLite):   docker compose up -d
+#     The whole database is the one file under ./data — back that up and you're safe.
+#   Postgres:           docker compose --profile postgres up -d
+#     Starts a Postgres service and points the app at it via DATABASE_URL below.
+services:
+  linkbank:
+    image: yngf/linkbank:latest
+    # To build from source instead of pulling the image, comment out `image:`
+    # above and uncomment this:
+    # build: .
+    container_name: linkbank
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./data:/app/data
+      # For LAN HTTPS with a self-signed cert, generate certs and mount them
+      # read-only (see the TLS block under environment: below):
+      #   ./scripts/gen-selfsigned-cert.sh linkbank.lan 10.0.23.103
+      # - ./certs:/app/certs:ro
+    # Only wait for Postgres when the postgres profile is active.
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: false
+    environment:
+      # --- Postgres (optional) ------------------------------------------------
+      # Uncomment to use the bundled Postgres service (run with:
+      #   docker compose --profile postgres up -d). Leave commented for SQLite.
+      # DATABASE_URL: postgres://linkbank:linkbank@postgres:5432/linkbank
+      # Public URL the app is served from. REQUIRED — set to the exact URL your
+      # users visit (behind a proxy, the external https URL). Login/CSRF depend
+      # on this matching the browser's origin.
+      ORIGIN: https://links.example.com
+      # If you terminate TLS at a reverse proxy, let the app trust the forwarded
+      # protocol so Secure cookies are set correctly:
+      PROTOCOL_HEADER: x-forwarded-proto
+      HOST_HEADER: x-forwarded-host
+      # --- LAN HTTPS with a self-signed cert (no reverse proxy) ---------------
+      # Serve https:// directly from the container. Generate a cert first (see
+      # the certs volume above), mount it, then uncomment these AND set ORIGIN
+      # to the https URL you actually visit (e.g. https://10.0.23.103:3000).
+      # When PROTOCOL_HEADER/HOST_HEADER are set they assume a proxy — remove or
+      # comment them out if the browser talks to this container directly.
+      # TLS_KEY_PATH: /app/certs/linkbank.key
+      # TLS_CERT_PATH: /app/certs/linkbank.crt
+      # Registration policy: open | invite | closed
+      REGISTRATION: closed
+      # INVITE_CODE: changeme   # required only when REGISTRATION=invite
+      # Link-rot: background re-check interval in hours (0 disables the scheduler).
+      LINK_CHECK_INTERVAL_HOURS: "24"
+      # Uncomment if you bookmark internal https sites with self-signed certs
+      # and want their favicons fetched. Scoped to the favicon fetcher only.
+      # FAVICON_ALLOW_INSECURE_TLS: "1"
+      # Encrypts bookmark notes at rest. Generate with: openssl rand -base64 32
+      # Set it HERE (not in the ./data volume) so a leaked backup can't decrypt
+      # notes. If unset, a key is auto-generated into ./data/notes.key.
+      # Losing the key makes encrypted notes unrecoverable — keep a copy.
+      # NOTES_ENCRYPTION_KEY: "paste-openssl-rand-base64-32-here"
+
+  # Optional Postgres backend. Only started with `--profile postgres`.
+  postgres:
+    image: postgres:16-alpine
+    profiles: ['postgres']
+    container_name: linkbank-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: linkbank
+      POSTGRES_PASSWORD: linkbank # change me for anything internet-facing
+      POSTGRES_DB: linkbank
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U linkbank -d linkbank']
+      interval: 5s
+      timeout: 3s
+      retries: 10

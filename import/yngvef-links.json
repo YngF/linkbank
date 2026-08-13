@@ -1,0 +1,2122 @@
+﻿[
+  {
+    "linkid": 6,
+    "name": "NRK",
+    "url": "https://nrk.no",
+    "notes": "",
+    "branchid": 4,
+    "sortorder": 1
+  },
+  {
+    "linkid": 8,
+    "name": "Home Assistant",
+    "url": "https://home-assistant.v33.lan:8123",
+    "notes": "",
+    "branchid": 6,
+    "sortorder": 1
+  },
+  {
+    "linkid": 9,
+    "name": "AliExpress",
+    "url": "https://aliexpress.com",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 1
+  },
+  {
+    "linkid": 10,
+    "name": "Parcelsapp",
+    "url": "https://parcelsapp.com/",
+    "notes": "",
+    "branchid": 8,
+    "sortorder": 1
+  },
+  {
+    "linkid": 11,
+    "name": "Fiken",
+    "url": "https://fiken.no/",
+    "notes": "",
+    "branchid": 9,
+    "sortorder": 1
+  },
+  {
+    "linkid": 12,
+    "name": "Folio",
+    "url": "https://folio.no/",
+    "notes": "",
+    "branchid": 9,
+    "sortorder": 2
+  },
+  {
+    "linkid": 13,
+    "name": "Domeneshop",
+    "url": "https://domene.shop/admin",
+    "notes": "",
+    "branchid": 9,
+    "sortorder": 3
+  },
+  {
+    "linkid": 14,
+    "name": "YAAY AS",
+    "url": "https://yaay.no",
+    "notes": "",
+    "branchid": 9,
+    "sortorder": 4
+  },
+  {
+    "linkid": 15,
+    "name": "Finn",
+    "url": "https://finn.no",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 2
+  },
+  {
+    "linkid": 16,
+    "name": "Dustin",
+    "url": "https://www.dustin.no",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 3
+  },
+  {
+    "linkid": 17,
+    "name": "Fürstpasient",
+    "url": "https://www.furstpasient.no/",
+    "notes": "",
+    "branchid": 11,
+    "sortorder": 1
+  },
+  {
+    "linkid": 18,
+    "name": "Helsenorge",
+    "url": "https://helsenorge.no",
+    "notes": "",
+    "branchid": 11,
+    "sortorder": 2
+  },
+  {
+    "linkid": 19,
+    "name": "Unifi Network",
+    "url": "https://unifi.v33.lan/network/aafyauzz/dashboard",
+    "notes": "U2FsdGVkX18voHRzO7U9QiThU8uYCsyCLpftRShcYV3ZcG0l6pwZYfOsxy3WxBh6qWHB+bQ0Dwk=",
+    "branchid": 5,
+    "sortorder": 1
+  },
+  {
+    "linkid": 20,
+    "name": "Portainer NetTools",
+    "url": "https://nettools.v33.lan:9443/#!/2/docker/containers",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 2
+  },
+  {
+    "linkid": 22,
+    "name": "TrueNAS",
+    "url": "https://truenas.v33.lan",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 4
+  },
+  {
+    "linkid": 23,
+    "name": "TrueNAS2",
+    "url": "https://truenas2.v33.lan",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 5
+  },
+  {
+    "linkid": 24,
+    "name": "AdGuard",
+    "url": "https://nettools.v33.lan:7443/#",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 7
+  },
+  {
+    "linkid": 25,
+    "name": "NextCloud",
+    "url": "https://nextcloud.yngf.no",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 9
+  },
+  {
+    "linkid": 26,
+    "name": "Agent",
+    "url": "http://10.0.0.6:8090",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 10
+  },
+  {
+    "linkid": 27,
+    "name": "Nginx Proxy Manager",
+    "url": "https://nettools.v33.lan",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 8
+  },
+  {
+    "linkid": 29,
+    "name": "FreePBX",
+    "url": "https://freepbx.v33.lan/admin/config.php",
+    "notes": "U2FsdGVkX19IgFCaZeYZyCpsf21ZgfCQbwTVJtaQxRzN4yZmGStjwRKYymTNN3zLiiHTrKX5gw1MDXx225EEicVsrbcX33tau+wZvp8Dwi8INjPrtzU0fY3u+KnVSdY+k8CHpDTLSIBwkcfzURUUso2/zJPuPn7ApO4xJ/4+WMHsGFsygm+oPNIgy0PnhU2/ypco9shZ5D0RA/sdN2eyMUUvp9f3BDmXWQ6kNCaeNmA5floP1cR0u1Jss44TSIYg0hr6iKdF/ApAJ0u7povB8g==",
+    "branchid": 5,
+    "sortorder": 11
+  },
+  {
+    "linkid": 32,
+    "name": "ESPHome",
+    "url": "https://home-assistant.v33.lan:6052",
+    "notes": "",
+    "branchid": 6,
+    "sortorder": 2
+  },
+  {
+    "linkid": 33,
+    "name": "ESPHome.io",
+    "url": "https://esphome.io/",
+    "notes": "",
+    "branchid": 6,
+    "sortorder": 3
+  },
+  {
+    "linkid": 34,
+    "name": "Home Assistant Home",
+    "url": "https://www.home-assistant.io",
+    "notes": "",
+    "branchid": 6,
+    "sortorder": 4
+  },
+  {
+    "linkid": 35,
+    "name": "Home Assistant Community",
+    "url": "https://community.home-assistant.io/",
+    "notes": "",
+    "branchid": 6,
+    "sortorder": 5
+  },
+  {
+    "linkid": 36,
+    "name": "Office 365 Home",
+    "url": "https://www.office.com/?auth=2&home=1",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 1
+  },
+  {
+    "linkid": 37,
+    "name": "OneDrive",
+    "url": "https://pragmaticecm-my.sharepoint.com/personal/yngve_fagerheim_sikri_no/_layouts/15/onedrive.aspx",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 2
+  },
+  {
+    "linkid": 38,
+    "name": "Prosjektportalen",
+    "url": "https://sikri.teamwork.com/#/home/work",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 4
+  },
+  {
+    "linkid": 39,
+    "name": "Xledger",
+    "url": "https://www.xledger.net/?sso=1",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 5
+  },
+  {
+    "linkid": 40,
+    "name": "My Visual Studio",
+    "url": "https://my.visualstudio.com/?campaign=o~mpsa~migrate~msdn_benefit&auth_redirect=true",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 3
+  },
+  {
+    "linkid": 41,
+    "name": "Sikri Zendesk",
+    "url": "https://sikri.zendesk.com/agent/dashboard",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 6
+  },
+  {
+    "linkid": 42,
+    "name": "Microsoft Azure Portal",
+    "url": "https://portal.azure.com",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 7
+  },
+  {
+    "linkid": 43,
+    "name": "Elements Bundle Master Repo",
+    "url": "https://dev.azure.com/elements/Projects/_git/InstallationBundle?path=/Source",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 8
+  },
+  {
+    "linkid": 44,
+    "name": "Huma",
+    "url": "https://sikri-as.humahr.com/",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 9
+  },
+  {
+    "linkid": 45,
+    "name": "OnPremReleases",
+    "url": "https://sikri.atlassian.net/wiki/spaces/Technology/pages/184025133/Currently+supported+on+prem+releases",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 10
+  },
+  {
+    "linkid": 46,
+    "name": "Backstage (tjenesteoversikt)",
+    "url": "https://backstage.sikri.io/",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 11
+  },
+  {
+    "linkid": 47,
+    "name": "Team Technicians",
+    "url": "https://sikri.atlassian.net/wiki/spaces/TT/overview",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 12
+  },
+  {
+    "linkid": 48,
+    "name": "Weather",
+    "url": "https://yngf.no/weather",
+    "notes": "",
+    "branchid": 31,
+    "sortorder": 1
+  },
+  {
+    "linkid": 49,
+    "name": "Weather Admin",
+    "url": "http://docker.v33.lan:18800/admin/",
+    "notes": "",
+    "branchid": 31,
+    "sortorder": 2
+  },
+  {
+    "linkid": 53,
+    "name": "LinkBank",
+    "url": "https://yngf.no",
+    "notes": "",
+    "branchid": 1,
+    "sortorder": 1
+  },
+  {
+    "linkid": 54,
+    "name": "Skatteetaten",
+    "url": "https://view-sikker.sits.no",
+    "notes": "U2FsdGVkX19ZH7cpRUN/qQxdYs2c6GBZiBK8SmSkZNs/0hpBrIcnc4Rf9In4db6qBnnXK11gVgur4aP5HToO5Y7OIeO/SILDdj58wqs4RGOPOCfKA0tJghH7FzEpdLyXu+U5CYtwlEfpx5UGrs56vOoqr9CXXhKlhGXVavoTueigdUjY7AzpaWtYrnfYWjHp3cY0/EtyHWlkEsRamuNQVPK/z9fNjsMLJk628K7dwCYflKrG5GTOWtZhwIwSTm+H",
+    "branchid": 16,
+    "sortorder": 1
+  },
+  {
+    "linkid": 55,
+    "name": "Konsulentportal",
+    "url": "https://konsulent-portal.uio.no/",
+    "notes": "U2FsdGVkX19EOFMpntQx9lKPUlR3YBRw8Cyk9vdc1Jt9nba/ncGB9miM26Sktupwt19XhoYlBcOlzdQnnNRCvjc7EILGuZPQtdakkOt15Ic=",
+    "branchid": 17,
+    "sortorder": 1
+  },
+  {
+    "linkid": 57,
+    "name": "auth.tilgang.nhn.no",
+    "url": "https://auth.tilgang.nhn.no",
+    "notes": "U2FsdGVkX183SGDKRLLjlNeHVYN0lpiYyJEslUCuxRUhbx5ypN+bU+dvKiXifM5s",
+    "branchid": 19,
+    "sortorder": 1
+  },
+  {
+    "linkid": 58,
+    "name": "Helsetilsynet Citrix",
+    "url": "https://ctx.helsetilsynet.no",
+    "notes": "U2FsdGVkX1823KC5px6lFeV0HlUNr9wy4l65Hxpcs5/EB7PY05Dukw==",
+    "branchid": 19,
+    "sortorder": 2
+  },
+  {
+    "linkid": 59,
+    "name": "HN Workspace",
+    "url": "https://helsenord.de.wss.workspaceone.com/catalog-portal/ui#/apps",
+    "notes": "",
+    "branchid": 20,
+    "sortorder": 1
+  },
+  {
+    "linkid": 60,
+    "name": "StatPed GlobalProtect",
+    "url": "https://vpn.statped.no/global-protect/login.esp",
+    "notes": "U2FsdGVkX1+ZrNUDvKE3nyNe9ueXYCj8aECBmPPKkcbmxZlvZyz2GwmD/xmRghXVX/094pfrGp1mrsHJpX28g6C4VVht811aU3GcKXciGIz1UT06rZFssOXNKW1t2BR0",
+    "branchid": 21,
+    "sortorder": 1
+  },
+  {
+    "linkid": 61,
+    "name": "Stortinget",
+    "url": "https://remote.stortinget.no",
+    "notes": "U2FsdGVkX1+uptjUvBqvaIcE4SBsWcjsIICsWxk9DQpGAnvcCDSjHy9L+fWfd7qDfInqNyrdLH4HzZvA4op4GGUCOT1crKng/FXMV1i1zjopBukaIM/WO+17S9srdIOEuRFh3eWnvvP0ARqpEd+G4rym3tiinjnnPCIPm57MShFW8wIMAyQOV3+7BXbSmodvyedbHUoQdJkIiKkD71GK8hJsGk+okdoWmuJ+trgc4uc0OCnYK01Kug==",
+    "branchid": 22,
+    "sortorder": 1
+  },
+  {
+    "linkid": 62,
+    "name": "Stortinget - Postliste",
+    "url": "https://einnsyn.stortinget.no/innsyn",
+    "notes": "U2FsdGVkX1/FK7RkYFxlHjwUpQAo1e9hHETsuMJWyH2RUy2z7ii1oRPkqTe+cLyC5Gd077cQDelafkU0eMCpjXGnqFcZ6Sg6fzjO5SIGFkc=",
+    "branchid": 22,
+    "sortorder": 2
+  },
+  {
+    "linkid": 63,
+    "name": "Windows APP",
+    "url": "https://windows365.microsoft.com/ent#/devices",
+    "notes": "U2FsdGVkX1++WTeVPLOm9W79KinjMnNSRsCz0SLQ+OWVEQF3xhhYWcFJO+lNIcUJWnLSNBS/wos=",
+    "branchid": 13,
+    "sortorder": 13
+  },
+  {
+    "linkid": 64,
+    "name": "EZTV - TV Torrents Online Series Download | Official",
+    "url": "https://eztvx.to/home",
+    "notes": "",
+    "branchid": 24,
+    "sortorder": 1
+  },
+  {
+    "linkid": 65,
+    "name": "Torrent Search Engine | 1337x.to",
+    "url": "https://www.1337x.to/",
+    "notes": "",
+    "branchid": 24,
+    "sortorder": 2
+  },
+  {
+    "linkid": 67,
+    "name": "KickassTorrents - Download torrent from Kickass Torrents",
+    "url": "https://katcr.to/",
+    "notes": "",
+    "branchid": 24,
+    "sortorder": 3
+  },
+  {
+    "linkid": 68,
+    "name": "NZB Finder | Search",
+    "url": "https://nzbfinder.ws/search",
+    "notes": "",
+    "branchid": 24,
+    "sortorder": 4
+  },
+  {
+    "linkid": 69,
+    "name": "Sonarr",
+    "url": "https://sc.yngf.no",
+    "notes": "",
+    "branchid": 25,
+    "sortorder": 1
+  },
+  {
+    "linkid": 70,
+    "name": "sabnzbd",
+    "url": "http://10.0.0.2:30055/",
+    "notes": "",
+    "branchid": 25,
+    "sortorder": 2
+  },
+  {
+    "linkid": 71,
+    "name": "Plex",
+    "url": "https://app.plex.tv/desktop/#!/",
+    "notes": "",
+    "branchid": 25,
+    "sortorder": 3
+  },
+  {
+    "linkid": 72,
+    "name": "Home - Netflix",
+    "url": "https://www.netflix.com/browse",
+    "notes": "",
+    "branchid": 25,
+    "sortorder": 4
+  },
+  {
+    "linkid": 73,
+    "name": "Komplett.no",
+    "url": "https://komplett.no",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 4
+  },
+  {
+    "linkid": 75,
+    "name": "Polyalkemi",
+    "url": "https://polyalkemi.no/",
+    "notes": "",
+    "branchid": 30,
+    "sortorder": 1
+  },
+  {
+    "linkid": 76,
+    "name": "OpenID Connect  |  Authentication  |  Google for Developers",
+    "url": "https://developers.google.com/identity/openid-connect/openid-connect#java_1",
+    "notes": "",
+    "branchid": 26,
+    "sortorder": 1
+  },
+  {
+    "linkid": 77,
+    "name": "jQuery contextMenu (2.x)",
+    "url": "https://swisnl.github.io/jQuery-contextMenu/demo.html",
+    "notes": "",
+    "branchid": 26,
+    "sortorder": 2
+  },
+  {
+    "linkid": 78,
+    "name": "jsTree",
+    "url": "https://www.jstree.com/docs/html/",
+    "notes": "",
+    "branchid": 26,
+    "sortorder": 3
+  },
+  {
+    "linkid": 79,
+    "name": "Solutions for INSERT OR UPDATE on SQL Server - Stack Overflow",
+    "url": "https://stackoverflow.com/questions/108403/solutions-for-insert-or-update-on-sql-server",
+    "notes": "",
+    "branchid": 26,
+    "sortorder": 4
+  },
+  {
+    "linkid": 80,
+    "name": "Split.js",
+    "url": "https://split.js.org/#/",
+    "notes": "",
+    "branchid": 26,
+    "sortorder": 5
+  },
+  {
+    "linkid": 81,
+    "name": "Find Icons with the Perfect Look & Feel | Font Awesome",
+    "url": "https://fontawesome.com/",
+    "notes": "",
+    "branchid": 26,
+    "sortorder": 6
+  },
+  {
+    "linkid": 82,
+    "name": "RARBG Movies",
+    "url": "https://rargb.to/movies/",
+    "notes": "",
+    "branchid": 24,
+    "sortorder": 5
+  },
+  {
+    "linkid": 83,
+    "name": "RARBG TV",
+    "url": "https://rargb.to/tv/",
+    "notes": "",
+    "branchid": 24,
+    "sortorder": 6
+  },
+  {
+    "linkid": 85,
+    "name": "AgentDVR Remote",
+    "url": "https://www.ispyconnect.com/app/#Live",
+    "notes": "U2FsdGVkX1/IxqdKNRt6jsnncpYROMIASofrzXxbX2WP4ppdDUFPEg==",
+    "branchid": 58,
+    "sortorder": 12
+  },
+  {
+    "linkid": 86,
+    "name": "DNB",
+    "url": "https://dnb.no",
+    "notes": "",
+    "branchid": 29,
+    "sortorder": 1
+  },
+  {
+    "linkid": 87,
+    "name": "Sparebank 1 Forsikring",
+    "url": "https://www.sparebank1.no/nb/bank/privat/forsikring/mine-forsikringer.html",
+    "notes": "",
+    "branchid": 29,
+    "sortorder": 2
+  },
+  {
+    "linkid": 88,
+    "name": "w3schools",
+    "url": "https://spaces.w3schools.com/",
+    "notes": "",
+    "branchid": 9,
+    "sortorder": 5
+  },
+  {
+    "linkid": 90,
+    "name": "Securing Node-RED",
+    "url": "https://nodered.org/docs/user-guide/runtime/securing-node-red",
+    "notes": "",
+    "branchid": 26,
+    "sortorder": 7
+  },
+  {
+    "linkid": 91,
+    "name": "CoinToss Admin",
+    "url": "https://truenas3.v33.lan:1113/admin",
+    "notes": "",
+    "branchid": 33,
+    "sortorder": 2
+  },
+  {
+    "linkid": 94,
+    "name": "Windows VM on Fangtooth",
+    "url": "https://forums.truenas.com/t/guide-how-to-install-migrate-windows-vm-to-fangtooth-incus-using-virtio-drivers/37056",
+    "notes": "",
+    "branchid": 34,
+    "sortorder": 1
+  },
+  {
+    "linkid": 95,
+    "name": "OpenMower",
+    "url": "https://github.com/ClemensElflein/OpenMower/tree/main",
+    "notes": "",
+    "branchid": 36,
+    "sortorder": 1
+  },
+  {
+    "linkid": 96,
+    "name": "Simple RTK2B",
+    "url": "https://www.ardusimple.com/product/simplertk2b-basic-starter-kit-ip65/",
+    "notes": "",
+    "branchid": 36,
+    "sortorder": 2
+  },
+  {
+    "linkid": 97,
+    "name": "OpenMower Home Assistant integration",
+    "url": "https://community.home-assistant.io/t/openmower-opensource-lawn-mower/414083",
+    "notes": "",
+    "branchid": 36,
+    "sortorder": 3
+  },
+  {
+    "linkid": 98,
+    "name": "Grafana",
+    "url": "https://truenas2.v33.lan:3000/a/grafana-lokiexplore-app/explore?patterns=%5B%5D&from=now-15m&to=now&timezone=browser&var-lineFormat=&var-ds=celw12s9tkmiob&var-filters=&var-fields=&var-levels=&var-metadata=&var-jsonFields=&var-all-fields=&var-patterns=&var-lineFilterV2=&var-lineFilters=&var-primary_label=service_name%7C%3D~%7C.%2B",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 3
+  },
+  {
+    "linkid": 99,
+    "name": "RabbitMQ Management",
+    "url": "http://10.0.0.4:15672",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 4
+  },
+  {
+    "linkid": 100,
+    "name": "PGAdmin",
+    "url": "https://truenas2.v33.lan:15432",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 5
+  },
+  {
+    "linkid": 101,
+    "name": "Solr Admin",
+    "url": "http://10.0.0.4:8983/solr/#/",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 6
+  },
+  {
+    "linkid": 102,
+    "name": "Welcome to the Apache Tika 3.1.0 Server",
+    "url": "http://truenas2.v33.lan:9998/",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 7
+  },
+  {
+    "linkid": 104,
+    "name": "Elements",
+    "url": "https://elements-f.v33.lan/Elements",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 1
+  },
+  {
+    "linkid": 105,
+    "name": "Elements ConfigEditor",
+    "url": "https://elements-b.v33.lan/Elements.ConfigServer/Editor",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 2
+  },
+  {
+    "linkid": 106,
+    "name": "Redis Insight",
+    "url": "http://10.0.0.4:5540/",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 8
+  },
+  {
+    "linkid": 117,
+    "name": "TrueNAS Apps",
+    "url": "https://truenas.v33.lan/ui/apps/",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 9
+  },
+  {
+    "linkid": 118,
+    "name": "TrueNAS2 Apps",
+    "url": "https://truenas2.v33.lan/ui/apps",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 10
+  },
+  {
+    "linkid": 120,
+    "name": "Linkbank Backend",
+    "url": "https://truenas3.v33.lan:1300/admin",
+    "notes": "",
+    "branchid": 32,
+    "sortorder": 1
+  },
+  {
+    "linkid": 121,
+    "name": "IMDb: Ratings, Reviews, and Where to Watch the Bes",
+    "url": "https://imdb.com",
+    "notes": "",
+    "branchid": 25,
+    "sortorder": 5
+  },
+  {
+    "linkid": 124,
+    "name": "Hygglo - Lei verktøy",
+    "url": "https://www.hygglo.no",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 5
+  },
+  {
+    "linkid": 125,
+    "name": "Entra Microsoft",
+    "url": "https://entra.microsoft.com/#home",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 14
+  },
+  {
+    "linkid": 126,
+    "name": "Raspberry Pi Connect",
+    "url": "https://connect.raspberrypi.com/devices",
+    "notes": "U2FsdGVkX1/G/o/sLpuVTxU21z8I7zuZYAwNNWKLdmbGxDKL0gXNxjyi271sPhMe",
+    "branchid": 58,
+    "sortorder": 13
+  },
+  {
+    "linkid": 127,
+    "name": "LineageOS 22.2 (Android 15) for Raspberry Pi 4",
+    "url": "https://konstakang.com/devices/rpi4/LineageOS22/",
+    "notes": "",
+    "branchid": 44,
+    "sortorder": 1
+  },
+  {
+    "linkid": 128,
+    "name": "7inch HDMI Display",
+    "url": "http://www.lcdwiki.com/7inch_HDMI_Display_(H)",
+    "notes": "",
+    "branchid": 44,
+    "sortorder": 7
+  },
+  {
+    "linkid": 129,
+    "name": "Etsy",
+    "url": "https://etsy.com",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 6
+  },
+  {
+    "linkid": 130,
+    "name": "PixHawk 6X Wiring Diagram",
+    "url": "https://docs.px4.io/main/assets/pixhawk6x_wiring_diagram.BTILi51L.png",
+    "notes": "",
+    "branchid": 45,
+    "sortorder": 1
+  },
+  {
+    "linkid": 131,
+    "name": "BetaFPV SuperD RX ELRS 2.4G",
+    "url": "https://betafpv.com/collections/expresslrs-series-accessories/products/superd-elrs-2-4g-diversity-receiver",
+    "notes": "",
+    "branchid": 45,
+    "sortorder": 2
+  },
+  {
+    "linkid": 132,
+    "name": "ArduPilot Copter - Copter documentation",
+    "url": "https://ardupilot.org/copter/index.html",
+    "notes": "",
+    "branchid": 45,
+    "sortorder": 3
+  },
+  {
+    "linkid": 133,
+    "name": "Jailbreak · RapierXbox/ShellyElevate Wiki · GitH",
+    "url": "https://github.com/RapierXbox/ShellyElevate/wiki/Jailbreak",
+    "notes": "",
+    "branchid": 48,
+    "sortorder": 1
+  },
+  {
+    "linkid": 134,
+    "name": "Breaking News, Latest News and Videos | CNN",
+    "url": "https://edition.cnn.com/",
+    "notes": "",
+    "branchid": 4,
+    "sortorder": 3
+  },
+  {
+    "linkid": 135,
+    "name": "IPv6 Expander - Convert short addresses to full fo",
+    "url": "https://www.whatsmydns.net/ipv6-expand",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 15
+  },
+  {
+    "linkid": 137,
+    "name": "Image posted by StecFX",
+    "url": "https://civitai.com/images/59489115",
+    "notes": "",
+    "branchid": 1,
+    "sortorder": 2
+  },
+  {
+    "linkid": 138,
+    "name": "OnPrem.Infrastructure.Deploy Repo",
+    "url": "https://dev.azure.com/elements/Projects/_git/OnPrem.Infrastructure.Deploy?path=%2F3rdParty",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 16
+  },
+  {
+    "linkid": 139,
+    "name": "Elements 2025.1",
+    "url": "https://ecmelmv2025-1-s.elementsecm.no/Elements",
+    "notes": "",
+    "branchid": 50,
+    "sortorder": 1
+  },
+  {
+    "linkid": 142,
+    "name": "Icons8 - Web icons",
+    "url": "https://icons8.com",
+    "notes": "",
+    "branchid": 15,
+    "sortorder": 2
+  },
+  {
+    "linkid": 143,
+    "name": "Upgrade Debian 12->13",
+    "url": "https://www.google.com/search?q=upgrade+from+debian+12+to+13&oq=upgrade+from+debian+12+to+13&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCTE2OTY2ajBqNKgCALACAQ&sourceid=chrome&ie=UTF-8",
+    "notes": "",
+    "branchid": 51,
+    "sortorder": 1
+  },
+  {
+    "linkid": 144,
+    "name": "YouTube",
+    "url": "https://www.youtube.com/",
+    "notes": "",
+    "branchid": 25,
+    "sortorder": 6
+  },
+  {
+    "linkid": 145,
+    "name": "Cointoss",
+    "url": "https://cointoss.v33.lan/",
+    "notes": "",
+    "branchid": 33,
+    "sortorder": 1
+  },
+  {
+    "linkid": 146,
+    "name": "Element",
+    "url": "https://matrix.yngf.no",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 12
+  },
+  {
+    "linkid": 147,
+    "name": "Setting Up a Samba Domain Controller on Debian 12 ",
+    "url": "https://reintech.io/blog/setting-up-samba-domain-controller-debian-12",
+    "notes": "",
+    "branchid": 51,
+    "sortorder": 2
+  },
+  {
+    "linkid": 148,
+    "name": "Create an Active Directory Domain Controller on De",
+    "url": "https://johnhart96.co.uk/tech/create-an-active-directory-domain-controller-on-debian-linux/",
+    "notes": "",
+    "branchid": 51,
+    "sortorder": 3
+  },
+  {
+    "linkid": 149,
+    "name": "Instagram",
+    "url": "https://www.instagram.com/",
+    "notes": "",
+    "branchid": 52,
+    "sortorder": 1
+  },
+  {
+    "linkid": 150,
+    "name": "Bluesky",
+    "url": "https://bsky.app/",
+    "notes": "",
+    "branchid": 52,
+    "sortorder": 2
+  },
+  {
+    "linkid": 151,
+    "name": "Snapchat for Web.",
+    "url": "https://www.snapchat.com/web/",
+    "notes": "",
+    "branchid": 52,
+    "sortorder": 3
+  },
+  {
+    "linkid": 152,
+    "name": "Elements Cloud",
+    "url": "https://prod02.elementscloud.no/elements",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 17
+  },
+  {
+    "linkid": 154,
+    "name": "INMP441 I2S Microphone",
+    "url": "https://www.aliexpress.com/item/1005001605597206.html",
+    "notes": "",
+    "branchid": 48,
+    "sortorder": 2
+  },
+  {
+    "linkid": 155,
+    "name": "PROISP",
+    "url": "https://www.proisp.no/",
+    "notes": "",
+    "branchid": 58,
+    "sortorder": 17
+  },
+  {
+    "linkid": 157,
+    "name": "CRC-16 Calculator",
+    "url": "https://www.scadacore.com/tools/programming-calculators/online-checksum-calculator/",
+    "notes": "",
+    "branchid": 48,
+    "sortorder": 3
+  },
+  {
+    "linkid": 158,
+    "name": "Anemometer example",
+    "url": "https://wiki.dfrobot.com/RS485_Wind_Speed_Transmitter_SKU_SEN0483",
+    "notes": "",
+    "branchid": 48,
+    "sortorder": 4
+  },
+  {
+    "linkid": 165,
+    "name": "Fallout London Console Commands",
+    "url": "https://www.ign.com/wikis/fallout-4/Fallout_London_Console_Commands_and_Cheats_List",
+    "notes": "",
+    "branchid": 54,
+    "sortorder": 1
+  },
+  {
+    "linkid": 166,
+    "name": "Wikipedia - C64 Periferals",
+    "url": "https://en.wikipedia.org/wiki/Commodore_64_peripherals",
+    "notes": "",
+    "branchid": 55,
+    "sortorder": 1
+  },
+  {
+    "linkid": 168,
+    "name": "TrueNAS3",
+    "url": "https://truenas3.v33.lan",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 6
+  },
+  {
+    "linkid": 172,
+    "name": "RFID Tags | OpenSpool             ",
+    "url": "https://openspool.io/rfid.html",
+    "notes": "",
+    "branchid": 56,
+    "sortorder": 2
+  },
+  {
+    "linkid": 173,
+    "name": "deuteros - dine bokmerker på nettet",
+    "url": "http://10.0.0.6:1400/",
+    "notes": "",
+    "branchid": 15,
+    "sortorder": 3
+  },
+  {
+    "linkid": 174,
+    "name": "Sonoff NSPanelPro Hack",
+    "url": "https://www.homeautomationguy.io/blog/home-assistant-on-a-sonoff-nspanel-pro",
+    "notes": "",
+    "branchid": 48,
+    "sortorder": 5
+  },
+  {
+    "linkid": 175,
+    "name": "UpToDown Android apps",
+    "url": "https://en.uptodown.com/",
+    "notes": "",
+    "branchid": 48,
+    "sortorder": 6
+  },
+  {
+    "linkid": 178,
+    "name": "APKMirror - Free APK Downloads - Free and safe And",
+    "url": "https://apkmirror.com",
+    "notes": "",
+    "branchid": 48,
+    "sortorder": 7
+  },
+  {
+    "linkid": 179,
+    "name": "Mitsubishi Electric aircon support Home Assistant ",
+    "url": "https://community.home-assistant.io/t/mitsubishi-electric-aircon-support-home-assistant-and-web-control-diy-esp-chip-over-cn105/633570",
+    "notes": "",
+    "branchid": 48,
+    "sortorder": 8
+  },
+  {
+    "linkid": 180,
+    "name": "GitHub - echavet/MitsubishiCN105ESPHome: ESPHome f",
+    "url": "https://github.com/echavet/MitsubishiCN105ESPHome",
+    "notes": "",
+    "branchid": 48,
+    "sortorder": 9
+  },
+  {
+    "linkid": 181,
+    "name": "OpenWebUI",
+    "url": "https://ollama.v33.lan/",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 13
+  },
+  {
+    "linkid": 184,
+    "name": "Excel",
+    "url": "https://excel.cloud.microsoft/en-us/?wdOrigin=OFFICECOM-WEB.APPBAR",
+    "notes": "",
+    "branchid": 57,
+    "sortorder": 2
+  },
+  {
+    "linkid": 185,
+    "name": "Word",
+    "url": "https://word.cloud.microsoft/en-us/",
+    "notes": "",
+    "branchid": 57,
+    "sortorder": 1
+  },
+  {
+    "linkid": 186,
+    "name": "PostmanOnline",
+    "url": "https://web.postman.co/home",
+    "notes": "",
+    "branchid": 15,
+    "sortorder": 18
+  },
+  {
+    "linkid": 189,
+    "name": "TrueNAS Connect",
+    "url": "https://web.truenasconnect.net/en/#/fleet/applications",
+    "notes": "",
+    "branchid": 58,
+    "sortorder": 18
+  },
+  {
+    "linkid": 193,
+    "name": "ollama.v33.lan - Portainer",
+    "url": "https://10.0.0.8:9443",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 3
+  },
+  {
+    "linkid": 195,
+    "name": "Latest run",
+    "url": "https://dev.azure.com/elements/Projects/_build?definitionId=1636&_a=summary&keywordFilter=2025.2",
+    "notes": "",
+    "branchid": 59,
+    "sortorder": 1
+  },
+  {
+    "linkid": 196,
+    "name": "ProShop",
+    "url": "https://proshop.no",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 7
+  },
+  {
+    "linkid": 197,
+    "name": "Install WIn11 -TPM&SecureBoot",
+    "url": "https://www.starwindsoftware.com/blog/bypass-tpm-and-install-windows-11-on-unsupported-hardware/",
+    "notes": "",
+    "branchid": 51,
+    "sortorder": 4
+  },
+  {
+    "linkid": 198,
+    "name": "Windows APP",
+    "url": "https://windows365.microsoft.com/ent#/devices",
+    "notes": "U2FsdGVkX19A2WgBx14o3nKrHPx8LD8s4reBp/E3MKyGud0IBgyVvx6Y75zLc4Ca2McfSy8K0Vc=",
+    "branchid": 18,
+    "sortorder": 1
+  },
+  {
+    "linkid": 201,
+    "name": "3DNet.no",
+    "url": "https://3dnet.no",
+    "notes": "",
+    "branchid": 30,
+    "sortorder": 2
+  },
+  {
+    "linkid": 202,
+    "name": "Printables",
+    "url": "https://www.printables.com/",
+    "notes": "",
+    "branchid": 56,
+    "sortorder": 3
+  },
+  {
+    "linkid": 203,
+    "name": "GrabCAD",
+    "url": "https://grabcad.com/library",
+    "notes": "",
+    "branchid": 56,
+    "sortorder": 4
+  },
+  {
+    "linkid": 204,
+    "name": "SnapMagic Search | Free",
+    "url": "https://www.snapeda.com/",
+    "notes": "",
+    "branchid": 56,
+    "sortorder": 5
+  },
+  {
+    "linkid": 205,
+    "name": "MakerWorld",
+    "url": "https://makerworld.com/en",
+    "notes": "",
+    "branchid": 56,
+    "sortorder": 6
+  },
+  {
+    "linkid": 206,
+    "name": "Thingiverse - Digital Designs for Physical Objects",
+    "url": "https://www.thingiverse.com/",
+    "notes": "",
+    "branchid": 56,
+    "sortorder": 7
+  },
+  {
+    "linkid": 207,
+    "name": "Commodore.net",
+    "url": "https://www.commodore.net/",
+    "notes": "",
+    "branchid": 55,
+    "sortorder": 2
+  },
+  {
+    "linkid": 208,
+    "name": "Kundepanel - deploi.no",
+    "url": "https://kundepanel.deploi.no/",
+    "notes": "",
+    "branchid": 9,
+    "sortorder": 6
+  },
+  {
+    "linkid": 209,
+    "name": "ebay",
+    "url": "https://ebay.com",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 8
+  },
+  {
+    "linkid": 210,
+    "name": "Multicom",
+    "url": "https://www.multicom.no/",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 9
+  },
+  {
+    "linkid": 211,
+    "name": "Norsk leverandør av servere, webhosting og domene",
+    "url": "https://deploi.no/",
+    "notes": "",
+    "branchid": 58,
+    "sortorder": 19
+  },
+  {
+    "linkid": 212,
+    "name": "Deploi Webmail :: Welcome to Deploi Webmail",
+    "url": "https://webmail.deploi.no/?_task=logout&_token=jSRFH2Q9bbNX9Buq0LTSAH6db7IB9iHj",
+    "notes": "",
+    "branchid": 9,
+    "sortorder": 7
+  },
+  {
+    "linkid": 213,
+    "name": "/pub/cbm/schematics/computers/c64/",
+    "url": "https://www.zimmers.net/anonftp/pub/cbm/schematics/computers/c64/index.html",
+    "notes": "",
+    "branchid": 66,
+    "sortorder": 3
+  },
+  {
+    "linkid": 214,
+    "name": "YngFOS",
+    "url": "https://claude.ai/chat/74e67e2a-94ef-4626-bb01-1b18485ba849",
+    "notes": "",
+    "branchid": 1,
+    "sortorder": 6
+  },
+  {
+    "linkid": 215,
+    "name": "HD-64. Commodore 64 HDMI output - FPGA | Retro-Upd",
+    "url": "https://www.retro-updates.com/product/17245372/hd-64-commodore-64-hdmi-output-fpga",
+    "notes": "",
+    "branchid": 64,
+    "sortorder": 4
+  },
+  {
+    "linkid": 216,
+    "name": "The PLA20V8, the Commodore 64 PLA that you can bui",
+    "url": "https://www.freepascal.org/~daniel/c64pla/",
+    "notes": "",
+    "branchid": 65,
+    "sortorder": 5
+  },
+  {
+    "linkid": 217,
+    "name": "JiffyDOS Kernal Roms &#038; Manual | nIGHTFALL Blo",
+    "url": "https://www.nightfallcrew.com/27/07/2009/jiffydos-kernal-roms-manual-download-linkjiffydos-kernal-roms-manual-download-link/",
+    "notes": "",
+    "branchid": 62,
+    "sortorder": 1
+  },
+  {
+    "linkid": 218,
+    "name": "JiffyDOS for Commodore 8-Bit Computers",
+    "url": "https://support.retrorewind.ca/en/blog/jiffydos",
+    "notes": "",
+    "branchid": 62,
+    "sortorder": 2
+  },
+  {
+    "linkid": 219,
+    "name": "JiffyDOS - C64-Wiki",
+    "url": "https://www.c64-wiki.com/wiki/JiffyDOS",
+    "notes": "",
+    "branchid": 62,
+    "sortorder": 3
+  },
+  {
+    "linkid": 220,
+    "name": "JiffyDOS | This is the informational site for the ",
+    "url": "https://www.jiffydos.com/",
+    "notes": "",
+    "branchid": 62,
+    "sortorder": 4
+  },
+  {
+    "linkid": 221,
+    "name": "Replace a dead 2364 masked ROM with a 2764 EPROM o",
+    "url": "https://wereallgeeks.wordpress.com/2024/05/22/replace-a-dead-2364-masked-rom-with-a-2764-eprom-of-the-same-size/",
+    "notes": "",
+    "branchid": 62,
+    "sortorder": 5
+  },
+  {
+    "linkid": 222,
+    "name": "GitHub - frntc/SIDKick-pico: SIDKick pico is an in",
+    "url": "https://github.com/frntc/SIDKick-pico?tab=readme-ov-file",
+    "notes": "",
+    "branchid": 63,
+    "sortorder": 1
+  },
+  {
+    "linkid": 223,
+    "name": "Index of /rcarlsen/cbm/c64/SCHEMATICS",
+    "url": "https://portcommodore.com/rcarlsen/cbm/c64/SCHEMATICS/",
+    "notes": "",
+    "branchid": 66,
+    "sortorder": 4
+  },
+  {
+    "linkid": 224,
+    "name": "Commodore 64 – 250407 Replica | DIY Chris",
+    "url": "https://diychris.com/product/commodore-64-250407-replica/",
+    "notes": "",
+    "branchid": 55,
+    "sortorder": 3
+  },
+  {
+    "linkid": 225,
+    "name": "GitHub - HovKlan-DH/Commodore-Repair-Toolbox: A Wi",
+    "url": "https://github.com/HovKlan-DH/Commodore-Repair-Toolbox?tab=readme-ov-file",
+    "notes": "",
+    "branchid": 66,
+    "sortorder": 4
+  },
+  {
+    "linkid": 226,
+    "name": "FC64 | Universal-(E)PROM-Adapter",
+    "url": "https://www.faszinationc64.de/Universal-EPROM-Adapter",
+    "notes": "",
+    "branchid": 62,
+    "sortorder": 6
+  },
+  {
+    "linkid": 228,
+    "name": "Citrix",
+    "url": "https://statsbygg.cloud.com",
+    "notes": "",
+    "branchid": 18,
+    "sortorder": 2
+  },
+  {
+    "linkid": 229,
+    "name": "Panasonic TX-p42u30e Service Manual",
+    "url": "https://www.scribd.com/document/665084458/Panasonic-TX-p42u30e-TX-p42ux30e-TX-p42u30j-TX-pr42u30-TX-pr42u31-Chassis-Gpf14d-e",
+    "notes": "",
+    "branchid": 67,
+    "sortorder": 1
+  },
+  {
+    "linkid": 230,
+    "name": "ESPConnect",
+    "url": "https://espconnect.v33.lan/",
+    "notes": "",
+    "branchid": 5,
+    "sortorder": 14
+  },
+  {
+    "linkid": 233,
+    "name": "Commodore 64 / VIC-20 PSU-case, replica by Coat - ",
+    "url": "https://www.thingiverse.com/thing:3761669",
+    "notes": "",
+    "branchid": 68,
+    "sortorder": 1
+  },
+  {
+    "linkid": 234,
+    "name": "GitHub - dmantione/final_cartridge at development",
+    "url": "https://github.com/dmantione/final_cartridge/tree/development",
+    "notes": "",
+    "branchid": 69,
+    "sortorder": 1
+  },
+  {
+    "linkid": 235,
+    "name": "GitHub - mist64/fc3-geos: Final Cartridge III with",
+    "url": "https://github.com/mist64/fc3-geos",
+    "notes": "",
+    "branchid": 69,
+    "sortorder": 2
+  },
+  {
+    "linkid": 236,
+    "name": "Final Cartridge III 101%: C64's best utility cartr",
+    "url": "https://www.freepascal.org/~daniel/fc3/",
+    "notes": "",
+    "branchid": 69,
+    "sortorder": 3
+  },
+  {
+    "linkid": 237,
+    "name": "Final Cartridge - ReplayResources",
+    "url": "https://rr.pokefinder.org/wiki/Final_Cartridge",
+    "notes": "",
+    "branchid": 69,
+    "sortorder": 4
+  },
+  {
+    "linkid": 238,
+    "name": "SellMyRetro",
+    "url": "https://www.sellmyretro.com/category/retro-computers/commodore/c64",
+    "notes": "",
+    "branchid": 55,
+    "sortorder": 4
+  },
+  {
+    "linkid": 239,
+    "name": "Filament respooler",
+    "url": "https://makerworld.com/en/models/561571-cell-spool-winder?from=search#profileId-481024",
+    "notes": "U2FsdGVkX1+fwVmwrAiOJ5+eQkE8a72s0Auf7XXbki1PnUAQEIJHn4QEapsxXdfbiXi5se3EYZOWDAIytfrgXg==",
+    "branchid": 70,
+    "sortorder": 8
+  },
+  {
+    "linkid": 241,
+    "name": "GitHub - msolajic/c64-uni-cart: Hardware design of",
+    "url": "https://github.com/msolajic/c64-uni-cart",
+    "notes": "",
+    "branchid": 71,
+    "sortorder": 5
+  },
+  {
+    "linkid": 242,
+    "name": "Magic Desk Project",
+    "url": "https://bitbucket.org/zzarko/magic-desk-cartridge-generator/src/master/",
+    "notes": "",
+    "branchid": 71,
+    "sortorder": 6
+  },
+  {
+    "linkid": 243,
+    "name": "Stone Oakvalley Studios - One Crazy Multi Talent",
+    "url": "https://www.stone-oakvalley-studios.com/",
+    "notes": "",
+    "branchid": 55,
+    "sortorder": 5
+  },
+  {
+    "linkid": 245,
+    "name": " Technical Info - dmp->tap ",
+    "url": "https://www.luigidifraia.com/technical-info/",
+    "notes": "",
+    "branchid": 55,
+    "sortorder": 6
+  },
+  {
+    "linkid": 246,
+    "name": "KimJorgensen/KungFuFlash: Cartridge for the Commod",
+    "url": "https://codeberg.org/KimJorgensen/KungFuFlash",
+    "notes": "",
+    "branchid": 73,
+    "sortorder": 1
+  },
+  {
+    "linkid": 247,
+    "name": "4 channel GSM relay esp32 board – KC868-A4S &#82",
+    "url": "https://www.kincony.com/4-channel-gsm-relay-esp32-board.html",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 1
+  },
+  {
+    "linkid": 248,
+    "name": "KC868-A4S",
+    "url": "https://shop.kincony.com/products/kc868-a4s-4-channel-gsm-relay-esp32-board?variant=43531554554021",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 2
+  },
+  {
+    "linkid": 249,
+    "name": "Website of Jan Derogee",
+    "url": "https://janderogee.com/projects/paddle/paddle.htm",
+    "notes": "",
+    "branchid": 55,
+    "sortorder": 7
+  },
+  {
+    "linkid": 250,
+    "name": "4ShareSo. You want to try your hand at running you",
+    "url": "https://lunduke.substack.com/p/how-to-set-up-your-own-bbs-server",
+    "notes": "",
+    "branchid": 1,
+    "sortorder": 8
+  },
+  {
+    "linkid": 251,
+    "name": "GitHub - jamarju/c64-psu: Efficient Commodore 64 p",
+    "url": "https://github.com/jamarju/c64-psu/tree/master",
+    "notes": "",
+    "branchid": 68,
+    "sortorder": 2
+  },
+  {
+    "linkid": 252,
+    "name": "eSUN TPU-95A Rainbow C - 3DJake Norwegen ",
+    "url": "https://www.3djake.no/esun-3d-utskriftsmateriale/tpu-95a-rainbow-c",
+    "notes": "",
+    "branchid": 30,
+    "sortorder": 3
+  },
+  {
+    "linkid": 253,
+    "name": "",
+    "url": "https://www.aliexpress.com/item/1005008858813172.html?spm=a2g0o.detail.0.0.3fdaSkTgSkTgk1&mp=1&pdp_npi=6%40dis%21NOK%21NOK%20131.15%21NOK%20115.50%21%21NOK%20113.23%21%21%21%40210388c917728869450426993eef70%2112000046974502041%21ct%21NO%211830007043%21%211%210%21",
+    "notes": "",
+    "branchid": 30,
+    "sortorder": 4
+  },
+  {
+    "linkid": 254,
+    "name": "WiFi Modem Manual",
+    "url": "https://www.cbmstuff.com/downloads/wimodem/wimodem_manual.pdf",
+    "notes": "",
+    "branchid": 76,
+    "sortorder": 1
+  },
+  {
+    "linkid": 255,
+    "name": "BBSing with C64",
+    "url": "https://www.amigalove.com/viewtopic.php?t=159",
+    "notes": "",
+    "branchid": 76,
+    "sortorder": 2
+  },
+  {
+    "linkid": 256,
+    "name": "Wifi modem commands",
+    "url": "https://",
+    "notes": "U2FsdGVkX1+mcdWHy8f1ahbskxPHuz4piLCMts1MhMyVHfzf2+KP+vU7fdvMSVGdXxjt3QUC8KEFiuqr2zRP52y/sNE/GoVO65AIn/CpGksNLMq2n7fXK+qbwLfY0fKjQXDX1wQUCjBC4EjyFavsDDSsA5+1suyPVNQ+gcXDQg8P+S8eJ4UjVGSkgt27NmDHdaoP92JzfqxLFa7HxoUCVWSRuzNeQxID9XaMRzmrC/DV6ftaQp1lalca0B6S6vliBhe4oKS9H6lGlh159Bvip1LFl9AjAVd07ia/O3oBisfjAVGcfmxvQFFnQik7SopV7VeiRfvUtKV3TLTYdcggZqLM81jld+Kd",
+    "branchid": 76,
+    "sortorder": 3
+  },
+  {
+    "linkid": 257,
+    "name": "CBBS Outpost",
+    "url": "https://www.commodorebbs.com/",
+    "notes": "",
+    "branchid": 76,
+    "sortorder": 4
+  },
+  {
+    "linkid": 258,
+    "name": "installation [Mystic BBS Wiki]",
+    "url": "https://wiki.mysticbbs.com/doku.php?id=installation",
+    "notes": "",
+    "branchid": 77,
+    "sortorder": 1
+  },
+  {
+    "linkid": 259,
+    "name": "Commodore Software - Downloads",
+    "url": "https://commodore.software/",
+    "notes": "",
+    "branchid": 55,
+    "sortorder": 8
+  },
+  {
+    "linkid": 260,
+    "name": "Dashy",
+    "url": "https://commodore.bookmark.computer/",
+    "notes": "",
+    "branchid": 55,
+    "sortorder": 9
+  },
+  {
+    "linkid": 261,
+    "name": "Commodore C64 8K ROM Cartridge PCB &#8211; TFW8b.c",
+    "url": "https://www.tfw8b.com/product/commodore-c64-8k-rom-cartridge-pcb/",
+    "notes": "",
+    "branchid": 55,
+    "sortorder": 10
+  },
+  {
+    "linkid": 262,
+    "name": "2364-27128 16Kb EPROM Adapter for VIC20, 64/128 , ",
+    "url": "https://www.ebay.com/itm/127066953001?var=428197208740",
+    "notes": "",
+    "branchid": 62,
+    "sortorder": 11
+  },
+  {
+    "linkid": 263,
+    "name": " 2026.2 - Latest runs ",
+    "url": "https://dev.azure.com/elements/Projects/_build?definitionId=1636&_a=summary&keywordFilter=2026.1",
+    "notes": "",
+    "branchid": 78,
+    "sortorder": 1
+  },
+  {
+    "linkid": 264,
+    "name": "KC868-A4S ESP32 I/O pin define",
+    "url": "https://www.kincony.com/forum/showthread.php?tid=2617",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 3
+  },
+  {
+    "linkid": 266,
+    "name": "Ok Stuoid",
+    "url": "https://okstupid.lol/",
+    "notes": "",
+    "branchid": 1,
+    "sortorder": 9
+  },
+  {
+    "linkid": 267,
+    "name": "Mr. Smart",
+    "url": "https://mrsmart.no",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 10
+  },
+  {
+    "linkid": 268,
+    "name": "Schematics",
+    "url": "https://www.kincony.com/download/KC868-A4S-schematic.pdf",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 4
+  },
+  {
+    "linkid": 269,
+    "name": "KC868-A4S Arduino source code",
+    "url": "https://www.kincony.com/forum/forumdisplay.php?fid=41",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 5
+  },
+  {
+    "linkid": 271,
+    "name": "ESP32 datasheet",
+    "url": "https://documentation.espressif.com/esp32_datasheet_en.pdf",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 6
+  },
+  {
+    "linkid": 272,
+    "name": "espsoftwareserial: Implementation ",
+    "url": "https://github.com/plerup/espsoftwareserial/",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 7
+  },
+  {
+    "linkid": 273,
+    "name": "SIM7600E AT Commands",
+    "url": "https://www.tinytronics.nl/product_files/005073_SIM7500_SIM7600_Series_AT_Command_Manual_V3.00.pdf",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 8
+  },
+  {
+    "linkid": 274,
+    "name": "AI Guidelines",
+    "url": "https://sikri.atlassian.net/wiki/spaces/Sikri/pages/848199700/AI+Guidelines",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 18
+  },
+  {
+    "linkid": 275,
+    "name": "New ESP32 Project - Wokwi Simulator",
+    "url": "https://wokwi.com/projects/new/esp32",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 9
+  },
+  {
+    "linkid": 276,
+    "name": "TrueNAS Scale ClamAV",
+    "url": "https://aao.fyi/bits/truenas/scale-clamav/",
+    "notes": "",
+    "branchid": 51,
+    "sortorder": 5
+  },
+  {
+    "linkid": 277,
+    "name": "ESP32 Access Point (AP) for Web Server | Random Ne",
+    "url": "https://randomnerdtutorials.com/esp32-access-point-ap-web-server/",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 10
+  },
+  {
+    "linkid": 278,
+    "name": "ESP32 Web Server using Server-Sent Events (SSE) | ",
+    "url": "https://randomnerdtutorials.com/esp32-web-server-sent-events-sse/",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 11
+  },
+  {
+    "linkid": 279,
+    "name": "Photonic Fusion Chroma - Q4 GGUF | Chroma Checkpoi",
+    "url": "https://civitai.com/models/2485805/photonic-fusion-chroma",
+    "notes": "",
+    "branchid": 1,
+    "sortorder": 10
+  },
+  {
+    "linkid": 280,
+    "name": "AI Fluency: Framework &amp; Foundations      windo",
+    "url": "https://anthropic.skilljar.com/ai-fluency-framework-foundations/291863",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 19
+  },
+  {
+    "linkid": 281,
+    "name": "HiveMQ",
+    "url": "https://console.hivemq.cloud/clusters/e3464f617e2f4796a6b5c34ae6b7043d/getting-started",
+    "notes": "",
+    "branchid": 1,
+    "sortorder": 11
+  },
+  {
+    "linkid": 282,
+    "name": "Ecobio Control System",
+    "url": "https://yaay.no/ecobio/dashboard.html",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 12
+  },
+  {
+    "linkid": 283,
+    "name": "KC868-A4S control page",
+    "url": "http://10.0.23.67/",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 13
+  },
+  {
+    "linkid": 284,
+    "name": "Segor Shop Berlin",
+    "url": "https://www.segor.de/INFO/wir-vor-ort.shtml",
+    "notes": "",
+    "branchid": 79,
+    "sortorder": 1
+  },
+  {
+    "linkid": 285,
+    "name": "Sikri AS · GitHub",
+    "url": "https://github.com/SikriAS",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 20
+  },
+  {
+    "linkid": 288,
+    "name": "ESPBoards – The Hub for ESP32 Boards, Troublesho",
+    "url": "https://www.espboards.dev/",
+    "notes": "",
+    "branchid": 79,
+    "sortorder": 2
+  },
+  {
+    "linkid": 291,
+    "name": "AMI64.com",
+    "url": "https://www.ami64.com/",
+    "notes": "",
+    "branchid": 82,
+    "sortorder": 1
+  },
+  {
+    "linkid": 292,
+    "name": "Amiga Kit Amiga Store - the world's largest Amiga",
+    "url": "https://www.amigakit.com",
+    "notes": "",
+    "branchid": 82,
+    "sortorder": 2
+  },
+  {
+    "linkid": 293,
+    "name": "Amiga and Retro Computers shop - AMIGAstore.eu",
+    "url": "https://amigastore.eu/en/",
+    "notes": "",
+    "branchid": 82,
+    "sortorder": 3
+  },
+  {
+    "linkid": 294,
+    "name": "Handlevogn",
+    "url": "https://www.tonerweb.no/cart.php?p=50380",
+    "notes": "",
+    "branchid": 1,
+    "sortorder": 12
+  },
+  {
+    "linkid": 295,
+    "name": "Installasjon | eFormidling",
+    "url": "https://docs.digdir.no/docs/eFormidling/installasjon/installasjon",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 21
+  },
+  {
+    "linkid": 296,
+    "name": "Billige batterier på nett",
+    "url": "https://www.batteriexperten.com/no",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 11
+  },
+  {
+    "linkid": 297,
+    "name": "Bruktmoped &#8211; RetroZone",
+    "url": "https://retrozonesite.wordpress.com/author/bruktmoped/",
+    "notes": "",
+    "branchid": 82,
+    "sortorder": 4
+  },
+  {
+    "linkid": 298,
+    "name": "Audio for RGBtoHDMI | c0pperdragon Retro Computing",
+    "url": "https://www.c0pperdragon.com/product/18978003/audio-for-rgbtohdmi",
+    "notes": "",
+    "branchid": 82,
+    "sortorder": 5
+  },
+  {
+    "linkid": 299,
+    "name": "LoRaWAN Relay | The Things Network",
+    "url": "https://www.thethingsnetwork.org/docs/lorawan/lorawan-relay/",
+    "notes": "",
+    "branchid": 83,
+    "sortorder": 1
+  },
+  {
+    "linkid": 300,
+    "name": "Introduction - ChirpStack open-source LoRaWAN® Ne",
+    "url": "https://www.chirpstack.io/docs/index.html",
+    "notes": "",
+    "branchid": 83,
+    "sortorder": 2
+  },
+  {
+    "linkid": 301,
+    "name": "PCB Manufacturing &amp; Assembly - ALLPCB",
+    "url": "https://www.allpcb.com/",
+    "notes": "",
+    "branchid": 84,
+    "sortorder": 1
+  },
+  {
+    "linkid": 302,
+    "name": "China PCB Prototype & Fabrication Manufacturer - P",
+    "url": "https://www.pcbway.com/",
+    "notes": "",
+    "branchid": 84,
+    "sortorder": 2
+  },
+  {
+    "linkid": 303,
+    "name": "PCB Prototype &amp; PCB Fabrication Manufacturer -",
+    "url": "https://jlcpcb.com/",
+    "notes": "",
+    "branchid": 84,
+    "sortorder": 3
+  },
+  {
+    "linkid": 304,
+    "name": " Retro Commodore Your place with high quality scan",
+    "url": "https://www.retro-commodore.eu/",
+    "notes": "",
+    "branchid": 55,
+    "sortorder": 1
+  },
+  {
+    "linkid": 305,
+    "name": " Retro Commodore Your place with high quality scan",
+    "url": "https://www.retro-commodore.eu/",
+    "notes": "",
+    "branchid": 82,
+    "sortorder": 6
+  },
+  {
+    "linkid": 306,
+    "name": "Alibaba.com: Manufacturers, Suppliers, Exporters &",
+    "url": "https://www.alibaba.com/",
+    "notes": "",
+    "branchid": 7,
+    "sortorder": 12
+  },
+  {
+    "linkid": 307,
+    "name": "KC868-A4S (Alibaba)",
+    "url": "https://www.alibaba.com/product-detail/KC868-A4S-Esp32-with-Relay-Supports_1600791527208.html?spm=a2700.shop_plser.41413.18.4ec47784zGxJTi",
+    "notes": "",
+    "branchid": 75,
+    "sortorder": 14
+  },
+  {
+    "linkid": 308,
+    "name": "My Amigakit order",
+    "url": "https://www.amigakit.com/account_history_info.php?order_id=85134&currency=GBP&aksid=ntp8k6tti68ef476h1bg0ton0o&aksid=ntp8k6tti68ef476h1bg0ton0o",
+    "notes": "",
+    "branchid": 82,
+    "sortorder": 7
+  },
+  {
+    "linkid": 309,
+    "name": "PiStorm Software Installation · captain-amygdala/",
+    "url": "https://github.com/captain-amygdala/pistorm/wiki/PiStorm-Software-Installation/8aa38e630a7e46e1eb59e6e34bfbf90141541d85",
+    "notes": "",
+    "branchid": 85,
+    "sortorder": 2
+  },
+  {
+    "linkid": 310,
+    "name": "Downloads · keirf/flashfloppy Wiki · GitHub",
+    "url": "https://github.com/keirf/flashfloppy/wiki/Downloads",
+    "notes": "",
+    "branchid": 86,
+    "sortorder": 1
+  },
+  {
+    "linkid": 311,
+    "name": "LAZARUSTORM/README.md at main · arananet/LAZARUST",
+    "url": "https://github.com/arananet/LAZARUSTORM/blob/main/README.md",
+    "notes": "",
+    "branchid": 85,
+    "sortorder": 3
+  },
+  {
+    "linkid": 312,
+    "name": "Amiga Workbench 1 1.1 1.2 1.3 1.32 1.33 2.0 2.04 2",
+    "url": "https://www.retro32.com/download/amiga-workbench-1-1-1-1-2-1-3-1-32-1-33-2-0-2-04-2-05-2-1-3-0-3-1-download",
+    "notes": "",
+    "branchid": 82,
+    "sortorder": 8
+  },
+  {
+    "linkid": 313,
+    "name": "kompjut0r: Gotek vs Amiga 500",
+    "url": "https://kompjut0r.blogspot.com/2016/10/gotek-vs-amiga-500.html",
+    "notes": "",
+    "branchid": 82,
+    "sortorder": 9
+  },
+  {
+    "linkid": 314,
+    "name": "GitHub - emanuelelaface/USBtoC64: USB Adaptor for ",
+    "url": "https://github.com/emanuelelaface/USBtoC64",
+    "notes": "",
+    "branchid": 87,
+    "sortorder": 1
+  },
+  {
+    "linkid": 315,
+    "name": "TPU Mod for BambuLabs printer",
+    "url": "https://hangar12customs.com/products/ams-2?variant=55718400262217",
+    "notes": "",
+    "branchid": 56,
+    "sortorder": 8
+  },
+  {
+    "linkid": 316,
+    "name": "Office Chairs",
+    "url": "https://www.hermanmiller.com/products/seating/office-chairs/",
+    "notes": "",
+    "branchid": 1,
+    "sortorder": 13
+  },
+  {
+    "linkid": 317,
+    "name": "FoxiMax                           *, *:before, *:a",
+    "url": "https://foximax.com/",
+    "notes": "",
+    "branchid": 54,
+    "sortorder": 2
+  },
+  {
+    "linkid": 318,
+    "name": "OpenMower — Open Source RTK GPS Robotic Mower",
+    "url": "https://openmower.de/latest/",
+    "notes": "",
+    "branchid": 79,
+    "sortorder": 3
+  },
+  {
+    "linkid": 320,
+    "name": "NAV",
+    "url": "https://nav.no",
+    "notes": "",
+    "branchid": 11,
+    "sortorder": 3
+  },
+  {
+    "linkid": 321,
+    "name": "Tuya",
+    "url": "https://Tuya.com",
+    "notes": "U2FsdGVkX1/MBhF2QseCZdquxXmZdQoCnjW/W+RiLIizDY0f9NBKPRYJv+WEmBMZZWWa4MHvEdM=",
+    "branchid": 58,
+    "sortorder": 20
+  },
+  {
+    "linkid": 322,
+    "name": "VG",
+    "url": "https://vg.no",
+    "notes": "",
+    "branchid": 4,
+    "sortorder": 2
+  },
+  {
+    "linkid": 323,
+    "name": "ONLYOFFICE Docker install",
+    "url": "https://helpcenter.onlyoffice.com/docs/installation/docs-community-install-docker.aspx?_ga=2.51711023.782359554.1594636128-1157782750.1587541027",
+    "notes": "",
+    "branchid": 57,
+    "sortorder": 3
+  },
+  {
+    "linkid": 324,
+    "name": "GitHub - ONLYOFFICE/DocumentServer: ONLYOFFICE Doc",
+    "url": "https://github.com/onlyoffice/documentserver",
+    "notes": "",
+    "branchid": 57,
+    "sortorder": 4
+  },
+  {
+    "linkid": 325,
+    "name": "Lightware GVN-HC-TX220AP AV-over-IP Transmitter",
+    "url": "https://www.lightware.com/en/products/AV-over-IP/gvn-hc-tx220ap",
+    "notes": "",
+    "branchid": 80,
+    "sortorder": 1
+  },
+  {
+    "linkid": 326,
+    "name": "SD Cards Speed guide",
+    "url": "https://www.kingston.com/en/blog/personal-storage/memory-card-speed-classes",
+    "notes": "",
+    "branchid": 1,
+    "sortorder": 14
+  },
+  {
+    "linkid": 327,
+    "name": "OnPrem Infrastructure Deploy",
+    "url": "https://github.com/SikriAS/onprem-infrastructure-deploy/tree/main",
+    "notes": "",
+    "branchid": 13,
+    "sortorder": 22
+  },
+  {
+    "linkid": 328,
+    "name": "Klarna",
+    "url": "https://www.klarna.com/no/",
+    "notes": "",
+    "branchid": 29,
+    "sortorder": 3
+  },
+  {
+    "linkid": 329,
+    "name": "PayPal",
+    "url": "https://www.paypal.com/no/home",
+    "notes": "",
+    "branchid": 29,
+    "sortorder": 4
+  },
+  {
+    "linkid": 330,
+    "name": "GitHub - captain-amygdala/pistorm: 68k Hardware Em",
+    "url": "https://github.com/captain-amygdala/pistorm",
+    "notes": "",
+    "branchid": 85,
+    "sortorder": 1
+  },
+  {
+    "linkid": 331,
+    "name": "GitHub - KaiEmilW/A500-Side-Expansion-Slot-CPU-Rel",
+    "url": "https://github.com/KaiEmilW/A500-Side-Expansion-Slot-CPU-Relocator",
+    "notes": "",
+    "branchid": 85,
+    "sortorder": 4
+  },
+  {
+    "linkid": 332,
+    "name": "Kickstart roms",
+    "url": "https://archive.decromancer.ca/fsck.technology/software/Commodore/Amiga/Kickstart%20ROMs/",
+    "notes": "",
+    "branchid": 85,
+    "sortorder": 5
+  },
+  {
+    "linkid": 333,
+    "name": "GitHub - dockur/windows: Windows inside a Docker c",
+    "url": "https://github.com/dockur/windows",
+    "notes": "",
+    "branchid": 51,
+    "sortorder": 6
+  },
+  {
+    "linkid": 334,
+    "name": "windows/docs/environment.md at master · dockur/wi",
+    "url": "https://github.com/dockur/windows/blob/master/docs/environment.md",
+    "notes": "",
+    "branchid": 51,
+    "sortorder": 7
+  },
+  {
+    "linkid": 335,
+    "name": "Docker Network elemvlan-net",
+    "url": "",
+    "notes": "U2FsdGVkX19I/P1FLfgiOwkWi+3NVeKuY1srK5q8FoNjS1TKf68kscAo3jLYz/4/zqpu8pgSpMVzjKN9TN6X3zqNyczqxfuB82/bNfN48QabESlsyfgzgPPMNsmz940D7s9mAlqhSlOQeqIBY3rANewpoTDgs6RpeMujXziYe5jm/F/2HYfqSV7Y+hJe22EbKZNdezklThfuGlno26nOQSQePpsj/o88",
+    "branchid": 51,
+    "sortorder": 8
+  },
+  {
+    "linkid": 336,
+    "name": "ELEMENTS-B",
+    "url": "http://elements-b.v33.lan:8006/",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 11
+  },
+  {
+    "linkid": 337,
+    "name": "ELEMENTS-F",
+    "url": "http://elements-f.v33.lan:8006/",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 12
+  },
+  {
+    "linkid": 338,
+    "name": "ELEMENTS-S",
+    "url": "http://elements-s.v33.lan:8006/",
+    "notes": "",
+    "branchid": 37,
+    "sortorder": 13
+  }
+]

@@ -1,0 +1,106 @@
+﻿[
+  {
+    "linkid": 2,
+    "name": "LinkBank",
+    "url": "https://yngf.no",
+    "notes": "U2FsdGVkX181vbJdt97kwR8VgaHwliepOXMagkBcdYo=",
+    "branchid": 2,
+    "sortorder": 1
+  },
+  {
+    "linkid": 3,
+    "name": "NRK",
+    "url": "https://www.nrk.no/",
+    "notes": "",
+    "branchid": 3,
+    "sortorder": 1
+  },
+  {
+    "linkid": 4,
+    "name": "VG",
+    "url": "https://www.vg.no/",
+    "notes": "",
+    "branchid": 3,
+    "sortorder": 2
+  },
+  {
+    "linkid": 5,
+    "name": "Dagbladet",
+    "url": "https://www.dagbladet.no/",
+    "notes": "",
+    "branchid": 3,
+    "sortorder": 3
+  },
+  {
+    "linkid": 30,
+    "name": "Fürst Pasient",
+    "url": "https://www.furstpasient.no/",
+    "notes": "",
+    "branchid": 2,
+    "sortorder": 2
+  },
+  {
+    "linkid": 107,
+    "name": "IMDb",
+    "url": "https://www.imdb.com",
+    "notes": "",
+    "branchid": 39,
+    "sortorder": 1
+  },
+  {
+    "linkid": 108,
+    "name": "Google",
+    "url": "https://www.google.com",
+    "notes": "",
+    "branchid": 2,
+    "sortorder": 3
+  },
+  {
+    "linkid": 109,
+    "name": "Biltema | Hvorfor betale mer? - Biltema.no",
+    "url": "https://www.biltema.no",
+    "notes": "",
+    "branchid": 40,
+    "sortorder": 1
+  },
+  {
+    "linkid": 110,
+    "name": "Komplett.no",
+    "url": "https://www.komplett.no",
+    "notes": "",
+    "branchid": 40,
+    "sortorder": 2
+  },
+  {
+    "linkid": 111,
+    "name": "avXperten.no - Trolig Norges billigste elektronikkbutikk - kabler",
+    "url": "https://www.avxperten.no",
+    "notes": "",
+    "branchid": 40,
+    "sortorder": 3
+  },
+  {
+    "linkid": 112,
+    "name": "Dustin",
+    "url": "https://www.dustinhome.no",
+    "notes": "",
+    "branchid": 40,
+    "sortorder": 4
+  },
+  {
+    "linkid": 113,
+    "name": "Sløyd Detaljer",
+    "url": "https://www.sloyd-detaljer.no",
+    "notes": "",
+    "branchid": 40,
+    "sortorder": 5
+  },
+  {
+    "linkid": 114,
+    "name": "Gustavsens as - Trearbeid Verktøy",
+    "url": "https://www.gustavsenas.no",
+    "notes": "",
+    "branchid": 40,
+    "sortorder": 6
+  }
+]
