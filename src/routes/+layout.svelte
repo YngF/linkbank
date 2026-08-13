@@ -1,6 +1,7 @@
 <script lang="ts">
   import '../app.css';
   import { page } from '$app/state';
+  import { invalidateAll } from '$app/navigation';
   import Icon from '$lib/components/Icon.svelte';
   import TreeNode from '$lib/components/TreeNode.svelte';
   import ContextMenu from '$lib/components/ContextMenu.svelte';
@@ -141,6 +142,29 @@
   });
 
   let navOpen = $state(false);
+
+  // Refresh sidebar counts + the current view when the tab regains focus, so
+  // bookmarks added out-of-band — the browser extension, the PWA share target,
+  // or another device/tab — show up without a manual reload. Focus/visibility
+  // is proxy-safe (no long-lived connection) and covers the common case: you
+  // save with the extension on another tab, then switch back to LinkBank.
+  $effect(() => {
+    let last = 0;
+    const refresh = () => {
+      if (document.visibilityState !== 'visible') return;
+      if (isAuthPage || ui.dialog) return; // don't yank data out from under a dialog
+      const now = Date.now();
+      if (now - last < 1000) return; // de-dupe focus + visibilitychange firing together
+      last = now;
+      invalidateAll();
+    };
+    document.addEventListener('visibilitychange', refresh);
+    window.addEventListener('focus', refresh);
+    return () => {
+      document.removeEventListener('visibilitychange', refresh);
+      window.removeEventListener('focus', refresh);
+    };
+  });
 </script>
 
 {#if isAuthPage}
