@@ -13,6 +13,9 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    # Needed so the final step can create a GitHub Release for the tag.
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -54,3 +57,15 @@ jobs:
             REVISION=${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # Only on a real tag push (not manual runs): publish a GitHub Release with
+      # auto-generated notes, and point people at the matching Docker Hub image.
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v3
+        with:
+          generate_release_notes: true
+          body: |
+            Docker image: `docker pull ${{ env.IMAGE }}:${{ steps.meta.outputs.version }}`
+
+            Multi-arch (linux/amd64 + linux/arm64). See [DOCKER.md](https://github.com/YngF/linkbank/blob/main/DOCKER.md) for deployment.
