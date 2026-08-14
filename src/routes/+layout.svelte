@@ -170,7 +170,10 @@
 {#if isAuthPage}
   {@render children()}
 {:else}
-<div id="app">
+<div id="app" class:has-bg={data.bgVersion}>
+  {#if data.bgVersion}
+    <div class="bg-layer" style="background-image: url(/background?v={encodeURIComponent(data.bgVersion)})"></div>
+  {/if}
   <div class="brand">
     <Logo size={24} id="lb-brand" />
     <b>LinkBank</b>
@@ -307,6 +310,26 @@
        footer off-screen). Dividing first makes the rendered height = one viewport. */
     height: calc(100dvh / var(--ui-zoom, 1));
   }
+
+  /* Custom background image (Settings → Personalization). The image sits on a
+     fixed layer behind everything; the chrome panels become translucent + frosted
+     so it shows through — strongly behind the bookmarks, subtly behind the tree. */
+  #app.has-bg { isolation: isolate; }
+  .bg-layer {
+    position: fixed; inset: 0; z-index: -1;
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    pointer-events: none;
+  }
+  #app.has-bg .brand,
+  #app.has-bg .topbar {
+    background: color-mix(in oklch, var(--bg-panel) 80%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  #app.has-bg .sidebar {
+    background: color-mix(in oklch, var(--bg-panel) 85%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+
   .brand {
     grid-area: brand;
     display: flex; align-items: center; gap: 9px;

@@ -16,6 +16,48 @@
   let landOnLast = $state(data.settings.landOnLastFolder);
   let busyLand = $state(false);
 
+  // Background image
+  let bgBusy = $state(false);
+  let bgInput = $state<HTMLInputElement | null>(null);
+
+  async function uploadBackground(e: Event) {
+    const input = e.currentTarget as HTMLInputElement;
+    const file = input.files?.[0];
+    input.value = ''; // allow re-selecting the same file
+    if (!file) return;
+    if (file.size > 8_000_000) {
+      ui.toast('Image too large (max 8 MB)', 'error');
+      return;
+    }
+    bgBusy = true;
+    try {
+      const res = await fetch('/background', {
+        method: 'POST',
+        headers: { 'content-type': file.type || 'application/octet-stream' },
+        body: file
+      });
+      const d = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(d.error ?? 'Upload failed');
+      ui.toast('Background updated');
+      await invalidateAll();
+    } catch (e) {
+      ui.toast(e instanceof Error ? e.message : 'Upload failed', 'error');
+    }
+    bgBusy = false;
+  }
+
+  async function removeBackground() {
+    bgBusy = true;
+    try {
+      await fetch('/background', { method: 'DELETE' });
+      ui.toast('Background removed');
+      await invalidateAll();
+    } catch {
+      ui.toast('Failed', 'error');
+    }
+    bgBusy = false;
+  }
+
   // API tokens
   let tokenName = $state('');
   let newToken = $state<string | null>(null);
@@ -135,6 +177,32 @@
       </button>
     </div>
 
+    <div class="card">
+      <h3>Background image</h3>
+      <p class="hint">Show your own image behind the folder tree and bookmarks. The
+        tree is frosted so it stays readable. PNG, JPG, GIF or WebP, up to 8&nbsp;MB.</p>
+
+      {#if data.bgVersion}
+        <div class="bg-preview" style="background-image: url(/background?v={encodeURIComponent(data.bgVersion)})"></div>
+      {/if}
+
+      <input
+        bind:this={bgInput}
+        type="file"
+        accept="image/png,image/jpeg,image/gif,image/webp"
+        style="display:none"
+        onchange={uploadBackground}
+      />
+      <div class="bg-actions">
+        <button class="btn primary" onclick={() => bgInput?.click()} disabled={bgBusy}>
+          {bgBusy ? 'Working…' : data.bgVersion ? 'Replace image' : 'Choose image'}
+        </button>
+        {#if data.bgVersion}
+          <button class="btn danger" onclick={removeBackground} disabled={bgBusy}>Remove</button>
+        {/if}
+      </div>
+    </div>
+
     <h2 class="section">Account</h2>
     <div class="card">
       <div class="who">
@@ -250,6 +318,13 @@
     transition: transform 0.15s var(--ease);
   }
   .switch.on .knob { transform: translateX(17px); }
+
+  /* Background image */
+  .bg-preview {
+    height: 130px; border-radius: var(--r-md); border: 1px solid var(--line);
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+  }
+  .bg-actions { display: flex; gap: 8px; }
 
   .tokrow-new { display: flex; gap: 8px; }
   .tokrow-new input { flex: 1; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-md); padding: 8px 10px; font-size: 13.5px; color: var(--text); }

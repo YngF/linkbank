@@ -3,11 +3,12 @@ import { getTree } from '$lib/server/tree';
 import { trashCount } from '$lib/server/trash';
 import { brokenCount } from '$lib/server/linkcheck';
 import { listTags } from '$lib/server/tags';
+import { getBackgroundVersion } from '$lib/server/background';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
   // Auth pages (login/setup/register) render without a session — no tree.
   if (!locals.user) {
-    return { username: null, isAdmin: false, tree: [], trashCount: 0, brokenCount: 0, tags: [] };
+    return { username: null, isAdmin: false, tree: [], trashCount: 0, brokenCount: 0, tags: [], bgVersion: null };
   }
   return {
     username: locals.user.username,
@@ -15,6 +16,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
     tree: await getTree(locals.user.id),
     trashCount: await trashCount(locals.user.id),
     brokenCount: await brokenCount(locals.user.id),
-    tags: await listTags(locals.user.id)
+    tags: await listTags(locals.user.id),
+    bgVersion: await getBackgroundVersion(locals.user.id)
   };
 };

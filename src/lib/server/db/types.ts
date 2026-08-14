@@ -16,6 +16,7 @@ export interface Database {
   bookmark_tags: BookmarkTagsTable;
   invites: InvitesTable;
   api_tokens: ApiTokensTable;
+  backgrounds: BackgroundsTable;
 }
 
 export interface ApiTokensTable {
@@ -76,6 +77,13 @@ export interface FaviconsTable {
   ok: Generated<number>;
   is_manual: Generated<number>;
   fetched_at: Generated<string>;
+}
+
+export interface BackgroundsTable {
+  user_id: number;
+  data: Uint8Array;
+  content_type: string;
+  updated_at: Generated<string>;
 }
 
 export interface UsersTable {

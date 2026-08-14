@@ -221,6 +221,21 @@ const migrations: Migration[] = [
       // new settings can be added without a migration each time.
       await sql`ALTER TABLE users ADD COLUMN settings TEXT NOT NULL DEFAULT '{}'`.execute(db);
     }
+  },
+  {
+    name: '0012_backgrounds',
+    up: async () => {
+      // Per-user custom background image, shown behind the folder tree and
+      // bookmarks. One row per user; the bytes are served from /background.
+      await sql`
+        CREATE TABLE IF NOT EXISTS backgrounds (
+          user_id      INTEGER PRIMARY KEY REFERENCES users(id),
+          data         ${BLOB},
+          content_type TEXT NOT NULL,
+          updated_at   ${TS_DEFAULT}
+        )
+      `.execute(db);
+    }
   }
 ];
 
