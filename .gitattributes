@@ -1,0 +1,21 @@
+# Line-ending policy.
+#
+# LinkBank is built and run on Linux (the Docker image, and the TrueNAS host),
+# so every text file should use LF in the repo and in the working tree — even
+# when cloned on Windows. This keeps shell scripts executable on the Linux side
+# and prevents spurious whitespace-only diffs when contributors are on different
+# operating systems. It overrides any local `core.autocrlf` setting.
+
+* text=auto eol=lf
+
+# Scripts that MUST stay LF (they run under bash on Linux / in the container).
+*.sh   text eol=lf
+
+# Binary assets — never normalized or touched.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+*.ico  binary
+*.woff binary
+*.woff2 binary
