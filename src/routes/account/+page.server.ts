@@ -1,7 +1,8 @@
 import type { PageServerLoad } from './$types';
-import { getAccount, listApiTokens } from '$lib/server/auth';
+import { redirect } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ locals }) => {
-  if (locals.userId == null) return { account: null, tokens: [] };
-  return { account: await getAccount(locals.userId), tokens: await listApiTokens(locals.userId) };
+// The account page was folded into Settings. Keep this path working for old
+// links / bookmarks by redirecting.
+export const load: PageServerLoad = () => {
+  throw redirect(307, '/settings');
 };

@@ -84,6 +84,7 @@ export interface UsersTable {
   email: string | null;
   password_hash: string | null; // Better Auth will own credentials later
   is_admin: Generated<number>; // 0/1 — SQLite has no bool
+  settings: Generated<string>; // JSON blob of per-user preferences (see server/prefs.ts)
   created_at: Generated<string>;
 }
 export type User = Selectable<UsersTable>;

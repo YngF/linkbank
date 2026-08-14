@@ -163,7 +163,7 @@ Links you capture from outside the app land in an **Inbox** folder (created on
 first use), so you can triage them later.
 
 - **Browser extension** (`extension/` — Brave/Chrome/Edge + Firefox). Create an
-  access token under **Account → Access tokens**, paste it into the extension's
+  access token under **Settings → Access tokens**, paste it into the extension's
   options along with your LinkBank URL, and the toolbar button or the right-click
   **Save to LinkBank** saves the current tab/link silently. See
   `extension/README.md`.
@@ -200,8 +200,9 @@ instance:
   nothing is silently destroyed. Deleting an empty user also cleans up their
   root folder, sessions and invites.
 
-Every signed-in user has an **Account** page (person icon) to change their own
-email and password.
+Every signed-in user has a **Settings** page (gear icon) to change their own
+email and password, manage access tokens, and set personalization preferences
+(such as opening their last-visited folder on launch).
 
 ## Security
 

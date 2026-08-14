@@ -5,7 +5,7 @@ switching, no copy-paste.
 
 ## Setup
 
-1. In LinkBank, go to **Account → Access tokens**, create a token, and copy it.
+1. In LinkBank, go to **Settings → Access tokens**, create a token, and copy it.
 2. Load the extension (below), open its **Options**, and enter your LinkBank URL
    (e.g. `https://yngf.no`) and the token. Click **Test** to confirm, then
    **Save**.
@@ -30,4 +30,4 @@ switching, no copy-paste.
 The extension POSTs to `POST /api/ingest` on your LinkBank with
 `Authorization: Bearer <token>`. That endpoint is token-authed and CORS-enabled,
 so no cookies or extra browser permissions are needed. Tokens are stored hashed
-on the server and can be revoked any time from **Account → Access tokens**.
+on the server and can be revoked any time from **Settings → Access tokens**.

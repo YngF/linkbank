@@ -213,6 +213,14 @@ const migrations: Migration[] = [
         )
       `.execute(db);
     }
+  },
+  {
+    name: '0011_user_settings',
+    up: async () => {
+      // Per-user personalization preferences, stored as a small JSON document so
+      // new settings can be added without a migration each time.
+      await sql`ALTER TABLE users ADD COLUMN settings TEXT NOT NULL DEFAULT '{}'`.execute(db);
+    }
   }
 ];
 

@@ -198,14 +198,14 @@
       <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
     </button>
     <div class="user">
-      <a class="uname" href="/account" title="Account settings">{data.username}</a>
+      <a class="uname" href="/settings" title="Settings">{data.username}</a>
       {#if data.isAdmin}
         <a class="iconbtn" href="/admin" aria-label="Users & access" title="Users & access" class:on={page.url.pathname === '/admin'}>
           <Icon name="shield" />
         </a>
       {/if}
-      <a class="iconbtn" href="/account" aria-label="Account" title="Account settings" class:on={page.url.pathname === '/account'}>
-        <Icon name="user" />
+      <a class="iconbtn" href="/settings" aria-label="Settings" title="Settings" class:on={page.url.pathname.startsWith('/settings')}>
+        <Icon name="settings" />
       </a>
       <form method="POST" action="/logout">
         <button class="iconbtn" aria-label="Sign out" title="Sign out"><Icon name="logout" /></button>
