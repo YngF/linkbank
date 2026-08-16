@@ -143,6 +143,26 @@
 
   let navOpen = $state(false);
 
+  // Hide the folder-tree sidebar on desktop, mirroring the portrait/narrow
+  // layout (folders then appear as tiles in the main window via ui.showFolders).
+  // Doesn't apply on narrow, where the drawer already governs the tree.
+  let treeCollapsed = $state(false);
+  const collapsed = $derived(treeCollapsed && !ui.narrow);
+
+  function collapseTree() {
+    treeCollapsed = true;
+    ui.showFolders = true; // surface folders in the main pane while the tree is hidden
+  }
+  // The top-left toggle: opens the drawer on mobile; restores the tree on desktop.
+  function onMenuToggle() {
+    if (ui.narrow) {
+      navOpen = !navOpen;
+    } else {
+      treeCollapsed = false;
+      ui.showFolders = false;
+    }
+  }
+
   // Refresh sidebar counts + the current view when the tab regains focus, so
   // bookmarks added out-of-band — the browser extension, the PWA share target,
   // or another device/tab — show up without a manual reload. Focus/visibility
@@ -170,7 +190,7 @@
 {#if isAuthPage}
   {@render children()}
 {:else}
-<div id="app" class:has-bg={data.bgVersion}>
+<div id="app" class:has-bg={data.bgVersion} class:tree-collapsed={collapsed}>
   {#if data.bgVersion}
     <div class="bg-layer" style="background-image: url(/background?v={encodeURIComponent(data.bgVersion)})"></div>
   {/if}
@@ -180,8 +200,8 @@
   </div>
 
   <div class="topbar">
-    <button class="iconbtn menu-toggle" onclick={() => (navOpen = !navOpen)} aria-label="Menu">
-      <Icon name="folder" />
+    <button class="iconbtn menu-toggle" onclick={onMenuToggle} aria-label="Show folder tree" title="Show folder tree">
+      <Icon name="panel" />
     </button>
     <Search />
     <button
@@ -218,6 +238,14 @@
 
   <aside class="sidebar" class:open={navOpen}>
     <div class="side-head">
+      <button
+        class="side-toggle"
+        title="Hide the folder tree"
+        aria-label="Hide the folder tree"
+        onclick={collapseTree}
+      >
+        <Icon name="panel" size={13} />
+      </button>
       Library
       {#if data.tree[0]}
         <button
@@ -322,11 +350,11 @@
   }
   #app.has-bg .brand,
   #app.has-bg .topbar {
-    background: color-mix(in oklch, var(--bg-panel) 80%, transparent);
+    background: color-mix(in oklch, var(--bg-panel) 70%, transparent);
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   }
   #app.has-bg .sidebar {
-    background: color-mix(in oklch, var(--bg-panel) 85%, transparent);
+    background: color-mix(in oklch, var(--bg-panel) 75%, transparent);
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   }
 
@@ -401,6 +429,11 @@
     display: grid; place-items: center; color: var(--text-mute);
   }
   .add-root:hover { background: var(--bg-hover); color: var(--text); }
+  .side-toggle {
+    width: 22px; height: 22px; border-radius: 6px; margin: 0 4px 0 -2px;
+    display: grid; place-items: center; color: var(--text-mute); flex: none;
+  }
+  .side-toggle:hover { background: var(--bg-hover); color: var(--text); }
   .tree { flex: 1; overflow: auto; padding: 0 8px 8px; min-height: 0; }
 
   .tags-head { padding-top: 8px; border-top: 1px solid var(--line-soft); }
@@ -441,7 +474,16 @@
   .menu-toggle { display: none; }
   .scrim-side { display: none; }
 
+  /* Desktop "hide folder tree": collapse to a single column (like portrait),
+     show the top-left toggle to bring the tree back. */
+  #app.tree-collapsed { grid-template-columns: 1fr; grid-template-areas: 'top' 'main'; }
+  #app.tree-collapsed .brand { display: none; }
+  #app.tree-collapsed .sidebar { display: none; }
+  #app.tree-collapsed .menu-toggle { display: grid; }
+
   @media (max-width: 860px) {
+    /* The hide-tree button is meaningless in the mobile drawer. */
+    .side-toggle { display: none; }
     #app { grid-template-columns: 1fr; grid-template-areas: 'top' 'main'; grid-template-rows: 48px 1fr; }
     .brand { display: none; }
     .sidebar {
