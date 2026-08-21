@@ -1,6 +1,7 @@
 <script lang="ts">
   import { invalidateAll } from '$app/navigation';
   import { ui } from '$lib/client/ui.svelte';
+  import { SEARCH_ENGINES } from '$lib/searchEngines';
   import type { PageData } from './$types';
 
   let { data }: { data: PageData } = $props();
@@ -91,6 +92,18 @@
       ui.toast(e instanceof Error ? e.message : 'Failed', 'error');
     }
     busyLand = false;
+  }
+
+  // Web search
+  let searchEngine = $state(data.settings.searchEngine);
+
+  async function saveEngine() {
+    try {
+      await call({ settings: { searchEngine } });
+      ui.toast('Search engine saved');
+    } catch (e) {
+      ui.toast(e instanceof Error ? e.message : 'Failed', 'error');
+    }
   }
 
   async function createToken() {
@@ -203,6 +216,19 @@
       </div>
     </div>
 
+    <div class="card">
+      <h3>Web search</h3>
+      <p class="hint">The search box in the top bar sends your query to this engine, opening the
+        results in a new browser tab.</p>
+      <label class="sel-label">Search engine
+        <select bind:value={searchEngine} onchange={saveEngine}>
+          {#each SEARCH_ENGINES as e (e.id)}
+            <option value={e.id}>{e.name}</option>
+          {/each}
+        </select>
+      </label>
+    </div>
+
     <h2 class="section">Account</h2>
     <div class="card">
       <div class="who">
@@ -290,6 +316,12 @@
     color: var(--text); text-transform: none; letter-spacing: normal; font-weight: 400;
   }
   input:focus { border-color: var(--accent-line); }
+  .card select {
+    background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-md);
+    padding: 9px 11px; font-size: 14px; outline: 0; color: var(--text);
+    text-transform: none; letter-spacing: normal; font-weight: 400; cursor: pointer;
+  }
+  .card select:focus { border-color: var(--accent-line); }
   .foot { display: flex; justify-content: flex-end; }
   .btn { height: 34px; padding: 0 14px; border-radius: var(--r-md); font-size: 13.5px; font-weight: 540; border: 1px solid var(--line); background: var(--bg-raised); color: var(--text-dim); }
   .btn.primary { background: var(--accent); border-color: transparent; color: #fff; }

@@ -1,4 +1,5 @@
 import { db } from './db/index';
+import { DEFAULT_ENGINE, ENGINE_IDS } from '$lib/searchEngines';
 
 /**
  * Per-user personalization preferences.
@@ -10,10 +11,13 @@ import { db } from './db/index';
 export interface UserSettings {
   /** On launch (visiting `/`), resume at the last folder viewed in this browser. */
   landOnLastFolder: boolean;
+  /** Web-search engine id for the top-bar search field (see searchEngines.ts). */
+  searchEngine: string;
 }
 
 export const DEFAULT_SETTINGS: UserSettings = {
-  landOnLastFolder: false
+  landOnLastFolder: false,
+  searchEngine: DEFAULT_ENGINE
 };
 
 /** Keep only known keys with the right types — never trust stored/incoming JSON. */
@@ -22,6 +26,8 @@ function sanitize(obj: unknown): Partial<UserSettings> {
   if (obj && typeof obj === 'object') {
     const o = obj as Record<string, unknown>;
     if (typeof o.landOnLastFolder === 'boolean') out.landOnLastFolder = o.landOnLastFolder;
+    if (typeof o.searchEngine === 'string' && ENGINE_IDS.includes(o.searchEngine))
+      out.searchEngine = o.searchEngine;
   }
   return out;
 }

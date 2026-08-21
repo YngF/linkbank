@@ -8,6 +8,7 @@
   import Dialogs from '$lib/components/Dialogs.svelte';
   import Toasts from '$lib/components/Toasts.svelte';
   import Search from '$lib/components/Search.svelte';
+  import WebSearch from '$lib/components/WebSearch.svelte';
   import Logo from '$lib/components/Logo.svelte';
   import ShortcutsOverlay from '$lib/components/ShortcutsOverlay.svelte';
   import { ui } from '$lib/client/ui.svelte';
@@ -203,6 +204,7 @@
     <button class="iconbtn menu-toggle" onclick={onMenuToggle} aria-label="Show folder tree" title="Show folder tree">
       <Icon name="panel" />
     </button>
+    <WebSearch engine={data.settings.searchEngine} />
     <Search />
     <button
       class="iconbtn"
