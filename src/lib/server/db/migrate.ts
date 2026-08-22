@@ -236,6 +236,20 @@ const migrations: Migration[] = [
         )
       `.execute(db);
     }
+  },
+  {
+    name: '0013_app_settings',
+    up: async () => {
+      // Instance-wide key/value store: admin-controlled module enablement,
+      // cached exchange rates, and any future app-level configuration.
+      await sql`
+        CREATE TABLE IF NOT EXISTS app_settings (
+          key        TEXT PRIMARY KEY,
+          value      TEXT NOT NULL,
+          updated_at ${TS_DEFAULT}
+        )
+      `.execute(db);
+    }
   }
 ];
 

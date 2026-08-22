@@ -180,6 +180,12 @@ export const api = {
     call('POST', '/api/admin/invites', opts) as Promise<{ link: string; id: number }>,
   revokeInvite: (id: number) => mutate(() => call('DELETE', `/api/admin/invites/${id}`), 'Invite revoked'),
 
+  // ---- modules (admin) ------------------------------------------------------
+  setModule: (id: string, enabled: boolean) =>
+    mutate(() => call('PATCH', '/api/admin/modules', { id, enabled }), enabled ? 'Module installed' : 'Module uninstalled'),
+  refreshRates: () =>
+    mutate(() => call('POST', '/api/admin/modules', { action: 'refresh-rates' }), 'Exchange rates refreshed'),
+
   // ---- link-rot checking ----------------------------------------------------
   // Start a full sweep of the current user's bookmarks (runs in the background).
   checkLinks: () => call('POST', '/api/links/check', {}),

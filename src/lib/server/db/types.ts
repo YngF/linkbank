@@ -17,6 +17,7 @@ export interface Database {
   invites: InvitesTable;
   api_tokens: ApiTokensTable;
   backgrounds: BackgroundsTable;
+  app_settings: AppSettingsTable;
 }
 
 export interface ApiTokensTable {
@@ -83,6 +84,12 @@ export interface BackgroundsTable {
   user_id: number;
   data: Uint8Array;
   content_type: string;
+  updated_at: Generated<string>;
+}
+
+export interface AppSettingsTable {
+  key: string;
+  value: string;
   updated_at: Generated<string>;
 }
 

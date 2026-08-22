@@ -5,6 +5,7 @@ import { validateSession, needsSetup, sessionCookieName } from '$lib/server/auth
 import { backfillNoteEncryption } from '$lib/server/notes-crypto';
 import { purgeOldTrash } from '$lib/server/trash';
 import { startLinkCheckScheduler } from '$lib/server/linkcheck';
+import { startCurrencyScheduler } from '$lib/server/currency';
 
 // Run migrations, encrypt legacy plaintext notes, and purge stale trash once,
 // on the first request after boot; then start the link-rot scheduler.
@@ -13,7 +14,10 @@ async function init() {
   await runMigrations();
   await backfillNoteEncryption();
   await purgeOldTrash();
-  if (!building) startLinkCheckScheduler();
+  if (!building) {
+    startLinkCheckScheduler();
+    startCurrencyScheduler();
+  }
 }
 
 const AUTH_PATHS = new Set(['/login', '/setup', '/register']);

@@ -64,6 +64,13 @@
   function copyLink() {
     if (newLink) navigator.clipboard?.writeText(newLink).then(() => ui.toast('Invite link copied'));
   }
+
+  let refreshingRates = $state(false);
+  async function refreshRates() {
+    refreshingRates = true;
+    await api.refreshRates();
+    refreshingRates = false;
+  }
 </script>
 
 <div class="main-inner">
@@ -98,6 +105,32 @@
       {/if}
     </div>
   {/if}
+
+  <h2 class="sec">Modules</h2>
+  <p class="secnote">Optional features you can install for everyone. Each user then chooses whether to show it.</p>
+  <div class="list">
+    {#each data.modules as m (m.id)}
+      <div class="urow">
+        <div class="uinfo">
+          <div class="uname">
+            {m.name}
+            {#if m.enabled}<span class="badge admin">installed</span>{/if}
+          </div>
+          <div class="umeta">
+            {m.description}{#if m.id === 'currency' && m.enabled} · rates as of {data.ratesDate ?? 'not fetched yet'}{/if}
+          </div>
+        </div>
+        {#if m.id === 'currency' && m.enabled}
+          <button class="btn" onclick={refreshRates} disabled={refreshingRates}>
+            {refreshingRates ? 'Refreshing…' : 'Refresh rates'}
+          </button>
+        {/if}
+        <button class="btn" onclick={() => api.setModule(m.id, !m.enabled)}>
+          {m.enabled ? 'Uninstall' : 'Install'}
+        </button>
+      </div>
+    {/each}
+  </div>
 
   <h2 class="sec">Members</h2>
   <div class="list">
@@ -156,6 +189,7 @@
   h1 { font-size: 22px; font-weight: 640; letter-spacing: -0.02em; }
   .spacer { flex: 1; }
   .sec { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-mute); font-weight: 700; margin: 22px 0 10px; }
+  .secnote { font-size: 12.5px; color: var(--text-mute); margin: -4px 0 10px; }
 
   .card { background: var(--bg-panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 16px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 12px; }
   .invite-form label { display: flex; flex-direction: column; gap: 5px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-mute); font-weight: 600; }

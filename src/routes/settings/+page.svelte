@@ -106,6 +106,20 @@
     }
   }
 
+  // Currency converter (only shown when the admin has installed the module)
+  let showCurrency = $state(data.settings.showCurrency);
+  async function toggleCurrency() {
+    const next = !showCurrency;
+    showCurrency = next; // optimistic
+    try {
+      await call({ settings: { showCurrency: next } });
+      ui.toast(next ? 'Currency converter shown' : 'Currency converter hidden');
+    } catch (e) {
+      showCurrency = !next; // revert
+      ui.toast(e instanceof Error ? e.message : 'Failed', 'error');
+    }
+  }
+
   async function createToken() {
     busyToken = true;
     newToken = null;
@@ -228,6 +242,18 @@
         </select>
       </label>
     </div>
+
+    {#if data.currencyModule}
+      <div class="card">
+        <button type="button" class="toggle-row" role="switch" aria-checked={showCurrency} onclick={toggleCurrency}>
+          <span class="toggle-text">
+            <b>Show the currency converter</b>
+            <span class="hint">Adds a coins icon to the top bar with a quick converter using ECB daily rates.</span>
+          </span>
+          <span class="switch" class:on={showCurrency} aria-hidden="true"><span class="knob"></span></span>
+        </button>
+      </div>
+    {/if}
 
     <h2 class="section">Account</h2>
     <div class="card">

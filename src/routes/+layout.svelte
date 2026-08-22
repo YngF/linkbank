@@ -9,6 +9,7 @@
   import Toasts from '$lib/components/Toasts.svelte';
   import Search from '$lib/components/Search.svelte';
   import WebSearch from '$lib/components/WebSearch.svelte';
+  import CurrencyConverter from '$lib/components/CurrencyConverter.svelte';
   import Logo from '$lib/components/Logo.svelte';
   import ShortcutsOverlay from '$lib/components/ShortcutsOverlay.svelte';
   import { ui } from '$lib/client/ui.svelte';
@@ -222,6 +223,9 @@
     <button class="iconbtn" onclick={toggleTheme} aria-label="Toggle theme" title="Toggle dark mode">
       <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
     </button>
+    {#if data.modules.includes('currency') && data.settings.showCurrency}
+      <CurrencyConverter />
+    {/if}
     <div class="user">
       <a class="uname" href="/settings" title="Settings">{data.username}</a>
       {#if data.isAdmin}

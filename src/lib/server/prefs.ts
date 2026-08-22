@@ -13,11 +13,14 @@ export interface UserSettings {
   landOnLastFolder: boolean;
   /** Web-search engine id for the top-bar search field (see searchEngines.ts). */
   searchEngine: string;
+  /** Show the currency converter (only relevant when the admin has installed it). */
+  showCurrency: boolean;
 }
 
 export const DEFAULT_SETTINGS: UserSettings = {
   landOnLastFolder: false,
-  searchEngine: DEFAULT_ENGINE
+  searchEngine: DEFAULT_ENGINE,
+  showCurrency: true
 };
 
 /** Keep only known keys with the right types — never trust stored/incoming JSON. */
@@ -28,6 +31,7 @@ function sanitize(obj: unknown): Partial<UserSettings> {
     if (typeof o.landOnLastFolder === 'boolean') out.landOnLastFolder = o.landOnLastFolder;
     if (typeof o.searchEngine === 'string' && ENGINE_IDS.includes(o.searchEngine))
       out.searchEngine = o.searchEngine;
+    if (typeof o.showCurrency === 'boolean') out.showCurrency = o.showCurrency;
   }
   return out;
 }
