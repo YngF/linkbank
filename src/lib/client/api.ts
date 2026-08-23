@@ -185,6 +185,11 @@ export const api = {
     mutate(() => call('PATCH', '/api/admin/modules', { id, enabled }), enabled ? 'Module installed' : 'Module uninstalled'),
   refreshRates: () =>
     mutate(() => call('POST', '/api/admin/modules', { action: 'refresh-rates' }), 'Exchange rates refreshed'),
+  setCurrencyApiKey: (apiKey: string | null) =>
+    mutate(
+      () => call('POST', '/api/admin/modules', { action: 'set-currency-key', apiKey }),
+      apiKey ? 'API key saved' : 'API key removed'
+    ),
 
   // ---- link-rot checking ----------------------------------------------------
   // Start a full sweep of the current user's bookmarks (runs in the background).

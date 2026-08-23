@@ -14,7 +14,7 @@ export const MODULES: ModuleDef[] = [
     id: 'currency',
     name: 'Currency converter',
     description:
-      'A quick currency converter in the top bar, using official ECB daily rates. Users can hide it individually.'
+      'A quick currency converter in the top bar, using exchangerate-api.com rates (an admin API key enables more frequent updates). Users can hide it individually.'
   },
   {
     id: 'password',

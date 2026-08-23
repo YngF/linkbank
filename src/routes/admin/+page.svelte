@@ -71,6 +71,22 @@
     await api.refreshRates();
     refreshingRates = false;
   }
+
+  // Currency module: optional exchangerate-api.com key for more frequent updates
+  let apiKeyInput = $state('');
+  let savingKey = $state(false);
+  async function saveApiKey() {
+    if (!apiKeyInput.trim()) return;
+    savingKey = true;
+    await api.setCurrencyApiKey(apiKeyInput.trim());
+    apiKeyInput = '';
+    savingKey = false;
+  }
+  async function removeApiKey() {
+    savingKey = true;
+    await api.setCurrencyApiKey(null);
+    savingKey = false;
+  }
 </script>
 
 <div class="main-inner">
@@ -129,6 +145,28 @@
           {m.enabled ? 'Uninstall' : 'Install'}
         </button>
       </div>
+      {#if m.id === 'currency' && m.enabled}
+        <div class="keyrow">
+          <div class="keylabel">
+            exchangerate-api.com key (optional — free rates already work; a key gets more frequent updates) ·
+            <a href="https://app.exchangerate-api.com/sign-up" target="_blank" rel="noopener noreferrer">get a free key</a>
+          </div>
+          <div class="keyinput">
+            <input
+              type="password"
+              autocomplete="off"
+              bind:value={apiKeyInput}
+              placeholder={data.hasCurrencyApiKey ? 'Key set — enter a new one to replace it' : 'Paste your API key'}
+            />
+            <button class="btn" onclick={saveApiKey} disabled={savingKey || !apiKeyInput.trim()}>
+              {savingKey ? 'Saving…' : 'Save'}
+            </button>
+            {#if data.hasCurrencyApiKey}
+              <button class="btn danger" onclick={removeApiKey} disabled={savingKey}>Remove</button>
+            {/if}
+          </div>
+        </div>
+      {/if}
     {/each}
   </div>
 
@@ -205,9 +243,28 @@
   .linkrow input { flex: 1; background: var(--bg); border: 1px solid var(--accent-line); border-radius: var(--r-md); padding: 8px 10px; font-size: 12.5px; font-family: ui-monospace, monospace; color: var(--text); }
 
   .list { display: flex; flex-direction: column; gap: 4px; }
-  .urow { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border-radius: var(--r-md); border: 1px solid var(--line-soft); }
-  .urow:hover { background: var(--bg-panel); }
+  .urow {
+    display: flex; align-items: center; gap: 11px; padding: 10px 12px;
+    border-radius: var(--r-md); border: 1px solid var(--line);
+    background: var(--bg-panel);
+  }
+  .urow:hover { background: var(--bg-hover); }
   .uinfo { flex: 1; min-width: 0; }
+
+  .keyrow {
+    display: flex; flex-direction: column; gap: 8px; padding: 10px 12px 12px;
+    margin: -2px 0 4px; border-radius: var(--r-md); border: 1px dashed var(--line-soft);
+    background: var(--bg-panel);
+  }
+  .keylabel { font-size: 11.5px; color: var(--text-mute); }
+  .keylabel a { color: var(--accent); }
+  .keyinput { display: flex; gap: 8px; }
+  .keyinput input {
+    flex: 1; min-width: 0; height: 30px; padding: 0 10px;
+    border-radius: var(--r-md); border: 1px solid var(--line); background: var(--bg);
+    font-size: 13px; color: var(--text); outline: 0;
+  }
+  .keyinput input:focus { border-color: var(--accent-line); }
   .uname { font-size: 14px; font-weight: 560; display: flex; align-items: center; gap: 7px; }
   .umeta { font-size: 11.5px; color: var(--text-mute); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .badge { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.04em; }

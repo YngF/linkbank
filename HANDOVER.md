@@ -164,8 +164,9 @@ import/export (Netscape HTML) · self-contained favicon fetch/cache · **SQLite
 or Postgres** · dark/light theme + whole-UI zoom (CSS `zoom`) ·
 open-last-folder-on-launch · **custom background image** (frosted tree/top-bar) ·
 top-bar **web search** (selectable engine, opens new tab) · **Modules**:
-currency converter (ECB/Frankfurter, + UAH merged from a secondary source)
-and password generator.
+currency converter (exchangerate-api.com, full currency list incl. UAH;
+optional admin-supplied API key for more frequent updates) and password
+generator.
 
 ---
 
@@ -185,7 +186,7 @@ src/routes/background/+server.ts serves/stores the per-user background image (BL
 src/lib/server/db/{types,migrate,index}.ts   schema, migrations, dialect switch
 src/lib/server/prefs.ts          per-user settings JSON
 src/lib/server/appSettings.ts    instance key/value + module enablement
-src/lib/server/currency.ts       Frankfurter fetch/cache + scheduler (currency module)
+src/lib/server/currency.ts       exchangerate-api.com fetch/cache + scheduler + admin API key (currency module)
 src/lib/{modules,currency,searchEngines}.ts  shared (client+server) registries/helpers
 src/lib/components/*.svelte      Icon, TreeNode, FolderView, Search, WebSearch,
                                  CurrencyConverter, PasswordGenerator, Dialogs, Toasts…
@@ -207,8 +208,7 @@ Dockerfile, docker-compose.yml, .github/workflows/docker-publish.yml
 | `NOTES_ENCRYPTION_KEY` | 32-byte base64 key for note encryption (else auto-generated into data dir). |
 | `REGISTRATION` | `open` / `invite` / `closed` (default closed). `INVITE_CODE` for invite mode. |
 | `LINK_CHECK_INTERVAL_HOURS` | Link-rot sweep interval (0 disables). |
-| `CURRENCY_REFRESH_HOURS` / `CURRENCY_API_URL` | Rate refresh cadence / override endpoint. |
-| `CURRENCY_UAH_API_URL` | Override for the secondary EUR→UAH fetch (ECB/Frankfurter has no UAH rate). |
+| `CURRENCY_REFRESH_HOURS` / `CURRENCY_API_URL` | Rate refresh cadence / full override of the exchange-rate endpoint (beats any admin-set API key). |
 | `FAVICON_ALLOW_INSECURE_TLS` | `1` to fetch favicons from self-signed LAN https sites. |
 | `TLS_KEY_PATH` / `TLS_CERT_PATH` | Make `server.js` serve HTTPS directly (LAN self-signed, no proxy). |
 
@@ -230,9 +230,19 @@ Note: in `vite dev`, `.env` is only read via `$env/dynamic/private` — plain
   can fail to fetch node headers — reuse a working `node_modules` if needed. On
   Windows it uses prebuilt binaries (no compiler required). SQLite must live on
   **local disk**, never a CIFS/NFS mount (network locking breaks it).
-- **Frankfurter host may be blocked in some sandboxes** — the currency fetch was
-  verified against a local mock; it works on a real box with internet. Use
-  `CURRENCY_API_URL` to point at a mock for testing.
+- **Claude's cloud sandbox can fully block `registry.npmjs.org` tarball
+  downloads** (not just flaky — every package 403s, `npm`/`bun` alike), so
+  `npm run build` / `svelte-check` sometimes can't run there at all. When that
+  happens: edit carefully, syntax-check `.ts`/the `<script>` block of touched
+  `.svelte` files with `node --experimental-strip-types --check`, and have the
+  human run the real build/svelte-check locally before committing.
+- **Currency rates come from exchangerate-api.com** (`open.er-api.com`,
+  key-less, by default; `v6.exchangerate-api.com/v6/{key}/...` if an admin sets
+  a key in Admin → Modules). ECB/Frankfurter was dropped — it doesn't publish a
+  UAH rate. The two response shapes differ (`rates` vs `conversion_rates`),
+  and this provider includes the base currency inside its own `rates` object —
+  `currencyCodes()` in `src/lib/currency.ts` dedupes with a `Set` because of
+  that; don't remove it.
 - **Line endings**: `.gitattributes` pins everything to LF so Windows checkouts
   don't rewrite the bash scripts (`gen-selfsigned-cert.sh`) to CRLF.
 - **Device git bridge** leaves stale `.git/index.lock` and can't delete files —
@@ -255,5 +265,5 @@ Note: in `vite dev`, `.env` is only read via `$env/dynamic/private` — plain
 
 Tell the new Claude: *"This is LinkBank — read `HANDOVER.md` and the repo. I
 develop on Windows at `D:\GitHub repos\linkbank`; you edit + verify, I commit +
-push. Current version 1.6.0. Here's what I want next: …"* Then hand it the repo
+push. Current version 1.6.1. Here's what I want next: …"* Then hand it the repo
 (or a connected folder) so it can read the actual code before changing anything.

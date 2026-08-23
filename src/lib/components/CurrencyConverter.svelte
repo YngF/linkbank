@@ -89,7 +89,7 @@
         <div class="line">
           <input class="amt" type="number" inputmode="decimal" step="any" bind:value={amount} aria-label="Amount" />
           <select bind:value={from} onchange={persist} aria-label="From currency">
-            {#each codes as c (c)}<option value={c}>{c}</option>{/each}
+            {#each codes as c (c)}<option value={c}>{currencyName(c)} - {c}</option>{/each}
           </select>
         </div>
 
@@ -102,11 +102,11 @@
             {result == null ? '—' : fmt(result)}
           </div>
           <select bind:value={to} onchange={persist} aria-label="To currency">
-            {#each codes as c (c)}<option value={c}>{c}</option>{/each}
+            {#each codes as c (c)}<option value={c}>{currencyName(c)} - {c}</option>{/each}
           </select>
         </div>
 
-        <div class="foot">{currencyName(from)} → {currencyName(to)} · ECB rates {rates.date}</div>
+        <div class="foot">{currencyName(from)} → {currencyName(to)} · rates as of {rates.date}</div>
       {/if}
     </div>
   {/if}
@@ -123,7 +123,7 @@
   .iconbtn.on { background: var(--accent-soft); color: var(--accent); }
 
   .pop {
-    position: absolute; top: 38px; right: 0; width: 260px; z-index: 65;
+    position: absolute; top: 38px; right: 0; width: 320px; z-index: 65;
     background: var(--bg-raised); border: 1px solid var(--line);
     border-radius: var(--r-md); box-shadow: var(--shadow); padding: 12px;
     display: flex; flex-direction: column; gap: 8px;
@@ -135,7 +135,7 @@
 
   .line { display: flex; gap: 8px; }
   .amt, .result {
-    flex: 1; min-width: 0; height: 34px; padding: 0 10px;
+    flex: none; width: 92px; min-width: 0; height: 34px; padding: 0 10px;
     border-radius: var(--r-md); border: 1px solid var(--line); background: var(--bg);
     font-size: 14px; color: var(--text);
   }
@@ -145,9 +145,10 @@
     font-weight: 560; font-variant-numeric: tabular-nums; overflow: hidden;
   }
   select {
-    height: 34px; padding: 0 6px; flex: none; width: 78px;
+    height: 34px; padding: 0 6px; flex: 1; min-width: 0;
     border-radius: var(--r-md); border: 1px solid var(--line); background: var(--bg);
     font-size: 13px; color: var(--text); cursor: pointer;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   select:focus { outline: 0; border-color: var(--accent-line); }
 
