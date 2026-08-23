@@ -77,6 +77,20 @@
 
   const noneSelected = $derived(!(lower || upper || number || symbol));
 
+  const poolSize = $derived(
+    (lower ? SETS.lower.length : 0) +
+      (upper ? SETS.upper.length : 0) +
+      (number ? SETS.number.length : 0) +
+      (symbol ? SETS.symbol.length : 0)
+  );
+  const entropy = $derived(poolSize > 0 ? Math.log2(poolSize) * length : 0);
+  const strength = $derived.by(() => {
+    if (entropy < 28) return { label: 'Weak', level: 1 };
+    if (entropy < 36) return { label: 'Fair', level: 2 };
+    if (entropy < 60) return { label: 'Good', level: 3 };
+    return { label: 'Strong', level: 4 };
+  });
+
   onMount(() => {
     try {
       const s = JSON.parse(localStorage.getItem('lb-pwgen') || 'null');
@@ -117,6 +131,17 @@
         <button class="ico" onclick={generate} aria-label="Regenerate" title="Regenerate"><Icon name="refresh" size={14} /></button>
         <button class="ico" onclick={copy} aria-label="Copy" title="Copy"><Icon name="copy" size={14} /></button>
       </div>
+
+      {#if !noneSelected}
+        <div class="meter" title="{Math.round(entropy)} bits of entropy">
+          <div class="bar">
+            {#each [1, 2, 3, 4] as seg}
+              <span class="seg {seg <= strength.level ? `on l${strength.level}` : ''}"></span>
+            {/each}
+          </div>
+          <span class="mlabel l{strength.level}">{strength.label}</span>
+        </div>
+      {/if}
 
       <label class="len">
         <span>Length</span>
@@ -169,6 +194,19 @@
     border: 1px solid var(--line); background: var(--bg-raised);
   }
   .ico:hover { background: var(--bg-hover); color: var(--text); }
+
+  .meter { display: flex; align-items: center; gap: 8px; }
+  .bar { flex: 1; display: flex; gap: 3px; }
+  .seg { flex: 1; height: 4px; border-radius: 2px; background: var(--line); }
+  .seg.on.l1 { background: oklch(60% 0.19 22); }
+  .seg.on.l2 { background: oklch(75% 0.15 75); }
+  .seg.on.l3 { background: oklch(78% 0.14 120); }
+  .seg.on.l4 { background: oklch(72% 0.15 150); }
+  .mlabel { flex: none; font-size: 11.5px; font-weight: 560; }
+  .mlabel.l1 { color: oklch(60% 0.19 22); }
+  .mlabel.l2 { color: oklch(68% 0.15 75); }
+  .mlabel.l3 { color: oklch(68% 0.14 120); }
+  .mlabel.l4 { color: oklch(65% 0.15 150); }
 
   .len { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-dim); }
   .len span { flex: none; }
