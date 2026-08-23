@@ -4,7 +4,7 @@ A running context document so a fresh Claude session (or any developer) can pick
 up LinkBank exactly where the previous work left off. Read this first, then skim
 `README.md`, `DOCKER.md`, and `WINDOWS_DEV.md`.
 
-**Current version:** `1.6.0` · **Image:** `yngf73/linkbank` (Docker Hub) ·
+**Current version:** `1.6.1` · **Image:** `yngf73/linkbank` (Docker Hub) ·
 **Repo:** `github.com/YngF/linkbank` · **Live instance:** runs as a container on
 a TrueNAS box, exposed at `https://yngf.no`.
 
@@ -164,7 +164,8 @@ import/export (Netscape HTML) · self-contained favicon fetch/cache · **SQLite
 or Postgres** · dark/light theme + whole-UI zoom (CSS `zoom`) ·
 open-last-folder-on-launch · **custom background image** (frosted tree/top-bar) ·
 top-bar **web search** (selectable engine, opens new tab) · **Modules**:
-currency converter (ECB/Frankfurter) and password generator.
+currency converter (ECB/Frankfurter, + UAH merged from a secondary source)
+and password generator.
 
 ---
 
@@ -207,6 +208,7 @@ Dockerfile, docker-compose.yml, .github/workflows/docker-publish.yml
 | `REGISTRATION` | `open` / `invite` / `closed` (default closed). `INVITE_CODE` for invite mode. |
 | `LINK_CHECK_INTERVAL_HOURS` | Link-rot sweep interval (0 disables). |
 | `CURRENCY_REFRESH_HOURS` / `CURRENCY_API_URL` | Rate refresh cadence / override endpoint. |
+| `CURRENCY_UAH_API_URL` | Override for the secondary EUR→UAH fetch (ECB/Frankfurter has no UAH rate). |
 | `FAVICON_ALLOW_INSECURE_TLS` | `1` to fetch favicons from self-signed LAN https sites. |
 | `TLS_KEY_PATH` / `TLS_CERT_PATH` | Make `server.js` serve HTTPS directly (LAN self-signed, no proxy). |
 

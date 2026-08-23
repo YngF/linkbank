@@ -1,5 +1,7 @@
 // Shared (client + server) currency helpers. Rates come from Frankfurter
-// (ECB daily reference rates), stored with base EUR.
+// (ECB daily reference rates), stored with base EUR. UAH is not part of the
+// ECB set, so its rate is merged in separately — see fetchUahRate() in
+// src/lib/server/currency.ts.
 
 export interface Rates {
   base: string; // 'EUR'
@@ -39,6 +41,7 @@ export const CURRENCY_NAMES: Record<string, string> = {
   SGD: 'Singapore Dollar',
   THB: 'Thai Baht',
   TRY: 'Turkish Lira',
+  UAH: 'Ukrainian Hryvnia',
   ZAR: 'South African Rand'
 };
 

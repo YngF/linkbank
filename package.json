@@ -1,6 +1,6 @@
 {
   "name": "linkbank",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "A fast, self-hostable bookmark manager with a folder tree.",
   "license": "AGPL-3.0-or-later",
   "type": "module",
