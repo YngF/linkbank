@@ -385,6 +385,11 @@
     padding: 0 12px;
     border-bottom: 1px solid var(--line);
     background: var(--bg-panel);
+    /* Sit above the main content so top-bar dropdowns (currency, search) aren't
+       trapped behind it — the frosted `backdrop-filter` makes the bar its own
+       stacking context, which otherwise paints below the bookmarks. */
+    position: relative;
+    z-index: 20;
   }
   .search {
     margin-left: auto;
