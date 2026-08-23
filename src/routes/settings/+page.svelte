@@ -106,6 +106,18 @@
     }
   }
 
+  // Tags display
+  let tagsDisplay = $state(data.settings.tagsDisplay);
+  async function saveTagsDisplay() {
+    try {
+      await call({ settings: { tagsDisplay } });
+      await invalidateAll(); // sidebar reads this from layout data — apply without a reload
+      ui.toast('Tags display saved');
+    } catch (e) {
+      ui.toast(e instanceof Error ? e.message : 'Failed', 'error');
+    }
+  }
+
   // Currency converter (only shown when the admin has installed the module)
   let showCurrency = $state(data.settings.showCurrency);
   async function toggleCurrency() {
@@ -253,6 +265,17 @@
           {#each SEARCH_ENGINES as e (e.id)}
             <option value={e.id}>{e.name}</option>
           {/each}
+        </select>
+      </label>
+    </div>
+
+    <div class="card">
+      <h3>Tags</h3>
+      <p class="hint">Choose how the tag list appears in the sidebar.</p>
+      <label class="sel-label">Tags display
+        <select bind:value={tagsDisplay} onchange={saveTagsDisplay}>
+          <option value="tree">Under the folder tree</option>
+          <option value="tabs">As a tab beside Library</option>
         </select>
       </label>
     </div>

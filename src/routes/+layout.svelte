@@ -122,6 +122,12 @@
       scale = z;
       ui.zoom = z;
     }
+    try {
+      const st = localStorage.getItem('lb-sidebar-tab');
+      if (st === 'tags' || st === 'library') sidebarTab = st;
+    } catch {
+      /* ignore */
+    }
   });
 
   // Track the responsive breakpoint where the sidebar tree collapses to a
@@ -143,6 +149,18 @@
     mq.addEventListener('change', update);
     return () => mq.removeEventListener('change', update);
   });
+
+  // Sidebar view: the folder tree (+ a compact tags list below it, as before)
+  // or a tags-first view for people who lean on tags heavily.
+  let sidebarTab = $state<'library' | 'tags'>('library');
+  function setSidebarTab(t: 'library' | 'tags') {
+    sidebarTab = t;
+    try {
+      localStorage.setItem('lb-sidebar-tab', t);
+    } catch {
+      /* ignore */
+    }
+  }
 
   let navOpen = $state(false);
 
@@ -246,51 +264,110 @@
     </div>
   </div>
 
-  <aside class="sidebar" class:open={navOpen}>
-    <div class="side-head">
-      <button
-        class="side-toggle"
-        title="Hide the folder tree"
-        aria-label="Hide the folder tree"
-        onclick={collapseTree}
-      >
-        <Icon name="panel" size={13} />
-      </button>
-      Library
-      {#if data.tree[0]}
-        <button
-          class="add-root"
-          title="New folder at top level"
-          aria-label="New folder"
-          onclick={() => ui.openDialog({ kind: 'folder-new', parentId: data.tree[0].id })}
-        >
-          <Icon name="plus" size={13} />
-        </button>
-      {/if}
-    </div>
-    <nav class="tree">
-      {#each data.tree as root (root.id)}
-        <TreeNode node={root} {currentId} {openIds} />
-      {/each}
-    </nav>
+  {#snippet hideSidebarBtn()}
+    <button
+      class="side-toggle"
+      title="Hide the sidebar"
+      aria-label="Hide the sidebar"
+      onclick={collapseTree}
+    >
+      <Icon name="panel" size={13} />
+    </button>
+  {/snippet}
 
-    {#if data.tags.length}
-      <div class="side-head tags-head">Tags</div>
-      <nav class="taglist">
-        {#each data.tags as t (t.id)}
-          <a
-            class="tagrow"
-            href="/tag/{t.id}"
-            class:active={page.url.pathname === `/tag/${t.id}`}
-            data-ctx
-            oncontextmenu={(e) => tagMenu(e, t)}
+  {#snippet addRootBtn()}
+    <button
+      class="add-root"
+      title="New folder at top level"
+      aria-label="New folder"
+      onclick={() => ui.openDialog({ kind: 'folder-new', parentId: data.tree[0].id })}
+    >
+      <Icon name="plus" size={13} />
+    </button>
+  {/snippet}
+
+  {#snippet tagRow(t: UiTag)}
+    <a
+      class="tagrow"
+      href="/tag/{t.id}"
+      class:active={page.url.pathname === `/tag/${t.id}`}
+      data-ctx
+      oncontextmenu={(e) => tagMenu(e, t)}
+    >
+      <span class="tdot" style={tagDot(t.hue)}></span>
+      <span class="tname">{t.name}</span>
+      <span class="tcount">{t.count}</span>
+    </a>
+  {/snippet}
+
+  <aside class="sidebar" class:open={navOpen}>
+    {#if data.settings.tagsDisplay === 'tabs'}
+      <div class="side-head">
+        {@render hideSidebarBtn()}
+        <div class="side-tabs" role="tablist" aria-label="Sidebar view">
+          <button
+            class="side-tab"
+            role="tab"
+            aria-selected={sidebarTab === 'library'}
+            class:active={sidebarTab === 'library'}
+            onclick={() => setSidebarTab('library')}
           >
-            <span class="tdot" style={tagDot(t.hue)}></span>
-            <span class="tname">{t.name}</span>
-            <span class="tcount">{t.count}</span>
-          </a>
+            Library
+          </button>
+          <button
+            class="side-tab"
+            role="tab"
+            aria-selected={sidebarTab === 'tags'}
+            class:active={sidebarTab === 'tags'}
+            onclick={() => setSidebarTab('tags')}
+          >
+            Tags
+          </button>
+        </div>
+        {#if sidebarTab === 'library' && data.tree[0]}
+          {@render addRootBtn()}
+        {/if}
+      </div>
+
+      {#if sidebarTab === 'library'}
+        <nav class="tree">
+          {#each data.tree as root (root.id)}
+            <TreeNode node={root} {currentId} {openIds} />
+          {/each}
+        </nav>
+      {:else}
+        <nav class="taglist taglist-full">
+          {#if data.tags.length}
+            {#each data.tags as t (t.id)}
+              {@render tagRow(t)}
+            {/each}
+          {:else}
+            <div class="empty-tags">No tags yet — tag a bookmark to see it here.</div>
+          {/if}
+        </nav>
+      {/if}
+    {:else}
+      <div class="side-head">
+        {@render hideSidebarBtn()}
+        Library
+        {#if data.tree[0]}
+          {@render addRootBtn()}
+        {/if}
+      </div>
+      <nav class="tree">
+        {#each data.tree as root (root.id)}
+          <TreeNode node={root} {currentId} {openIds} />
         {/each}
       </nav>
+
+      {#if data.tags.length}
+        <div class="side-head tags-head">Tags</div>
+        <nav class="taglist">
+          {#each data.tags as t (t.id)}
+            {@render tagRow(t)}
+          {/each}
+        </nav>
+      {/if}
     {/if}
 
     <div class="side-foot">
@@ -434,11 +511,19 @@
     min-height: 0;
   }
   .side-head {
-    display: flex; align-items: center;
+    display: flex; align-items: center; gap: 4px;
     padding: 10px 12px 6px;
     font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.07em;
     color: var(--text-mute); font-weight: 600;
   }
+  .side-tabs { display: flex; align-items: center; gap: 2px; flex: 1; min-width: 0; }
+  .side-tab {
+    padding: 4px 9px; border-radius: var(--r-sm);
+    font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600;
+    color: var(--text-mute);
+  }
+  .side-tab:hover { background: var(--bg-hover); color: var(--text); }
+  .side-tab.active { background: var(--accent-soft); color: var(--accent); }
   .add-root {
     margin-left: auto; width: 22px; height: 22px; border-radius: 6px;
     display: grid; place-items: center; color: var(--text-mute);
@@ -456,6 +541,8 @@
     flex: none; max-height: 34%; overflow: auto; padding: 0 8px 8px;
     display: flex; flex-direction: column; gap: 1px;
   }
+  .taglist.taglist-full { flex: 1; max-height: none; min-height: 0; padding-top: 4px; }
+  .empty-tags { padding: 16px 12px; font-size: 12.5px; color: var(--text-mute); text-align: center; }
   .tagrow {
     display: flex; align-items: center; gap: 8px;
     padding: 5px 8px; border-radius: var(--r-sm); font-size: 13px; color: var(--text-dim);

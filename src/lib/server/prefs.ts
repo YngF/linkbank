@@ -17,13 +17,16 @@ export interface UserSettings {
   showCurrency: boolean;
   /** Show the password generator (only relevant when the admin has installed it). */
   showPassword: boolean;
+  /** Where the tag list appears: under the folder tree, or as its own sidebar tab. */
+  tagsDisplay: 'tree' | 'tabs';
 }
 
 export const DEFAULT_SETTINGS: UserSettings = {
   landOnLastFolder: false,
   searchEngine: DEFAULT_ENGINE,
   showCurrency: true,
-  showPassword: true
+  showPassword: true,
+  tagsDisplay: 'tree'
 };
 
 /** Keep only known keys with the right types — never trust stored/incoming JSON. */
@@ -36,6 +39,7 @@ function sanitize(obj: unknown): Partial<UserSettings> {
       out.searchEngine = o.searchEngine;
     if (typeof o.showCurrency === 'boolean') out.showCurrency = o.showCurrency;
     if (typeof o.showPassword === 'boolean') out.showPassword = o.showPassword;
+    if (o.tagsDisplay === 'tree' || o.tagsDisplay === 'tabs') out.tagsDisplay = o.tagsDisplay;
   }
   return out;
 }
