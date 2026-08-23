@@ -13,8 +13,9 @@
     crumbs: { id: number; name: string }[];
     folders: TreeNode[];
     bookmarks: BookmarkWithTags[];
+    listView?: boolean;
   }
-  let { title, branchId, crumbs, folders, bookmarks }: Props = $props();
+  let { title, branchId, crumbs, folders, bookmarks, listView = false }: Props = $props();
 
   // Folders are hidden in the main pane by default (toggle in the topbar), but
   // force them on when the sidebar tree is collapsed to a drawer (narrow view),
@@ -493,7 +494,7 @@
       {/if}
     </div>
   {:else}
-    <div class="grid" bind:this={gridEl}>
+    <div class="grid" class:list={listView} bind:this={gridEl}>
       {#each shownFolders as f, i (f.id)}
         <a
           bind:this={tileEls[i]}
@@ -670,6 +671,27 @@
     background: oklch(62% 0.2 25); color: #fff;
     box-shadow: 0 0 0 2px var(--bg), 0 1px 3px rgb(0 0 0 / 0.3);
   }
+
+  /* list view (Settings → Bookmark view): compact rows instead of icon tiles,
+     styled to match the tag view. Reuses the same tile markup/interactions
+     (drag & drop, multi-select, keyboard nav) — only the layout changes. */
+  .grid.list { display: flex; flex-direction: column; gap: 2px; }
+  .grid.list .tile {
+    flex-direction: row; align-items: center; text-align: left;
+    padding: 7px 10px; gap: 10px; border-radius: var(--r-sm);
+  }
+  .grid.list .ico { width: 30px; height: 30px; border-radius: 8px; box-shadow: none; }
+  .grid.list .ico :global(svg) { width: 16px; height: 16px; }
+  .grid.list :global(.fav) { width: 30px; height: 30px; border-radius: 8px; box-shadow: none; }
+  .grid.list :global(.fav img) { width: 17px; height: 17px; }
+  .grid.list :global(.letter) { font-size: 12.5px; }
+  .grid.list .label {
+    flex: 1; min-width: 0; display: block;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .grid.list .meta { flex: none; max-width: 260px; margin-left: auto; padding-left: 10px; }
+  .grid.list .selcheck { position: static; flex: none; }
+  .grid.list .broken-badge { position: static; flex: none; box-shadow: none; }
 
   /* keyboard focus ring */
   .tile:focus { outline: none; }

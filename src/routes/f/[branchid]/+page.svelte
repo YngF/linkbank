@@ -11,4 +11,5 @@
   crumbs={data.crumbs}
   folders={data.folders}
   bookmarks={data.bookmarks}
+  listView={data.settings.bookmarkView === 'list'}
 />

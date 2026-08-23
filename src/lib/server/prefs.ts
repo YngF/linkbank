@@ -19,6 +19,8 @@ export interface UserSettings {
   showPassword: boolean;
   /** Where the tag list appears: under the folder tree, or as its own sidebar tab. */
   tagsDisplay: 'tree' | 'tabs';
+  /** How folders and bookmarks are rendered: icon grid, or a compact list (like the tag view). */
+  bookmarkView: 'grid' | 'list';
 }
 
 export const DEFAULT_SETTINGS: UserSettings = {
@@ -26,7 +28,8 @@ export const DEFAULT_SETTINGS: UserSettings = {
   searchEngine: DEFAULT_ENGINE,
   showCurrency: true,
   showPassword: true,
-  tagsDisplay: 'tree'
+  tagsDisplay: 'tree',
+  bookmarkView: 'grid'
 };
 
 /** Keep only known keys with the right types — never trust stored/incoming JSON. */
@@ -40,6 +43,7 @@ function sanitize(obj: unknown): Partial<UserSettings> {
     if (typeof o.showCurrency === 'boolean') out.showCurrency = o.showCurrency;
     if (typeof o.showPassword === 'boolean') out.showPassword = o.showPassword;
     if (o.tagsDisplay === 'tree' || o.tagsDisplay === 'tabs') out.tagsDisplay = o.tagsDisplay;
+    if (o.bookmarkView === 'grid' || o.bookmarkView === 'list') out.bookmarkView = o.bookmarkView;
   }
   return out;
 }

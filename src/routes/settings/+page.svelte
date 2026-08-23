@@ -118,6 +118,18 @@
     }
   }
 
+  // Bookmark view (folder pages)
+  let bookmarkView = $state(data.settings.bookmarkView);
+  async function saveBookmarkView() {
+    try {
+      await call({ settings: { bookmarkView } });
+      await invalidateAll();
+      ui.toast('Bookmark view saved');
+    } catch (e) {
+      ui.toast(e instanceof Error ? e.message : 'Failed', 'error');
+    }
+  }
+
   // Currency converter (only shown when the admin has installed the module)
   let showCurrency = $state(data.settings.showCurrency);
   async function toggleCurrency() {
@@ -276,6 +288,17 @@
         <select bind:value={tagsDisplay} onchange={saveTagsDisplay}>
           <option value="tree">Under the folder tree</option>
           <option value="tabs">As a tab beside Library</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="card">
+      <h3>Bookmark view</h3>
+      <p class="hint">Choose how folders and bookmarks are shown in the main view.</p>
+      <label class="sel-label">Bookmark view
+        <select bind:value={bookmarkView} onchange={saveBookmarkView}>
+          <option value="grid">Icon grid</option>
+          <option value="list">Compact list</option>
         </select>
       </label>
     </div>
