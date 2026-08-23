@@ -3,8 +3,9 @@
   interface Props {
     name: string;
     size?: number;
+    filled?: boolean;
   }
-  let { name, size = 16 }: Props = $props();
+  let { name, size = 16, filled = false }: Props = $props();
 
   const paths: Record<string, string> = {
     home: 'M3 11l9-8 9 8M5 10v10h14V10',
@@ -32,7 +33,8 @@
     settings: 'M5 21v-7M5 10V3M12 21v-9M12 8V3M19 21v-5M19 12V3M2 14h6M9 8h6M16 16h6',
     panel: 'M4 5h16v14H4zM9 5v14',
     globe: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c3 4 3 14 0 18M12 3c-3 4-3 14 0 18',
-    coins: 'M8 14a6 3 0 1 0 0-6 6 3 0 0 0 0 6zM2 8v8a6 3 0 0 0 12 0M2 12a6 3 0 0 0 12 0M16 5.2a6 3 0 0 1 6 2.8v8a6 3 0 0 1-6 2.8M16 9a6 3 0 0 0 6 0'
+    coins: 'M8 14a6 3 0 1 0 0-6 6 3 0 0 0 0 6zM2 8v8a6 3 0 0 0 12 0M2 12a6 3 0 0 0 12 0M16 5.2a6 3 0 0 1 6 2.8v8a6 3 0 0 1-6 2.8M16 9a6 3 0 0 0 6 0',
+    star: 'M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6-5.9-3.3-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z'
   };
 </script>
 
@@ -47,7 +49,7 @@
     <path d="M10.9 12.1 20 3M15 8l3 3M17.5 5.5l2.5 2.5" />
   </svg>
 {:else}
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
     <path d={paths[name] ?? paths.folder} />
   </svg>
 {/if}

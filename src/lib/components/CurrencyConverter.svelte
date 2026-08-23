@@ -10,9 +10,11 @@
   let from = $state('EUR');
   let to = $state('USD');
   let loaded = false;
+  let favorites = $state<{ from: string; to: string }[]>([]);
 
   const codes = $derived(rates ? currencyCodes(rates) : []);
   const result = $derived(rates && amount != null ? convert(amount, from, to, rates) : null);
+  const isFav = $derived(favorites.some((f) => f.from === from && f.to === to));
 
   async function load() {
     if (loaded) return;
@@ -47,12 +49,45 @@
     persist();
   }
 
+  function persistFavs() {
+    try {
+      localStorage.setItem('lb-currency-favs', JSON.stringify(favorites));
+    } catch {
+      /* ignore */
+    }
+  }
+  function toggleFav() {
+    favorites = isFav
+      ? favorites.filter((f) => !(f.from === from && f.to === to))
+      : [{ from, to }, ...favorites].slice(0, 8);
+    persistFavs();
+  }
+  function selectFav(f: { from: string; to: string }) {
+    from = f.from;
+    to = f.to;
+    persist();
+  }
+  function removeFav(f: { from: string; to: string }) {
+    favorites = favorites.filter((x) => !(x.from === f.from && x.to === f.to));
+    persistFavs();
+  }
+
   onMount(() => {
     try {
       const s = JSON.parse(localStorage.getItem('lb-currency') || 'null');
       if (s?.from && s?.to) {
         from = s.from;
         to = s.to;
+      }
+    } catch {
+      /* ignore */
+    }
+    try {
+      const f = JSON.parse(localStorage.getItem('lb-currency-favs') || 'null');
+      if (Array.isArray(f)) {
+        favorites = f
+          .filter((x) => x && typeof x.from === 'string' && typeof x.to === 'string')
+          .slice(0, 8);
       }
     } catch {
       /* ignore */
@@ -86,6 +121,27 @@
       {:else if loadState === 'error' || !rates}
         <div class="msg">Rates aren’t available right now. An admin can refresh them in Modules.</div>
       {:else}
+        {#if favorites.length}
+          <div class="favs">
+            {#each favorites as f (f.from + '_' + f.to)}
+              <div class="chip" class:active={f.from === from && f.to === to}>
+                <button class="chip-btn" onclick={() => selectFav(f)} title="{f.from} → {f.to}">{f.from}→{f.to}</button>
+                <button
+                  class="chip-x"
+                  onclick={(e) => {
+                    e.stopPropagation();
+                    removeFav(f);
+                  }}
+                  aria-label="Remove favorite"
+                  title="Remove favorite"
+                >
+                  <Icon name="x" size={9} />
+                </button>
+              </div>
+            {/each}
+          </div>
+        {/if}
+
         <div class="line">
           <input class="amt" type="number" inputmode="decimal" step="any" bind:value={amount} aria-label="Amount" />
           <select bind:value={from} onchange={persist} aria-label="From currency">
@@ -93,9 +149,20 @@
           </select>
         </div>
 
-        <button class="swap" onclick={swap} aria-label="Swap currencies" title="Swap">
-          <Icon name="refresh" size={13} />
-        </button>
+        <div class="mid">
+          <button class="swap" onclick={swap} aria-label="Swap currencies" title="Swap">
+            <Icon name="refresh" size={13} />
+          </button>
+          <button
+            class="star"
+            class:on={isFav}
+            onclick={toggleFav}
+            aria-label={isFav ? 'Remove from favorites' : 'Save as favorite'}
+            title={isFav ? 'Remove from favorites' : 'Save as favorite'}
+          >
+            <Icon name="star" size={13} filled={isFav} />
+          </button>
+        </div>
 
         <div class="line">
           <div class="result" title={result == null ? '' : String(result)}>
@@ -152,11 +219,36 @@
   }
   select:focus { outline: 0; border-color: var(--accent-line); }
 
+  .mid { display: flex; align-items: center; justify-content: center; gap: 10px; }
   .swap {
-    align-self: center; width: 26px; height: 22px; border-radius: 6px;
+    width: 26px; height: 22px; border-radius: 6px;
     display: grid; place-items: center; color: var(--text-mute);
   }
   .swap:hover { background: var(--bg-hover); color: var(--text); }
+
+  .star {
+    width: 26px; height: 22px; border-radius: 6px;
+    display: grid; place-items: center; color: var(--text-mute);
+  }
+  .star:hover { background: var(--bg-hover); color: var(--text); }
+  .star.on { color: oklch(78% 0.14 90); }
+
+  .favs { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip {
+    display: flex; align-items: center; gap: 2px; padding-left: 2px;
+    border-radius: 999px; background: var(--bg); border: 1px solid var(--line);
+  }
+  .chip.active { background: var(--accent-soft); border-color: var(--accent-line); }
+  .chip-btn {
+    padding: 3px 2px 3px 6px; font-size: 11px; font-family: ui-monospace, monospace;
+    color: var(--text-dim); white-space: nowrap;
+  }
+  .chip.active .chip-btn { color: var(--accent); }
+  .chip-x {
+    width: 16px; height: 16px; margin-right: 3px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--text-mute); flex: none;
+  }
+  .chip-x:hover { background: color-mix(in oklch, oklch(66% 0.19 22) 16%, transparent); color: oklch(60% 0.19 22); }
 
   .foot {
     font-size: 11px; color: var(--text-mute); text-align: center;

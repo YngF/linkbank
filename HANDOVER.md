@@ -4,7 +4,7 @@ A running context document so a fresh Claude session (or any developer) can pick
 up LinkBank exactly where the previous work left off. Read this first, then skim
 `README.md`, `DOCKER.md`, and `WINDOWS_DEV.md`.
 
-**Current version:** `1.7.2` · **Image:** `yngf73/linkbank` (Docker Hub) ·
+**Current version:** `1.7.3` · **Image:** `yngf73/linkbank` (Docker Hub) ·
 **Repo:** `github.com/YngF/linkbank` · **Live instance:** runs as a container on
 a TrueNAS box, exposed at `https://yngf.no`.
 
@@ -253,7 +253,7 @@ Note: in `vite dev`, `.env` is only read via `$env/dynamic/private` — plain
 ## 9. Suggested backlog / ideas (not committed)
 
 - Password generator: pronounceable-passphrase mode (strength meter shipped in 1.7.2).
-- Currency: remember more pairs / a small favourites row.
+- Currency: favourites row shipped in 1.7.3 (star toggle + chip row, up to 8 pairs).
 - README on GitHub could use a screenshot-forward polish; Docker Hub "Overview"
   is in `docs/dockerhub-overview.md` (paste it into the Docker Hub UI on change).
 - More modules are easy now (unit converter, QR generator, notes scratchpad…) —
@@ -265,5 +265,5 @@ Note: in `vite dev`, `.env` is only read via `$env/dynamic/private` — plain
 
 Tell the new Claude: *"This is LinkBank — read `HANDOVER.md` and the repo. I
 develop on Windows at `D:\GitHub repos\linkbank`; you edit + verify, I commit +
-push. Current version 1.7.2. Here's what I want next: …"* Then hand it the repo
+push. Current version 1.7.3. Here's what I want next: …"* Then hand it the repo
 (or a connected folder) so it can read the actual code before changing anything.
