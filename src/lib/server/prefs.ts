@@ -15,12 +15,15 @@ export interface UserSettings {
   searchEngine: string;
   /** Show the currency converter (only relevant when the admin has installed it). */
   showCurrency: boolean;
+  /** Show the password generator (only relevant when the admin has installed it). */
+  showPassword: boolean;
 }
 
 export const DEFAULT_SETTINGS: UserSettings = {
   landOnLastFolder: false,
   searchEngine: DEFAULT_ENGINE,
-  showCurrency: true
+  showCurrency: true,
+  showPassword: true
 };
 
 /** Keep only known keys with the right types — never trust stored/incoming JSON. */
@@ -32,6 +35,7 @@ function sanitize(obj: unknown): Partial<UserSettings> {
     if (typeof o.searchEngine === 'string' && ENGINE_IDS.includes(o.searchEngine))
       out.searchEngine = o.searchEngine;
     if (typeof o.showCurrency === 'boolean') out.showCurrency = o.showCurrency;
+    if (typeof o.showPassword === 'boolean') out.showPassword = o.showPassword;
   }
   return out;
 }

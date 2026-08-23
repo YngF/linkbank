@@ -10,6 +10,7 @@
   import Search from '$lib/components/Search.svelte';
   import WebSearch from '$lib/components/WebSearch.svelte';
   import CurrencyConverter from '$lib/components/CurrencyConverter.svelte';
+  import PasswordGenerator from '$lib/components/PasswordGenerator.svelte';
   import Logo from '$lib/components/Logo.svelte';
   import ShortcutsOverlay from '$lib/components/ShortcutsOverlay.svelte';
   import { ui } from '$lib/client/ui.svelte';
@@ -225,6 +226,9 @@
     </button>
     {#if data.modules.includes('currency') && data.settings.showCurrency}
       <CurrencyConverter />
+    {/if}
+    {#if data.modules.includes('password') && data.settings.showPassword}
+      <PasswordGenerator />
     {/if}
     <div class="user">
       <a class="uname" href="/settings" title="Settings">{data.username}</a>

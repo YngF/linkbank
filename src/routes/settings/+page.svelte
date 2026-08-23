@@ -120,6 +120,20 @@
     }
   }
 
+  // Password generator (only shown when the admin has installed the module)
+  let showPassword = $state(data.settings.showPassword);
+  async function togglePassword() {
+    const next = !showPassword;
+    showPassword = next; // optimistic
+    try {
+      await call({ settings: { showPassword: next } });
+      ui.toast(next ? 'Password generator shown' : 'Password generator hidden');
+    } catch (e) {
+      showPassword = !next; // revert
+      ui.toast(e instanceof Error ? e.message : 'Failed', 'error');
+    }
+  }
+
   async function createToken() {
     busyToken = true;
     newToken = null;
@@ -243,7 +257,7 @@
       </label>
     </div>
 
-    {#if data.currencyModule}
+    {#if data.modules.includes('currency')}
       <div class="card">
         <button type="button" class="toggle-row" role="switch" aria-checked={showCurrency} onclick={toggleCurrency}>
           <span class="toggle-text">
@@ -251,6 +265,18 @@
             <span class="hint">Adds a coins icon to the top bar with a quick converter using ECB daily rates.</span>
           </span>
           <span class="switch" class:on={showCurrency} aria-hidden="true"><span class="knob"></span></span>
+        </button>
+      </div>
+    {/if}
+
+    {#if data.modules.includes('password')}
+      <div class="card">
+        <button type="button" class="toggle-row" role="switch" aria-checked={showPassword} onclick={togglePassword}>
+          <span class="toggle-text">
+            <b>Show the password generator</b>
+            <span class="hint">Adds a key icon to the top bar with a length + character-class password generator.</span>
+          </span>
+          <span class="switch" class:on={showPassword} aria-hidden="true"><span class="knob"></span></span>
         </button>
       </div>
     {/if}

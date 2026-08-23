@@ -15,6 +15,12 @@ export const MODULES: ModuleDef[] = [
     name: 'Currency converter',
     description:
       'A quick currency converter in the top bar, using official ECB daily rates. Users can hide it individually.'
+  },
+  {
+    id: 'password',
+    name: 'Password generator',
+    description:
+      'A top-bar password generator (length + character classes), generated in the browser. Users can hide it individually.'
   }
 ];
 

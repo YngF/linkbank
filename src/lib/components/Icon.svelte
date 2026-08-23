@@ -41,6 +41,11 @@
     <circle cx="12" cy="12" r="4.5" />
     <path d={paths.sun} />
   </svg>
+{:else if name === 'key'}
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="8" cy="15" r="4" />
+    <path d="M10.9 12.1 20 3M15 8l3 3M17.5 5.5l2.5 2.5" />
+  </svg>
 {:else}
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
     <path d={paths[name] ?? paths.folder} />
