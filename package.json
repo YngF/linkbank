@@ -1,6 +1,6 @@
 {
   "name": "linkbank",
-  "version": "1.7.5",
+  "version": "1.7.6",
   "description": "A fast, self-hostable bookmark manager with a folder tree.",
   "license": "AGPL-3.0-or-later",
   "type": "module",
@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "seed": "node --experimental-strip-types scripts/seed.ts",
     "migrate:pg": "node --experimental-strip-types scripts/sqlite-to-postgres.ts",
-    "start": "node server.js"
+    "start": "node server.js",
+    "deploy": "node scripts/truenas-deploy.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "^5.2.12",

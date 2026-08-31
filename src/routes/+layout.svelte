@@ -218,6 +218,7 @@
   <div class="brand">
     <Logo size={24} id="lb-brand" />
     <b>LinkBank</b>
+    <span class="ver" title="LinkBank version">v{data.version}</span>
   </div>
 
   <div class="topbar">
@@ -454,8 +455,8 @@
     background: var(--bg-panel);
   }
   .brand b { font-size: 13.5px; letter-spacing: -0.01em; }
-  .brand .env {
-    margin-left: auto; font-size: 10px; letter-spacing: 0.05em;
+  .brand .ver {
+    font-size: 10px; letter-spacing: 0.05em; font-variant-numeric: tabular-nums;
     color: var(--text-mute);
     border: 1px solid var(--line); padding: 1px 6px; border-radius: 99px;
   }

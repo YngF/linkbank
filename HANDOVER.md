@@ -4,9 +4,9 @@ A running context document so a fresh Claude session (or any developer) can pick
 up LinkBank exactly where the previous work left off. Read this first, then skim
 `README.md`, `DOCKER.md`, and `WINDOWS_DEV.md`.
 
-**Current version:** `1.7.5` · **Image:** `yngf73/linkbank` (Docker Hub) ·
+**Current version:** `1.7.6` · **Image:** `yngf73/linkbank` (Docker Hub) ·
 **Repo:** `github.com/YngF/linkbank` · **Live instance:** runs as a container on
-a TrueNAS box, exposed at `https://yngf.no`.
+a TrueNAS box, exposed at `https://linkbank.no`.
 
 ---
 
@@ -62,8 +62,14 @@ proven workflow. Keep to it:
    which builds a multi-arch (amd64 + arm64) image, pushes it to Docker Hub, and
    creates a GitHub Release with auto-generated notes. **Commits and tags push
    separately** — `git push` then `git push origin vX.Y.Z`.
-5. Deploy to the live box: `docker compose pull && docker compose up -d`.
-   Migrations run automatically on boot.
+5. Deploy to the live box (a TrueNAS app named `linkbank` at
+   `truenas3.v33.lan`, same pattern as the `cointoss-*` projects): after the
+   tag's build finishes, `set -a && source .env.local && set +a && npm run
+   deploy -- linkbank`. This pulls `yngf73/linkbank:latest` and redeploys via
+   TrueNAS's JSON-RPC API (`scripts/truenas-deploy.mjs`) — see the script's
+   header comment for the API key setup. `docker compose pull && docker
+   compose up -d` still works for a plain Docker Compose host. Migrations run
+   automatically on boot either way.
 
 ### Build / verify commands
 
@@ -265,5 +271,5 @@ Note: in `vite dev`, `.env` is only read via `$env/dynamic/private` — plain
 
 Tell the new Claude: *"This is LinkBank — read `HANDOVER.md` and the repo. I
 develop on Windows at `D:\GitHub repos\linkbank`; you edit + verify, I commit +
-push. Current version 1.7.5. Here's what I want next: …"* Then hand it the repo
+push. Current version 1.7.6. Here's what I want next: …"* Then hand it the repo
 (or a connected folder) so it can read the actual code before changing anything.

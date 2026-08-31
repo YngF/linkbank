@@ -41,7 +41,7 @@ to AMO, waits for automated signing, and drops the signed file in
 3. Pick `web-ext-artifacts/linkbank-<version>.xpi`. It stays installed across
    restarts.
 
-Then set it up: **Options** → your LinkBank URL (`https://yngf.no`) + an access
+Then set it up: **Options** → your LinkBank URL (`https://linkbank.no`) + an access
 token from **Account → Access tokens**.
 
 ## Updating later

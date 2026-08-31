@@ -20,4 +20,24 @@
   {#if data.registrationOpen}
     <div class="auth-alt">No account? <a href="/register">Create one</a></div>
   {/if}
+  <div class="self-host-note">
+    This is a self-hosted LinkBank instance, not open to public use except
+    through invites. If you want your own LinkBank, visit:
+    <a href="https://hub.docker.com/r/yngf73/linkbank" target="_blank" rel="noopener noreferrer">
+      hub.docker.com/r/yngf73/linkbank
+    </a>
+  </div>
+  <div class="ver-line">LinkBank v{data.version}</div>
 </AuthCard>
+
+<style>
+  .self-host-note {
+    margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line-soft);
+    font-size: 11.5px; line-height: 1.5; color: var(--text-mute); text-align: center;
+  }
+  .self-host-note a { color: var(--accent); }
+  .ver-line {
+    margin-top: 10px; font-size: 10.5px; letter-spacing: 0.02em;
+    color: var(--text-mute); text-align: center; font-variant-numeric: tabular-nums;
+  }
+</style>

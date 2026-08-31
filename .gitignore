@@ -5,5 +5,7 @@ data
 pgdata
 certs
 .env
+.env.local
+.env*.local
 *.log
 .DS_Store

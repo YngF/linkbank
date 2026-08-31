@@ -7,7 +7,7 @@ switching, no copy-paste.
 
 1. In LinkBank, go to **Settings → Access tokens**, create a token, and copy it.
 2. Load the extension (below), open its **Options**, and enter your LinkBank URL
-   (e.g. `https://yngf.no`) and the token. Click **Test** to confirm, then
+   (e.g. `https://linkbank.no`) and the token. Click **Test** to confirm, then
    **Save**.
 3. Click the toolbar icon to save the current page, or right-click a page/link
    and choose **Save to LinkBank**.

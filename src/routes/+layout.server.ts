@@ -6,13 +6,15 @@ import { listTags } from '$lib/server/tags';
 import { getBackgroundVersion } from '$lib/server/background';
 import { getSettings, DEFAULT_SETTINGS } from '$lib/server/prefs';
 import { getEnabledModules } from '$lib/server/appSettings';
+import { APP_VERSION } from '$lib/server/version';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
   // Auth pages (login/setup/register) render without a session — no tree.
   if (!locals.user) {
     return {
       username: null, isAdmin: false, tree: [], trashCount: 0, brokenCount: 0,
-      tags: [], bgVersion: null, settings: DEFAULT_SETTINGS, modules: [] as string[]
+      tags: [], bgVersion: null, settings: DEFAULT_SETTINGS, modules: [] as string[],
+      version: APP_VERSION
     };
   }
   return {
@@ -24,6 +26,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
     tags: await listTags(locals.user.id),
     bgVersion: await getBackgroundVersion(locals.user.id),
     settings: await getSettings(locals.user.id),
-    modules: await getEnabledModules()
+    modules: await getEnabledModules(),
+    version: APP_VERSION
   };
 };
