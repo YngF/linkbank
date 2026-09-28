@@ -94,7 +94,11 @@
     }
   });
 
-  const fmt = (n: number) => new Intl.NumberFormat(undefined, { maximumFractionDigits: 4 }).format(n);
+  // Fixed locale (not the visitor's browser) so formatting is consistent for
+  // everyone: "." thousands, "," decimals. da-DK gives that; nb-NO uses a
+  // space for thousands instead.
+  const fmt = (n: number) =>
+    new Intl.NumberFormat('da-DK', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
 </script>
 
 <svelte:window
