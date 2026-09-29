@@ -11,9 +11,14 @@
   let to = $state('USD');
   let loaded = false;
   let favorites = $state<{ from: string; to: string }[]>([]);
+  let vatEnabled = $state(false);
+  let vatRate = $state<number | null>(25);
 
   const codes = $derived(rates ? currencyCodes(rates) : []);
-  const result = $derived(rates && amount != null ? convert(amount, from, to, rates) : null);
+  const converted = $derived(rates && amount != null ? convert(amount, from, to, rates) : null);
+  const result = $derived(
+    converted != null && vatEnabled && vatRate != null ? converted * (1 + vatRate / 100) : converted
+  );
   const isFav = $derived(favorites.some((f) => f.from === from && f.to === to));
 
   async function load() {
@@ -72,6 +77,14 @@
     persistFavs();
   }
 
+  function persistVat() {
+    try {
+      localStorage.setItem('lb-currency-vat', JSON.stringify({ enabled: vatEnabled, rate: vatRate }));
+    } catch {
+      /* ignore */
+    }
+  }
+
   onMount(() => {
     try {
       const s = JSON.parse(localStorage.getItem('lb-currency') || 'null');
@@ -89,6 +102,13 @@
           .filter((x) => x && typeof x.from === 'string' && typeof x.to === 'string')
           .slice(0, 8);
       }
+    } catch {
+      /* ignore */
+    }
+    try {
+      const v = JSON.parse(localStorage.getItem('lb-currency-vat') || 'null');
+      if (v && typeof v.enabled === 'boolean') vatEnabled = v.enabled;
+      if (v && typeof v.rate === 'number') vatRate = v.rate;
     } catch {
       /* ignore */
     }
@@ -168,6 +188,22 @@
           </button>
         </div>
 
+        <label class="vat-row">
+          <input type="checkbox" bind:checked={vatEnabled} onchange={persistVat} />
+          <span>+ VAT</span>
+          <input
+            class="vat-rate"
+            type="number"
+            inputmode="decimal"
+            step="any"
+            min="0"
+            bind:value={vatRate}
+            onchange={persistVat}
+            aria-label="VAT percentage"
+          />
+          <span class="pct">%</span>
+        </label>
+
         <div class="line">
           <div class="result" title={result == null ? '' : String(result)}>
             {result == null ? '—' : fmt(result)}
@@ -177,7 +213,9 @@
           </select>
         </div>
 
-        <div class="foot">{currencyName(from)} → {currencyName(to)} · rates as of {rates.date}</div>
+        <div class="foot">
+          {currencyName(from)} → {currencyName(to)} · rates as of {rates.date}{#if vatEnabled && vatRate != null} · +{vatRate}% VAT{/if}
+        </div>
       {/if}
     </div>
   {/if}
@@ -236,6 +274,16 @@
   }
   .star:hover { background: var(--bg-hover); color: var(--text); }
   .star.on { color: oklch(78% 0.14 90); }
+
+  .vat-row { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-dim); cursor: pointer; }
+  .vat-row input[type='checkbox'] { accent-color: var(--accent); flex: none; }
+  .vat-rate {
+    width: 46px; height: 26px; padding: 0 6px; margin-left: auto;
+    border-radius: var(--r-sm); border: 1px solid var(--line); background: var(--bg);
+    color: var(--text); font-size: 12.5px; text-align: right;
+  }
+  .vat-rate:focus { outline: 0; border-color: var(--accent-line); }
+  .vat-row .pct { flex: none; color: var(--text-mute); }
 
   .favs { display: flex; flex-wrap: wrap; gap: 5px; }
   .chip {
