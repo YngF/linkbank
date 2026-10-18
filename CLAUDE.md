@@ -73,10 +73,9 @@ and any `D:\GitHub repos\…` path in older docs are historical.
   `/mnt/truenas/projects`.
 - In dev mode the app's data dir is `./data` (`DATABASE_PATH` in `.env`).
 - Installed: git 2.47, Node 24 + npm 11, `cc`/`make`/`python3`, SSH key
-  authenticating to GitHub as `YngF`. **`gh` is not installed yet** — needed for
-  `gh run list` / `gh run watch` during a release, so `sudo apt install gh` and
-  `gh auth login` (protocol SSH) before the next one, or watch the Actions run
-  in the browser.
+  authenticating to GitHub as `YngF`, and `gh` 2.46 authenticated as `YngF`
+  (protocol SSH, `repo` scope) — so `gh run list` / `gh run watch` work for
+  release builds.
 - With npm 11, `npm ci` warns that install scripts for `better-sqlite3` and
   `esbuild` were skipped. Harmless: both ship prebuilt binaries
   (`better-sqlite3/prebuilds/linux-x64.node`), so nothing has to compile.
