@@ -2,7 +2,8 @@
 
 A running context document so a fresh Claude session (or any developer) can pick
 up LinkBank exactly where the previous work left off. Read this first, then skim
-`README.md`, `DOCKER.md`, and `WINDOWS_DEV.md`.
+`README.md` and `DOCKER.md`. (`WINDOWS_DEV.md` is historical — development
+moved to Debian/bash in October 2026.)
 
 **Current version:** `1.7.8` · **Image:** `yngf73/linkbank` (Docker Hub) ·
 **Repo:** `github.com/YngF/linkbank` · **Live instance:** runs as a container on
@@ -46,8 +47,10 @@ This project was built in a **Cowork/Claude Code** loop with a specific,
 proven workflow. Keep to it:
 
 1. **The GitHub repo is the source of truth.** The owner develops on their own
-   PC (originally Windows at `D:\GitHub repos\linkbank`, now moving to Debian),
-   cloned over SSH. See `CLAUDE.md` for the new-machine checklist.
+   machine — **Debian 13 + bash** since October 2026, repo at
+   `~/projects/linkbank`, cloned over SSH (it was previously Windows at
+   `D:\GitHub repos\linkbank`). See `CLAUDE.md` for the machine notes and the
+   new-machine checklist.
 2. **Claude edits, verifies, and — when asked — commits, pushes, tags and
    deploys.** (Historically Claude only edited files and the human ran git,
    because a sandboxed "git bridge" left stale `.git/index.lock` files. In
@@ -244,9 +247,11 @@ Note: in `vite dev`, `.env` is only read via `$env/dynamic/private` — plain
   Any new full-screen overlay should render as a sibling of `#app` (like
   `Dialogs`/`SearchModal` did) with a high `z-index`.
 - **`better-sqlite3` is native.** In a network-restricted sandbox `npm install`
-  can fail to fetch node headers — reuse a working `node_modules` if needed. On
-  Windows it uses prebuilt binaries (no compiler required). SQLite must live on
-  **local disk**, never a CIFS/NFS mount (network locking breaks it).
+  can fail to fetch node headers — reuse a working `node_modules` if needed. It
+  ships prebuilt binaries for Linux, macOS and Windows, so a normal install
+  needs no compiler (npm 11 warns that its install script was skipped — that is
+  fine). SQLite must live on **local disk**, never a CIFS/NFS mount (network
+  locking breaks it) — so keep the dev DB out of `/mnt/truenas*`.
 - **Claude's cloud sandbox can fully block `registry.npmjs.org` tarball
   downloads** (not just flaky — every package 403s, `npm`/`bun` alike), so
   `npm run build` / `svelte-check` sometimes can't run there at all. When that
@@ -260,8 +265,9 @@ Note: in `vite dev`, `.env` is only read via `$env/dynamic/private` — plain
   and this provider includes the base currency inside its own `rates` object —
   `currencyCodes()` in `src/lib/currency.ts` dedupes with a `Set` because of
   that; don't remove it.
-- **Line endings**: `.gitattributes` pins everything to LF so Windows checkouts
-  don't rewrite the bash scripts (`gen-selfsigned-cert.sh`) to CRLF.
+- **Line endings**: `.gitattributes` pins everything to LF so a Windows checkout
+  doesn't rewrite the bash scripts (`gen-selfsigned-cert.sh`) to CRLF; keep
+  `core.autocrlf false`.
 - **Device git bridge** (old sandboxed workflow only) left stale
   `.git/index.lock` files; not an issue when Claude runs git directly.
 - **Fixed number locale.** The currency converter formats with `da-DK`, not the

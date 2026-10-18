@@ -60,11 +60,32 @@ file is the short "how we work + where we left off" layer on top of it.
    `linkbank` on `truenas3.v33.lan` over its JSON-RPC API).
 6. Verify: `curl -sL https://linkbank.no/login | grep -o "LinkBank v[0-9.]*"`.
 
-## New machine checklist (e.g. the Windows → Debian switch)
+## The dev machine (Debian 13, since 2026-10-18)
 
-Not in git, so it must be recreated or copied over:
+The owner develops on **Debian 13** with **bash** — the old Windows/PowerShell
+setup is gone. Use bash syntax and forward slashes everywhere; `WINDOWS_DEV.md`
+and any `D:\GitHub repos\…` path in older docs are historical.
 
-- **Tools:** git, Node 22+ (Docker image uses 22; dev has run on 24), npm, the
+- Repos live side by side in `~/projects/`: `linkbank`, `cointoss-admin`,
+  `cointoss-auksjon` (same workflow/deploy pattern).
+- Old drive letters now map to: `D:\` → `/mnt/data1`, `Z:` →
+  `/mnt/truenas3/data/shared/cointoss`, `R:` (`\\truenas\Projects`) →
+  `/mnt/truenas/projects`.
+- In dev mode the app's data dir is `./data` (`DATABASE_PATH` in `.env`).
+- Installed: git 2.47, Node 24 + npm 11, `cc`/`make`/`python3`, SSH key
+  authenticating to GitHub as `YngF`. **`gh` is not installed yet** — needed for
+  `gh run list` / `gh run watch` during a release, so `sudo apt install gh` and
+  `gh auth login` (protocol SSH) before the next one, or watch the Actions run
+  in the browser.
+- With npm 11, `npm ci` warns that install scripts for `better-sqlite3` and
+  `esbuild` were skipped. Harmless: both ship prebuilt binaries
+  (`better-sqlite3/prebuilds/linux-x64.node`), so nothing has to compile.
+
+### New machine checklist
+
+Things not in git, so they must be recreated or copied over:
+
+- **Tools:** git, Node 22+ (Docker image uses 22; dev runs on 24), npm, the
   GitHub CLI `gh` (`gh auth login`, protocol SSH). `better-sqlite3` is native —
   prebuilt binaries normally work; if `npm install` has to compile, install
   `build-essential python3`.
@@ -72,26 +93,22 @@ Not in git, so it must be recreated or copied over:
   Settings → SSH keys, `ssh -T git@github.com`. Remote is
   `git@github.com:YngF/linkbank.git`. Identity: `YngF` / `yngvef@yngf.no`.
   Keep `core.autocrlf false` (repo is LF-only, see `.gitattributes`).
-- **Setup:** `git clone`, `npm install`, `npx svelte-kit sync`,
+- **Setup:** `git clone`, `npm ci`, `npx svelte-kit sync`,
   `npm install ws --no-save` (needed only by the deploy script; intentionally
   *not* a dependency), then `npm run build` + `npx svelte-check`.
 - **`.env`** — copy from `.env.example` (defaults are fine for dev).
 - **`.env.local`** (gitignored) needs `TRUENAS_API_KEY=…`. The same shared
   service-account key lives in the `cointoss-admin` repo's `.env.local`
-  (`TRUENAS_API_KEY`) on the old machine; copy it over, or mint a new API key
-  in the TrueNAS UI (account icon → My API Keys, user `claude-deploy`, role
+  (`TRUENAS_API_KEY`); copy it file-to-file, or mint a new API key in the
+  TrueNAS UI (account icon → My API Keys, user `claude-deploy`, role
   APPS_WRITE only). `TRUENAS_URL` defaults to
-  `wss://truenas3.v33.lan/api/current`, so the new machine must be on the LAN
-  (or VPN) and resolve `truenas3.v33.lan`.
+  `wss://truenas3.v33.lan/api/current`, so the machine must be on the LAN (or
+  VPN) and resolve `truenas3.v33.lan`. Keep the key out of `.env` — one copy,
+  in `.env.local`.
 - **`data/linkbank.db`** (dev database, gitignored): copy it if the dev data
   matters; otherwise a fresh one is created on first run.
 - **Claude's auto-memory is machine-local** and won't follow the owner; the
   durable parts are written into this file instead.
-- Sibling repos (`cointoss-admin`, `cointoss-auksjon`) use the same
-  workflow/deploy pattern; clone them next to this one if needed.
-- Paths in older docs (`D:\GitHub repos\linkbank`, `WINDOWS_DEV.md`) are
-  Windows-specific; on Debian use plain `bash` and forward slashes. In dev
-  mode the app's data dir is `./data` (`DATABASE_PATH` in `.env`).
 
 ## Gotchas learned recently
 
