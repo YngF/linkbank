@@ -45,13 +45,14 @@ benign warnings are pre-existing and acceptable — unused-CSS and
 This project was built in a **Cowork/Claude Code** loop with a specific,
 proven workflow. Keep to it:
 
-1. **The GitHub repo is the source of truth.** The owner develops on a Windows
-   PC with the repo at `D:\GitHub repos\linkbank`, cloned over SSH.
-2. **Claude edits + verifies; the human commits + pushes.** Claude writes files
-   into the repo folder (via the desktop file bridge) and builds/tests in its
-   own sandbox, but does **not** run git — the git bridge on the device leaves
-   stale `.git/index.lock` files. All `git add/commit/push/tag` is done by the
-   human in their terminal.
+1. **The GitHub repo is the source of truth.** The owner develops on their own
+   PC (originally Windows at `D:\GitHub repos\linkbank`, now moving to Debian),
+   cloned over SSH. See `CLAUDE.md` for the new-machine checklist.
+2. **Claude edits, verifies, and — when asked — commits, pushes, tags and
+   deploys.** (Historically Claude only edited files and the human ran git,
+   because a sandboxed "git bridge" left stale `.git/index.lock` files. In
+   Claude Code on the owner's machine that no longer applies; `CLAUDE.md` has
+   the current working agreement.)
 3. **Every change is verified before delivery:** `npm run build` (must exit 0)
    **and** `npx svelte-check` (0 errors). For anything with runtime behaviour,
    boot `node build` against a scratch DB and exercise it with `curl` (see the
@@ -107,7 +108,10 @@ npm run dev          # vite dev server (HMR)
   `updateSettings`, and a `sanitize()` that only accepts known keys/types).
   Adding a user preference = extend the interface + default + `sanitize()`; **no
   migration needed.** Current keys: `landOnLastFolder`, `searchEngine`,
-  `showCurrency`, `showPassword`.
+  `showCurrency`, `showPassword`, `tagsDisplay` (`tree`|`tabs`),
+  `bookmarkView` (`grid`|`list`). `+layout.server.ts` passes them to every page
+  as `data.settings`; after saving one from the Settings page call
+  `invalidateAll()` if the layout reads it, so it applies without a reload.
 - **Instance-wide (admin) settings** → key/value in the `app_settings` table,
   handled by `src/lib/server/appSettings.ts` (`getJson`/`setJson` + module
   enablement helpers). This is also where cached exchange rates live.
@@ -169,10 +173,14 @@ target (`/share`) → Inbox · **link-rot** checking (scheduled + on-demand,
 import/export (Netscape HTML) · self-contained favicon fetch/cache · **SQLite
 or Postgres** · dark/light theme + whole-UI zoom (CSS `zoom`) ·
 open-last-folder-on-launch · **custom background image** (frosted tree/top-bar) ·
-top-bar **web search** (selectable engine, opens new tab) · **Modules**:
+top-bar **web search** (selectable engine, opens new tab) · sidebar **Tags**
+shown under the tree or as a tab beside Library (setting `tagsDisplay`) ·
+**compact list view** for folders/bookmarks (setting `bookmarkView`) · running
+**version** badge in the top bar and on the login screen · **Modules**:
 currency converter (exchangerate-api.com, full currency list incl. UAH;
-optional admin-supplied API key for more frequent updates) and password
-generator.
+optional admin-supplied API key for more frequent updates; favourite pairs;
+optional "+ VAT" percentage; amounts always formatted `da-DK`, e.g.
+`39.169,19`) and password generator (with an entropy-based strength meter).
 
 ---
 
@@ -192,6 +200,7 @@ src/routes/background/+server.ts serves/stores the per-user background image (BL
 src/lib/server/db/{types,migrate,index}.ts   schema, migrations, dialect switch
 src/lib/server/prefs.ts          per-user settings JSON
 src/lib/server/appSettings.ts    instance key/value + module enablement
+src/lib/server/version.ts        APP_VERSION, bundled from package.json at build time
 src/lib/server/currency.ts       exchangerate-api.com fetch/cache + scheduler + admin API key (currency module)
 src/lib/{modules,currency,searchEngines}.ts  shared (client+server) registries/helpers
 src/lib/components/*.svelte      Icon, TreeNode, FolderView, Search, WebSearch,
@@ -199,6 +208,8 @@ src/lib/components/*.svelte      Icon, TreeNode, FolderView, Search, WebSearch,
 src/lib/client/{ui.svelte.ts,api.ts}  client state + API wrapper
 extension/                       cross-browser MV3 capture extension (+ SIGNING.md)
 Dockerfile, docker-compose.yml, .github/workflows/docker-publish.yml
+scripts/truenas-deploy.mjs       `npm run deploy -- linkbank` (needs .env.local + `npm i ws --no-save`)
+CLAUDE.md                        working agreement + new-machine checklist for Claude
 ```
 
 ---
@@ -251,8 +262,16 @@ Note: in `vite dev`, `.env` is only read via `$env/dynamic/private` — plain
   that; don't remove it.
 - **Line endings**: `.gitattributes` pins everything to LF so Windows checkouts
   don't rewrite the bash scripts (`gen-selfsigned-cert.sh`) to CRLF.
-- **Device git bridge** leaves stale `.git/index.lock` and can't delete files —
-  which is exactly why git stays in the human's hands (see §3).
+- **Device git bridge** (old sandboxed workflow only) left stale
+  `.git/index.lock` files; not an issue when Claude runs git directly.
+- **Fixed number locale.** The currency converter formats with `da-DK`, not the
+  browser locale: `nb-NO` uses a space as thousands separator, and Brave's
+  anti-fingerprinting makes `Intl…(undefined)` report a generic locale.
+- **Popover remove buttons:** a click on an item removed from a keyed `{#each}`
+  reaches the window outside-click handler *after* its DOM node is gone, which
+  closes the popover — `e.stopPropagation()` on such buttons.
+- **After changing a load function's return shape** run `npx svelte-kit sync`
+  before `svelte-check`, or it reports stale `$types`.
 
 ---
 
@@ -269,7 +288,7 @@ Note: in `vite dev`, `.env` is only read via `$env/dynamic/private` — plain
 
 ## 10. How to start the next session
 
-Tell the new Claude: *"This is LinkBank — read `HANDOVER.md` and the repo. I
-develop on Windows at `D:\GitHub repos\linkbank`; you edit + verify, I commit +
-push. Current version 1.7.8. Here's what I want next: …"* Then hand it the repo
-(or a connected folder) so it can read the actual code before changing anything.
+Tell the new Claude: *"This is LinkBank — read `CLAUDE.md`, `HANDOVER.md` and
+the repo. Current version 1.7.8. Here's what I want next: …"* Then hand it the
+repo so it can read the actual code before changing anything. On a fresh
+machine, work through the checklist in `CLAUDE.md` first.
