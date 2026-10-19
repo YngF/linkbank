@@ -5,9 +5,11 @@ file is the short "how we work + where we left off" layer on top of it.
 
 ## Where we left off
 
-- **Version 1.7.8**, tagged, built and **deployed** to the live instance at
+- **Version 1.8.0**, tagged, built and **deployed** to the live instance at
   <https://linkbank.no>. `main` is clean and pushed; nothing is in flight.
-- Recent work (1.7.2 → 1.7.8): password strength meter, currency favourites +
+- Recent work (1.7.2 → 1.8.0): deactivatable bookmarks (dimmed, skipped by
+  the link-rot checker, confirm dialog before following one), password
+  strength meter, currency favourites +
   optional VAT toggle (`da-DK` number format, fixed on purpose), sidebar Tags
   as a tab (setting `tagsDisplay`), compact list view (setting `bookmarkView`),
   version badge in the top bar + login footer, login "self-hosted instance"

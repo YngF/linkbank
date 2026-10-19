@@ -69,7 +69,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 
   const bmRows = await db
     .selectFrom('bookmarks')
-    .select(['id', 'title', 'url', 'notes', 'branch_id'])
+    .select(['id', 'title', 'url', 'notes', 'branch_id', 'is_deactivated'])
     .where('user_id', '=', userId)
     .where('is_deleted', '=', 0)
     .execute();
@@ -85,6 +85,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
       title: b.title,
       url: b.url,
       branchId: b.branch_id,
+      deactivated: !!b.is_deactivated,
       path: pathStr(b.branch_id)
       // notes intentionally omitted from the response
     }))

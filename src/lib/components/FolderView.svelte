@@ -52,8 +52,14 @@
   const editBookmark = (b: Bookmark) =>
     ui.openDialog({
       kind: 'bookmark-edit', id: b.id, title: b.title, url: b.url,
-      notes: b.notes ?? '', branchId: b.branch_id, linkIgnore: !!b.link_ignore, tags: tagNames(b)
+      notes: b.notes ?? '', branchId: b.branch_id, linkIgnore: !!b.link_ignore,
+      deactivated: !!b.is_deactivated, tags: tagNames(b)
     });
+
+  // A deactivated link may be a dead end, so ask before following it. Notes
+  // open the internal viewer, so there's nothing to warn about there.
+  const confirmDeactivated = (b: Bookmark) =>
+    ui.openDialog({ kind: 'bookmark-deactivated', id: b.id, title: b.title, url: b.url });
 
   const confirmDelete = (b: Bookmark) =>
     ui.openDialog({
@@ -89,6 +95,10 @@
       {
         label: b.link_ignore ? 'Include in link check' : 'Skip link check',
         run: () => api.setLinkIgnore(b.id, !b.link_ignore)
+      },
+      {
+        label: b.is_deactivated ? 'Reactivate' : 'Deactivate',
+        run: () => api.setDeactivated(b.id, !b.is_deactivated)
       },
       { label: 'Delete', danger: true, run: () => confirmDelete(b) }
     ]);
@@ -523,6 +533,7 @@
             tabindex={shownFolders.length + bi === focusIdx ? 0 : -1}
             type="button"
             class="tile note"
+            class:deactivated={!!b.is_deactivated}
             class:dz-before={dropHint?.id === b.id && dropHint?.zone === 'before'}
             class:dz-after={dropHint?.id === b.id && dropHint?.zone === 'after'}
             class:dragging={ui.drag?.kind === 'bookmark' && ui.drag.id === b.id}
@@ -548,6 +559,7 @@
             bind:this={tileEls[shownFolders.length + bi]}
             tabindex={shownFolders.length + bi === focusIdx ? 0 : -1}
             class="tile"
+            class:deactivated={!!b.is_deactivated}
             class:dz-before={dropHint?.id === b.id && dropHint?.zone === 'before'}
             class:dz-after={dropHint?.id === b.id && dropHint?.zone === 'after'}
             class:dragging={ui.drag?.kind === 'bookmark' && ui.drag.id === b.id}
@@ -558,7 +570,10 @@
             title={b.notes ? `${b.url}\n\n${b.notes}` : b.url}
             draggable="true"
             data-ctx
-            onclick={(e) => selectClick(e, 'b', b.id, shownFolders.length + bi)}
+            onclick={(e) => {
+              if (selectClick(e, 'b', b.id, shownFolders.length + bi)) return;
+              if (b.is_deactivated) { e.preventDefault(); confirmDeactivated(b); }
+            }}
             oncontextmenu={(e) => bookmarkMenu(e, b)}
             ondragstart={(e) => startBookmarkDrag(e, b)}
             ondragend={endDrag}
@@ -568,7 +583,7 @@
           >
             {#if isSel('b', b.id)}<span class="selcheck"><Icon name="check" size={12} /></span>{/if}
             <Favicon url={b.url} title={b.title} />
-            {#if b.link_status === 'broken' && !b.link_ignore}
+            {#if b.link_status === 'broken' && !b.link_ignore && !b.is_deactivated}
               <span class="broken-badge" title={b.link_detail ?? 'This link appears to be broken'}>
                 <Icon name="alert" size={11} />
               </span>
@@ -641,6 +656,17 @@
     transition: background 0.1s, border-color 0.1s;
   }
   .tile:hover { background: var(--bg-panel); border-color: var(--line-soft); }
+
+  /* deactivated ("parked") bookmarks: still listed and clickable, just visibly
+     muted. Desaturating the icon plus dimming the text reads in both themes
+     without pushing the opacity so low the favicon/title become unreadable.
+     Styled on the tile, so the list view's CSS re-layout inherits it. */
+  .tile.deactivated { opacity: 0.72; }
+  .tile.deactivated:hover, .tile.deactivated:focus-visible { opacity: 1; }
+  .tile.deactivated :global(.fav),
+  .tile.deactivated .ico { filter: grayscale(1); }
+  .tile.deactivated .label { color: var(--text-dim); }
+  .tile.deactivated .meta { color: var(--text-mute); }
 
   .ico {
     width: 54px; height: 54px; border-radius: 13px;

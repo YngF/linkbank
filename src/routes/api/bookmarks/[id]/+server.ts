@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ params, locals }) => {
   const id = Number(params.id);
   const row = await db
     .selectFrom('bookmarks')
-    .select(['id', 'title', 'url', 'notes', 'branch_id', 'link_ignore'])
+    .select(['id', 'title', 'url', 'notes', 'branch_id', 'link_ignore', 'is_deactivated'])
     .where('id', '=', id)
     .where('user_id', '=', userId)
     .where('is_deleted', '=', 0)
@@ -28,6 +28,7 @@ export const GET: RequestHandler = async ({ params, locals }) => {
     notes: decryptNote(row.notes) ?? '',
     branchId: row.branch_id,
     linkIgnore: !!row.link_ignore,
+    deactivated: !!row.is_deactivated,
     tags
   });
 };
@@ -42,6 +43,7 @@ export const PATCH: RequestHandler = async ({ params, request, locals }) => {
       notes: body.notes,
       branchId: body.branchId !== undefined ? Number(body.branchId) : undefined,
       linkIgnore: body.linkIgnore,
+      deactivated: body.deactivated,
       tags: Array.isArray(body.tags) ? body.tags.map(String) : undefined
     })
   );

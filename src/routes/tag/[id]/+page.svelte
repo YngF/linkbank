@@ -32,6 +32,9 @@
         kind: 'note-view', id: b.id, title: b.title, notes: full?.notes ?? '', url: b.url, branchId: b.branch_id,
         tags: (full?.tags ?? []).map((t: { name: string }) => t.name)
       });
+    } else if (b.is_deactivated) {
+      // Deactivated links aren't link-checked, so confirm before following one.
+      ui.openDialog({ kind: 'bookmark-deactivated', id: b.id, title: b.title, url: b.url });
     } else {
       window.open(b.url, '_blank', 'noopener');
     }
@@ -50,6 +53,7 @@
         notes: f.notes ?? '',
         branchId: f.branchId,
         linkIgnore: !!f.linkIgnore,
+        deactivated: !!f.deactivated,
         tags: (f.tags ?? []).map((t: { name: string }) => t.name)
       });
     } catch {
@@ -89,7 +93,7 @@
     {:else}
       <div class="list">
         {#each data.bookmarks as b (b.id)}
-          <div class="row">
+          <div class="row" class:deactivated={!!b.is_deactivated}>
             {#if isNoteUrl(b.url)}
               <span class="noteico"><Icon name="note" size={16} /></span>
             {:else}
@@ -136,6 +140,14 @@
     padding: 9px 12px; border-radius: var(--r-md); border: 1px solid var(--line-soft);
   }
   .row:hover { background: var(--bg-panel); }
+
+  /* deactivated bookmarks: still listed and clickable, just muted — same
+     intent as .tile.deactivated in FolderView (desaturated icon, dimmed text,
+     full strength on hover/focus), applied to this page's row markup. */
+  .row.deactivated { opacity: 0.72; }
+  .row.deactivated:hover, .row.deactivated:focus-within { opacity: 1; }
+  .row.deactivated :global(.fav), .row.deactivated .noteico { filter: grayscale(1); }
+  .row.deactivated .title { color: var(--text-dim); }
   .row :global(.fav) { width: 34px; height: 34px; border-radius: 9px; flex: none; }
   .row :global(.fav img) { width: 20px; height: 20px; }
   .noteico {

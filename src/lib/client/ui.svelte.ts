@@ -22,8 +22,10 @@ export type Dialog =
       notes: string;
       branchId: number;
       linkIgnore: boolean;
+      deactivated: boolean;
       tags: string[];
     }
+  | { kind: 'bookmark-deactivated'; id: number; title: string; url: string }
   | { kind: 'note-view'; id: number; title: string; notes: string; url: string; branchId: number; tags: string[] }
   | { kind: 'tag-edit'; id: number; name: string; hue: number }
   | { kind: 'folder-new'; parentId: number }

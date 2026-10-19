@@ -5,7 +5,7 @@ up LinkBank exactly where the previous work left off. Read this first, then skim
 `README.md` and `DOCKER.md`. (`WINDOWS_DEV.md` is historical — development
 moved to Debian/bash in October 2026.)
 
-**Current version:** `1.7.8` · **Image:** `yngf73/linkbank` (Docker Hub) ·
+**Current version:** `1.8.0` · **Image:** `yngf73/linkbank` (Docker Hub) ·
 **Repo:** `github.com/YngF/linkbank` · **Live instance:** runs as a container on
 a TrueNAS box, exposed at `https://linkbank.no`.
 
@@ -183,7 +183,10 @@ shown under the tree or as a tab beside Library (setting `tagsDisplay`) ·
 currency converter (exchangerate-api.com, full currency list incl. UAH;
 optional admin-supplied API key for more frequent updates; favourite pairs;
 optional "+ VAT" percentage; amounts always formatted `da-DK`, e.g.
-`39.169,19`) and password generator (with an entropy-based strength meter).
+`39.169,19`) and password generator (with an entropy-based strength meter) ·
+**deactivated bookmarks**: park a link so it stays listed but dimmed, is
+never link-checked, and asks before you follow it (Cancel / Proceed /
+Reactivate and proceed).
 
 ---
 
@@ -295,6 +298,6 @@ Note: in `vite dev`, `.env` is only read via `$env/dynamic/private` — plain
 ## 10. How to start the next session
 
 Tell the new Claude: *"This is LinkBank — read `CLAUDE.md`, `HANDOVER.md` and
-the repo. Current version 1.7.8. Here's what I want next: …"* Then hand it the
+the repo. Current version 1.8.0. Here's what I want next: …"* Then hand it the
 repo so it can read the actual code before changing anything. On a fresh
 machine, work through the checklist in `CLAUDE.md` first.

@@ -22,6 +22,7 @@
   let notes = $state('');
   let name = $state('');
   let linkIgnore = $state(false);
+  let deactivated = $state(false);
   let tagNames = $state<string[]>([]);
   let tagHue = $state<number | null>(null);
   let busy = $state(false);
@@ -45,9 +46,10 @@
     if (kind === lastKind) return; // only re-seed when the dialog changes
     lastKind = kind;
     if (d?.kind === 'bookmark-new') {
-      url = ''; title = ''; notes = ''; linkIgnore = false; tagNames = [];
+      url = ''; title = ''; notes = ''; linkIgnore = false; deactivated = false; tagNames = [];
     } else if (d?.kind === 'bookmark-edit') {
-      url = d.url; title = d.title; notes = d.notes; linkIgnore = d.linkIgnore; tagNames = [...d.tags];
+      url = d.url; title = d.title; notes = d.notes; linkIgnore = d.linkIgnore;
+      deactivated = d.deactivated; tagNames = [...d.tags];
     } else if (d?.kind === 'folder-new') {
       name = '';
     } else if (d?.kind === 'folder-rename') {
@@ -83,13 +85,18 @@
     }
   }
 
+  /** Open a bookmark the way the rest of the app does: a new tab, no referrer. */
+  function openLink(url: string) {
+    window.open(url, '_blank', 'noopener');
+  }
+
   async function submit() {
     const d = ui.dialog;
     if (!d || busy) return;
     busy = true;
     let ok: unknown = null;
     if (d.kind === 'bookmark-new') ok = await api.createBookmark(d.branchId, url, title, notes, tagNames);
-    else if (d.kind === 'bookmark-edit') ok = await api.updateBookmark(d.id, { title, url, notes, linkIgnore, tags: tagNames });
+    else if (d.kind === 'bookmark-edit') ok = await api.updateBookmark(d.id, { title, url, notes, linkIgnore, deactivated, tags: tagNames });
     else if (d.kind === 'folder-new') ok = await api.createFolder(d.parentId, name);
     else if (d.kind === 'folder-rename') ok = await api.renameFolder(d.id, name);
     else if (d.kind === 'tag-edit') ok = await api.updateTag(d.id, { name, hue: tagHue });
@@ -144,6 +151,10 @@
             <label class="check">
               <input type="checkbox" bind:checked={linkIgnore} />
               <span>Skip link-rot check for this bookmark</span>
+            </label>
+            <label class="check">
+              <input type="checkbox" bind:checked={deactivated} />
+              <span>Deactivated — dimmed in lists and never link-checked</span>
             </label>
           {/if}
         </div>
@@ -226,6 +237,14 @@
             </div>
           {/if}
         </div>
+      {:else if ui.dialog.kind === 'bookmark-deactivated'}
+        <h2>This bookmark is deactivated</h2>
+        <div class="body">
+          <p class="msg">
+            “{ui.dialog.title}” is deactivated, so it hasn't been link-checked — it may be a dead end.
+          </p>
+          <p class="msg dim-url">{ui.dialog.url}</p>
+        </div>
       {:else if ui.dialog.kind === 'confirm'}
         <h2>Please confirm</h2>
         <div class="body"><p class="msg">{ui.dialog.message}</p></div>
@@ -235,6 +254,22 @@
         <div class="foot">
           <button class="btn" onclick={() => ui.closeDialog()}>Cancel</button>
         </div>
+      {:else if ui.dialog.kind === 'bookmark-deactivated'}
+        {@const d = ui.dialog}
+        <div class="foot">
+          <button class="btn" onclick={() => ui.closeDialog()}>Cancel</button>
+          <button class="btn" onclick={() => { openLink(d.url); ui.closeDialog(); }}>Proceed</button>
+          <!-- Open synchronously inside the click, then let the PATCH run
+               alongside it: awaiting first puts window.open outside the user
+               gesture and the popup blocker kills the tab. -->
+          <button
+            class="btn primary"
+            onclick={() => {
+              openLink(d.url);
+              api.setDeactivated(d.id, false);
+              ui.closeDialog();
+            }}>Reactivate and proceed</button>
+        </div>
       {:else if ui.dialog.kind === 'note-view'}
         <div class="foot">
           <button class="btn" onclick={() => ui.closeDialog()}>Close</button>
@@ -243,7 +278,7 @@
             onclick={() => {
               const d = ui.dialog;
               if (d?.kind === 'note-view')
-                ui.openDialog({ kind: 'bookmark-edit', id: d.id, title: d.title, url: d.url, notes: d.notes, branchId: d.branchId, linkIgnore: false, tags: d.tags });
+                ui.openDialog({ kind: 'bookmark-edit', id: d.id, title: d.title, url: d.url, notes: d.notes, branchId: d.branchId, linkIgnore: false, deactivated: false, tags: d.tags });
             }}>Edit</button>
         </div>
       {:else}
@@ -307,6 +342,8 @@
     color: var(--text); font-size: 14px; line-height: 1.55;
   }
   .empty-note { font-style: italic; }
+
+  .dim-url { color: var(--text-mute); font-size: 12.5px; word-break: break-all; }
 
   .field-hint {
     text-transform: none; letter-spacing: normal; font-weight: 400;

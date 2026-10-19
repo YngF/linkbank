@@ -6,7 +6,7 @@
   import { dotStyle } from '$lib/tagcolour';
 
   interface FolderHit { id: number; name: string; path: string }
-  interface BookmarkHit { id: number; title: string; url: string; branchId: number; path: string }
+  interface BookmarkHit { id: number; title: string; url: string; branchId: number; deactivated: boolean; path: string }
   interface TagHit { id: number; name: string; hue: number; count?: number }
   type Flat =
     | { type: 'folder'; hit: FolderHit }
@@ -100,6 +100,11 @@
       goto(`/f/${item.hit.branchId}`);
       return;
     }
+    if (item.hit.deactivated) {
+      // Deactivated links aren't link-checked, so confirm before following one.
+      ui.openDialog({ kind: 'bookmark-deactivated', id: item.hit.id, title: item.hit.title, url: item.hit.url });
+      return;
+    }
     window.open(item.hit.url, '_blank', 'noopener');
   }
 
@@ -165,6 +170,7 @@
           <button
             class="res"
             class:cur={i === active}
+            class:deactivated={item.type === 'bookmark' && item.hit.deactivated}
             role="option"
             aria-selected={i === active}
             onmouseenter={() => (active = i)}
@@ -225,6 +231,13 @@
     padding: 7px 9px; border-radius: var(--r-sm); text-align: left;
   }
   .res.cur { background: var(--accent-soft); }
+
+  /* deactivated bookmarks stay in the results, just muted (same intent as the
+     dimmed tiles in FolderView); the highlighted row is always full strength. */
+  .res.deactivated { opacity: 0.72; }
+  .res.deactivated.cur, .res.deactivated:hover { opacity: 1; }
+  .res.deactivated .ri { filter: grayscale(1); }
+  .res.deactivated .rt { color: var(--text-dim); }
   .ri { color: var(--text-mute); flex: none; display: grid; place-items: center; width: 16px; }
   .tagdot { width: 10px; height: 10px; border-radius: 50%; }
   .res.cur .ri { color: var(--accent); }

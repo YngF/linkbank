@@ -84,7 +84,7 @@
             class="exempt-toggle"
             aria-expanded={showExempt}
             onclick={() => (showExempt = !showExempt)}
-          >{data.summary.exempt} exempt</button>{/if} · last run {ago(data.summary.lastCheckedAt)}
+          >{data.summary.exempt} exempt</button>{/if}{#if data.summary.deactivated}{' '}·{' '}{data.summary.deactivated} deactivated{/if} · last run {ago(data.summary.lastCheckedAt)}
       {/if}
     </span>
     <span class="spacer"></span>

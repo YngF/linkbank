@@ -193,7 +193,8 @@ export async function runSweep(opts: { userId?: number; onlyDue?: boolean } = {}
       .selectFrom('bookmarks')
       .select(['id', 'url', 'link_checked_at'])
       .where('is_deleted', '=', 0)
-      .where('link_ignore', '=', 0); // exempt whitelisted links
+      .where('link_ignore', '=', 0) // exempt whitelisted links
+      .where('is_deactivated', '=', 0); // deactivated bookmarks are never probed
     if (opts.userId != null) q = q.where('user_id', '=', opts.userId);
     let rows = await q.execute();
     if (opts.onlyDue) rows = rows.filter((r) => isDue(r.link_checked_at));
@@ -225,6 +226,7 @@ export async function checkBookmark(
     .where('id', '=', id)
     .where('user_id', '=', userId)
     .where('is_deleted', '=', 0)
+    .where('is_deactivated', '=', 0)
     .executeTakeFirst();
   if (!row) return null;
   const res = await checkOne(row.url);
@@ -271,6 +273,7 @@ export async function listBrokenLinks(userId: number): Promise<BrokenLink[]> {
     .where('user_id', '=', userId)
     .where('is_deleted', '=', 0)
     .where('link_ignore', '=', 0)
+    .where('is_deactivated', '=', 0)
     .where('link_status', '=', 'broken')
     .execute();
 
@@ -321,6 +324,7 @@ export async function listExemptLinks(userId: number): Promise<ExemptLink[]> {
     .select(['id', 'title', 'url', 'branch_id'])
     .where('user_id', '=', userId)
     .where('is_deleted', '=', 0)
+    .where('is_deactivated', '=', 0)
     .where('link_ignore', '=', 1)
     .execute();
 
@@ -342,17 +346,19 @@ export async function brokenCount(userId: number): Promise<number> {
     .where('user_id', '=', userId)
     .where('is_deleted', '=', 0)
     .where('link_ignore', '=', 0)
+    .where('is_deactivated', '=', 0)
     .where('link_status', '=', 'broken')
     .executeTakeFirst();
   return Number(r?.c ?? 0);
 }
 
 export interface LinkSummary {
-  total: number; // checkable bookmarks (excludes exempted)
+  total: number; // checkable bookmarks (excludes exempted and deactivated)
   checked: number;
   broken: number;
   unchecked: number;
   exempt: number;
+  deactivated: number;
   lastCheckedAt: string | null;
 }
 
@@ -360,11 +366,16 @@ export async function linkSummary(userId: number): Promise<LinkSummary> {
   const r = await db
     .selectFrom('bookmarks')
     .select([
-      sql<number>`sum(case when link_ignore = 0 then 1 else 0 end)`.as('total'),
-      sql<number>`sum(case when link_ignore = 0 and link_status is not null then 1 else 0 end)`.as('checked'),
-      sql<number>`sum(case when link_ignore = 0 and link_status = 'broken' then 1 else 0 end)`.as('broken'),
-      sql<number>`sum(case when link_ignore = 1 then 1 else 0 end)`.as('exempt'),
-      sql<string | null>`max(case when link_ignore = 0 then link_checked_at end)`.as('last')
+      sql<number>`sum(case when link_ignore = 0 and is_deactivated = 0 then 1 else 0 end)`.as('total'),
+      sql<number>`sum(case when link_ignore = 0 and is_deactivated = 0 and link_status is not null then 1 else 0 end)`.as(
+        'checked'
+      ),
+      sql<number>`sum(case when link_ignore = 0 and is_deactivated = 0 and link_status = 'broken' then 1 else 0 end)`.as(
+        'broken'
+      ),
+      sql<number>`sum(case when link_ignore = 1 and is_deactivated = 0 then 1 else 0 end)`.as('exempt'),
+      sql<number>`sum(case when is_deactivated = 1 then 1 else 0 end)`.as('deactivated'),
+      sql<string | null>`max(case when link_ignore = 0 and is_deactivated = 0 then link_checked_at end)`.as('last')
     ])
     .where('user_id', '=', userId)
     .where('is_deleted', '=', 0)
@@ -378,6 +389,7 @@ export async function linkSummary(userId: number): Promise<LinkSummary> {
     broken,
     unchecked: total - checked,
     exempt: Number(r?.exempt ?? 0),
+    deactivated: Number(r?.deactivated ?? 0),
     lastCheckedAt: r?.last ?? null
   };
 }

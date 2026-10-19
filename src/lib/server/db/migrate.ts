@@ -250,6 +250,14 @@ const migrations: Migration[] = [
         )
       `.execute(db);
     }
+  },
+  {
+    name: '0014_bookmark_deactivated',
+    up: async () => {
+      // A bookmark the user has parked: still listed and clickable, but shown
+      // dimmed and never probed by the link-rot checker. 1 = deactivated.
+      await sql`ALTER TABLE bookmarks ADD COLUMN is_deactivated INTEGER NOT NULL DEFAULT 0`.execute(db);
+    }
   }
 ];
 

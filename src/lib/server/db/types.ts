@@ -139,6 +139,7 @@ export interface BookmarksTable {
   link_detail: string | null; // human-readable reason, e.g. 'Not found (404)'
   link_checked_at: string | null;
   link_ignore: Generated<number>; // 1 = exempt from the link-rot checker
+  is_deactivated: Generated<number>; // 1 = parked: dimmed in the UI, never link-checked
   created_at: Generated<string>;
   updated_at: Generated<string>;
 }

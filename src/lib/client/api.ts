@@ -34,7 +34,15 @@ export const api = {
 
   updateBookmark: (
     id: number,
-    patch: { title?: string; url?: string; notes?: string; branchId?: number; linkIgnore?: boolean; tags?: string[] }
+    patch: {
+      title?: string;
+      url?: string;
+      notes?: string;
+      branchId?: number;
+      linkIgnore?: boolean;
+      deactivated?: boolean;
+      tags?: string[];
+    }
   ) => mutate(() => call('PATCH', `/api/bookmarks/${id}`, patch), 'Saved'),
 
   // ---- tags -----------------------------------------------------------------
@@ -213,6 +221,12 @@ export const api = {
     mutate(
       () => call('PATCH', `/api/bookmarks/${id}`, { linkIgnore: ignore }),
       ignore ? 'Excluded from link check' : 'Included in link check'
+    ),
+
+  setDeactivated: (id: number, deactivated: boolean) =>
+    mutate(
+      () => call('PATCH', `/api/bookmarks/${id}`, { deactivated }),
+      deactivated ? 'Bookmark deactivated' : 'Bookmark reactivated'
     ),
 
   // Drop a URL (from the address bar) into a folder: fetch its title, then create.

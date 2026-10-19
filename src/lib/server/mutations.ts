@@ -109,6 +109,7 @@ export async function updateBookmark(
     notes?: string | null;
     branchId?: number;
     linkIgnore?: boolean;
+    deactivated?: boolean;
     tags?: string[];
   }
 ) {
@@ -130,6 +131,7 @@ export async function updateBookmark(
     patch.branch_id = input.branchId;
   }
   if (input.linkIgnore !== undefined) patch.link_ignore = input.linkIgnore ? 1 : 0;
+  if (input.deactivated !== undefined) patch.is_deactivated = input.deactivated ? 1 : 0;
   await db.updateTable('bookmarks').set(patch).where('id', '=', id).where('user_id', '=', userId).execute();
   if (input.tags !== undefined) await setBookmarkTags(userId, id, input.tags);
   return { ok: true };

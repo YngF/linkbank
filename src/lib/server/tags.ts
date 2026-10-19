@@ -164,6 +164,7 @@ export interface TaggedBookmark {
   title: string;
   url: string;
   branch_id: number;
+  is_deactivated: number; // 1 = deactivated: shown dimmed, never link-checked
   path: string;
 }
 
@@ -190,14 +191,27 @@ export async function listBookmarksByTag(userId: number, tagId: number): Promise
   const rows = await db
     .selectFrom('bookmark_tags')
     .innerJoin('bookmarks', 'bookmarks.id', 'bookmark_tags.bookmark_id')
-    .select(['bookmarks.id as id', 'bookmarks.title as title', 'bookmarks.url as url', 'bookmarks.branch_id as branch_id'])
+    .select([
+      'bookmarks.id as id',
+      'bookmarks.title as title',
+      'bookmarks.url as url',
+      'bookmarks.branch_id as branch_id',
+      'bookmarks.is_deactivated as is_deactivated'
+    ])
     .where('bookmark_tags.tag_id', '=', tagId)
     .where('bookmarks.user_id', '=', userId)
     .where('bookmarks.is_deleted', '=', 0)
     .execute();
 
   return rows
-    .map((r) => ({ id: r.id, title: r.title, url: r.url, branch_id: r.branch_id, path: pathStr(r.branch_id) }))
+    .map((r) => ({
+      id: r.id,
+      title: r.title,
+      url: r.url,
+      branch_id: r.branch_id,
+      is_deactivated: r.is_deactivated,
+      path: pathStr(r.branch_id)
+    }))
     .sort((a, b) => a.title.localeCompare(b.title));
 }
 

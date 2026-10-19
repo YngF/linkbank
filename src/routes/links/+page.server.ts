@@ -6,7 +6,7 @@ export const load: PageServerLoad = async ({ locals }) => {
     return {
       broken: [],
       exempt: [],
-      summary: { total: 0, checked: 0, broken: 0, unchecked: 0, exempt: 0, lastCheckedAt: null }
+      summary: { total: 0, checked: 0, broken: 0, unchecked: 0, exempt: 0, deactivated: 0, lastCheckedAt: null }
     };
   }
   const [broken, exempt, summary] = await Promise.all([
