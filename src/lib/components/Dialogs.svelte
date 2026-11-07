@@ -85,6 +85,47 @@
     }
   }
 
+  /**
+   * Copy a note's text to the clipboard of the machine the UI is open on.
+   * `navigator.clipboard` is missing outside a secure context — a self-hosted
+   * instance may well be served over plain http on a LAN — and can also reject
+   * when a permissions policy blocks it, so fall back to the old textarea +
+   * execCommand trick in either case before reporting failure. Without that the
+   * button would be silently dead on an http instance.
+   */
+  function copyViaTextarea(text: string): boolean {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    return ok;
+  }
+
+  async function copyNote(text: string) {
+    let ok = false;
+    try {
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      }
+    } catch {
+      ok = false; // blocked or no user activation — try the legacy path below
+    }
+    if (!ok) {
+      try {
+        ok = copyViaTextarea(text);
+      } catch {
+        ok = false;
+      }
+    }
+    ui.toast(ok ? 'Note copied' : 'Could not copy the note', ok ? 'ok' : 'error');
+  }
+
   /** Open a bookmark the way the rest of the app does: a new tab, no referrer. */
   function openLink(url: string) {
     window.open(url, '_blank', 'noopener');
@@ -271,8 +312,14 @@
             }}>Reactivate and proceed</button>
         </div>
       {:else if ui.dialog.kind === 'note-view'}
+        {@const noteText = ui.dialog.notes}
         <div class="foot">
           <button class="btn" onclick={() => ui.closeDialog()}>Close</button>
+          {#if noteText.trim()}
+            <button class="btn withicon" onclick={() => copyNote(noteText)}>
+              <Icon name="copy" size={14} /> Copy to clipboard
+            </button>
+          {/if}
           <button
             class="btn primary"
             onclick={() => {
@@ -370,6 +417,9 @@
     height: 30px; padding: 0 12px; border-radius: var(--r-md); font-size: 13px; font-weight: 520;
     border: 1px solid var(--line); background: var(--bg-raised); color: var(--text-dim);
   }
+  /* only for buttons that pair a glyph with their label — .btn itself is not
+     a flex box, so an inline SVG would sit on the text baseline. */
+  .btn.withicon { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
   .btn:hover { background: var(--bg-hover); color: var(--text); }
   .btn.primary { background: var(--accent); border-color: transparent; color: #fff; }
   .btn.primary:hover { filter: brightness(1.08); }
