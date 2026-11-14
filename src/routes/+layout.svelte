@@ -225,7 +225,7 @@
     <button class="iconbtn menu-toggle" onclick={onMenuToggle} aria-label="Show folder tree" title="Show folder tree">
       <Icon name="panel" />
     </button>
-    <WebSearch engine={data.settings.searchEngine} />
+    <WebSearch engine={data.settings.searchEngine} customUrl={data.settings.customSearchUrl} />
     <Search />
     <button
       class="iconbtn"

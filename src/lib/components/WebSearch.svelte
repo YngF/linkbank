@@ -1,11 +1,13 @@
 <script lang="ts">
   import Icon from './Icon.svelte';
-  import { SEARCH_ENGINES, engineById } from '$lib/searchEngines';
+  import { SEARCH_ENGINES, CUSTOM_ENGINE_ID, searchUrlFor } from '$lib/searchEngines';
+  import { ui } from '$lib/client/ui.svelte';
 
   interface Props {
     engine: string; // current engine id (from settings)
+    customUrl?: string; // results URL template used when engine is 'custom'
   }
-  let { engine }: Props = $props();
+  let { engine, customUrl = '' }: Props = $props();
 
   let engineId = $state(engine);
   let q = $state('');
@@ -28,7 +30,14 @@
     e.preventDefault();
     const term = q.trim();
     if (!term) return;
-    window.open(engineById(engineId).url(term), '_blank', 'noopener');
+    const url = searchUrlFor(engineId, customUrl, term);
+    if (!url) {
+      // Custom engine picked but no usable URL saved yet — say so rather than
+      // opening a blank tab.
+      ui.toast('Set a custom search URL in Settings first', 'error');
+      return;
+    }
+    window.open(url, '_blank', 'noopener');
     q = '';
   }
 </script>
@@ -39,6 +48,7 @@
     {#each SEARCH_ENGINES as e (e.id)}
       <option value={e.id}>{e.name}</option>
     {/each}
+    <option value={CUSTOM_ENGINE_ID}>Custom</option>
   </select>
   <span class="divider"></span>
   <input

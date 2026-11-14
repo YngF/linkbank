@@ -5,9 +5,10 @@ file is the short "how we work + where we left off" layer on top of it.
 
 ## Where we left off
 
-- **Version 1.8.1**, tagged, built and **deployed** to the live instance at
+- **Version 1.9.0**, tagged, built and **deployed** to the live instance at
   <https://linkbank.no>. `main` is clean and pushed; nothing is in flight.
-- Recent work (1.7.2 → 1.8.1): copy-note-to-clipboard button,
+- Recent work (1.7.2 → 1.9.0): custom web-search URL (SearXNG),
+  copy-note-to-clipboard button,
   deactivatable bookmarks (dimmed, skipped by
   the link-rot checker, confirm dialog before following one), password
   strength meter, currency favourites +
@@ -120,8 +121,8 @@ Things not in git, so they must be recreated or copied over:
   `Intl…(undefined)` unreliable, so don't switch to the browser locale.
 - Per-user settings go through `src/lib/server/prefs.ts` (interface + default +
   `sanitize()`, no migration). Current keys: `landOnLastFolder`,
-  `searchEngine`, `showCurrency`, `showPassword`, `tagsDisplay`
-  (`tree|tabs`), `bookmarkView` (`grid|list`). Settings that change the
+  `searchEngine`, `customSearchUrl`, `showCurrency`, `showPassword`,
+  `tagsDisplay` (`tree|tabs`), `bookmarkView` (`grid|list`). Settings that change the
   sidebar should call `invalidateAll()` after saving so they apply instantly.
 - `list` view is a pure CSS re-layout of the tile markup in `FolderView.svelte`
   (`.grid.list …`) so drag/drop, multi-select and keyboard nav keep working.

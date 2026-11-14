@@ -1,5 +1,5 @@
 import { db } from './db/index';
-import { DEFAULT_ENGINE, ENGINE_IDS } from '$lib/searchEngines';
+import { DEFAULT_ENGINE, ENGINE_IDS, isValidCustomSearchUrl } from '$lib/searchEngines';
 
 /**
  * Per-user personalization preferences.
@@ -13,6 +13,8 @@ export interface UserSettings {
   landOnLastFolder: boolean;
   /** Web-search engine id for the top-bar search field (see searchEngines.ts). */
   searchEngine: string;
+  /** Results URL used when searchEngine is 'custom' — `%s` marks the query. */
+  customSearchUrl: string;
   /** Show the currency converter (only relevant when the admin has installed it). */
   showCurrency: boolean;
   /** Show the password generator (only relevant when the admin has installed it). */
@@ -26,6 +28,7 @@ export interface UserSettings {
 export const DEFAULT_SETTINGS: UserSettings = {
   landOnLastFolder: false,
   searchEngine: DEFAULT_ENGINE,
+  customSearchUrl: '',
   showCurrency: true,
   showPassword: true,
   tagsDisplay: 'tree',
@@ -40,6 +43,12 @@ function sanitize(obj: unknown): Partial<UserSettings> {
     if (typeof o.landOnLastFolder === 'boolean') out.landOnLastFolder = o.landOnLastFolder;
     if (typeof o.searchEngine === 'string' && ENGINE_IDS.includes(o.searchEngine))
       out.searchEngine = o.searchEngine;
+    // Empty clears it; anything else must be an http(s) URL with the query
+    // placeholder, so a `javascript:` template can never reach window.open.
+    if (typeof o.customSearchUrl === 'string') {
+      const t = o.customSearchUrl.trim();
+      if (t === '' || isValidCustomSearchUrl(t)) out.customSearchUrl = t;
+    }
     if (typeof o.showCurrency === 'boolean') out.showCurrency = o.showCurrency;
     if (typeof o.showPassword === 'boolean') out.showPassword = o.showPassword;
     if (o.tagsDisplay === 'tree' || o.tagsDisplay === 'tabs') out.tagsDisplay = o.tagsDisplay;

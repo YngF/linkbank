@@ -1,7 +1,7 @@
 <script lang="ts">
   import { invalidateAll } from '$app/navigation';
   import { ui } from '$lib/client/ui.svelte';
-  import { SEARCH_ENGINES } from '$lib/searchEngines';
+  import { SEARCH_ENGINES, CUSTOM_ENGINE_ID, isValidCustomSearchUrl } from '$lib/searchEngines';
   import type { PageData } from './$types';
 
   let { data }: { data: PageData } = $props();
@@ -96,6 +96,8 @@
 
   // Web search
   let searchEngine = $state(data.settings.searchEngine);
+  let customSearchUrl = $state(data.settings.customSearchUrl);
+  let customBusy = $state(false);
 
   async function saveEngine() {
     try {
@@ -104,6 +106,24 @@
     } catch (e) {
       ui.toast(e instanceof Error ? e.message : 'Failed', 'error');
     }
+  }
+
+  async function saveCustomUrl() {
+    const v = customSearchUrl.trim();
+    // The server drops an invalid template silently, so check here to explain why.
+    if (v && !isValidCustomSearchUrl(v)) {
+      ui.toast('Needs to be an http(s) URL containing %s', 'error');
+      return;
+    }
+    customBusy = true;
+    try {
+      await call({ settings: { customSearchUrl: v } });
+      customSearchUrl = v;
+      ui.toast(v ? 'Custom search URL saved' : 'Custom search URL cleared');
+    } catch (e) {
+      ui.toast(e instanceof Error ? e.message : 'Failed', 'error');
+    }
+    customBusy = false;
   }
 
   // Tags display
@@ -277,8 +297,26 @@
           {#each SEARCH_ENGINES as e (e.id)}
             <option value={e.id}>{e.name}</option>
           {/each}
+          <option value={CUSTOM_ENGINE_ID}>Custom…</option>
         </select>
       </label>
+      {#if searchEngine === CUSTOM_ENGINE_ID}
+        <p class="hint">Paste your own results URL and mark the query with <code>%s</code> — for a
+          self-hosted SearXNG that is typically
+          <code>https://searx.example.com/search?q=%s</code>. The page opens in your browser, so a
+          LAN-only address works as long as you can reach it.</p>
+        <div class="urlrow">
+          <input
+            bind:value={customSearchUrl}
+            placeholder="https://searx.example.com/search?q=%s"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Custom search URL"
+            onkeydown={(e) => e.key === 'Enter' && saveCustomUrl()}
+          />
+          <button class="btn" onclick={saveCustomUrl} disabled={customBusy}>Save</button>
+        </div>
+      {/if}
     </div>
 
     <div class="card">
@@ -455,6 +493,19 @@
     background-size: cover; background-position: center; background-repeat: no-repeat;
   }
   .bg-actions { display: flex; gap: 8px; }
+
+  /* same shape as .tokrow-new, monospace because it holds a URL template */
+  .urlrow { display: flex; gap: 8px; }
+  .urlrow input {
+    flex: 1; background: var(--bg); border: 1px solid var(--line);
+    border-radius: var(--r-md); padding: 8px 10px;
+    font-size: 12.5px; font-family: ui-monospace, monospace; color: var(--text);
+  }
+  .hint code {
+    font-family: ui-monospace, monospace; font-size: 11.5px;
+    background: var(--bg); border: 1px solid var(--line-soft);
+    border-radius: 4px; padding: 0 4px;
+  }
 
   .tokrow-new { display: flex; gap: 8px; }
   .tokrow-new input { flex: 1; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-md); padding: 8px 10px; font-size: 13.5px; color: var(--text); }

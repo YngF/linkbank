@@ -5,7 +5,7 @@ up LinkBank exactly where the previous work left off. Read this first, then skim
 `README.md` and `DOCKER.md`. (`WINDOWS_DEV.md` is historical — development
 moved to Debian/bash in October 2026.)
 
-**Current version:** `1.8.1` · **Image:** `yngf73/linkbank` (Docker Hub) ·
+**Current version:** `1.9.0` · **Image:** `yngf73/linkbank` (Docker Hub) ·
 **Repo:** `github.com/YngF/linkbank` · **Live instance:** runs as a container on
 a TrueNAS box, exposed at `https://linkbank.no`.
 
@@ -112,7 +112,7 @@ npm run dev          # vite dev server (HMR)
   Adding a user preference = extend the interface + default + `sanitize()`; **no
   migration needed.** Current keys: `landOnLastFolder`, `searchEngine`,
   `showCurrency`, `showPassword`, `tagsDisplay` (`tree`|`tabs`),
-  `bookmarkView` (`grid`|`list`). `+layout.server.ts` passes them to every page
+  `bookmarkView` (`grid`|`list`), `customSearchUrl`. `+layout.server.ts` passes them to every page
   as `data.settings`; after saving one from the Settings page call
   `invalidateAll()` if the layout reads it, so it applies without a reload.
 - **Instance-wide (admin) settings** → key/value in the `app_settings` table,
@@ -176,7 +176,8 @@ target (`/share`) → Inbox · **link-rot** checking (scheduled + on-demand,
 import/export (Netscape HTML) · self-contained favicon fetch/cache · **SQLite
 or Postgres** · dark/light theme + whole-UI zoom (CSS `zoom`) ·
 open-last-folder-on-launch · **custom background image** (frosted tree/top-bar) ·
-top-bar **web search** (selectable engine, opens new tab) · sidebar **Tags**
+top-bar **web search** (selectable engine, or a custom results URL with `%s`
+for a self-hosted SearXNG; opens new tab) · sidebar **Tags**
 shown under the tree or as a tab beside Library (setting `tagsDisplay`) ·
 **compact list view** for folders/bookmarks (setting `bookmarkView`) · running
 **version** badge in the top bar and on the login screen · **Modules**:
@@ -300,6 +301,6 @@ Note: in `vite dev`, `.env` is only read via `$env/dynamic/private` — plain
 ## 10. How to start the next session
 
 Tell the new Claude: *"This is LinkBank — read `CLAUDE.md`, `HANDOVER.md` and
-the repo. Current version 1.8.1. Here's what I want next: …"* Then hand it the
+the repo. Current version 1.9.0. Here's what I want next: …"* Then hand it the
 repo so it can read the actual code before changing anything. On a fresh
 machine, work through the checklist in `CLAUDE.md` first.
